@@ -5,6 +5,8 @@
   "main": "core/index.ts",
   "scripts": {
     "test": "node --import tsx --test core/scoring.test.ts",
+    "start": "node --import tsx scripts/demo.ts",
+    "demo": "node --import tsx scripts/demo.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc"
   },
