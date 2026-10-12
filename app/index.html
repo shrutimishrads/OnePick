@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OnePick 📺 Fire TV 10-Foot Concierge</title>
+<style>
+  :root {
+    --bg-dark: #0f141c;
+    --card-bg: #1a2230;
+    --card-border: #2c3a50;
+    --accent: #ff9900; /* Amazon Fire TV Amber */
+    --accent-glow: rgba(255, 153, 0, 0.45);
+    --focus-ring: #00a8e8;
+    --focus-glow: rgba(0, 168, 232, 0.6);
+    --text-primary: #ffffff;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #090d14;
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .wrapper {
+    display: flex;
+    gap: 24px;
+    max-width: 1540px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  /* 16:9 TV Display Container */
+  .tv-frame {
+    flex: 1;
+    background: var(--bg-dark);
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    border: 8px solid #232b38;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 168, 232, 0.15);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Backdrop Poster Overlay */
+  .tv-backdrop {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.28) blur(3px);
+    transition: background-image 0.6s ease;
+    z-index: 0;
+  }
+
+  .tv-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(15,20,28,0.95) 0%, rgba(15,20,28,0.7) 50%, rgba(15,20,28,0.85) 100%);
+    z-index: 1;
+  }
+
+  .tv-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 32px 48px;
+  }
+
+  /* Top Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-badge {
+    background: linear-gradient(135deg, var(--accent), #ff5500);
+    color: #000;
+    font-weight: 900;
+    font-size: 0.9rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+    letter-spacing: 0.05em;
+  }
+  .logo-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Viewers row */
+  .viewers-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .viewer-chip {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid transparent;
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .viewer-chip.active {
+    background: rgba(16, 185, 129, 0.18);
+    border-color: var(--success);
+    color: #6ee7b7;
+  }
+  .viewer-chip.inactive {
+    opacity: 0.45;
+  }
+
+  /* TV Focusable Item Styling */
+  .tv-focusable {
+    outline: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s, border-color 0.2s;
+  }
+  .tv-focusable:focus, .tv-focusable.is-focused {
+    border-color: var(--focus-ring) !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--focus-glow) !important;
+  }
+
+  /* Main Hero Layout */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 36px;
+    flex: 1;
+    align-items: center;
+  }
+
+  .pick-details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fairness-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 153, 0, 0.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 99px;
+  }
+
+  .movie-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .movie-meta {
+    display: flex;
+    gap: 14px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    align-items: center;
+  }
+  .meta-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #fff;
+  }
+
+  .movie-synopsis {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+    max-width: 650px;
+  }
+
+  /* Satisfaction Breakdown */
+  .satisfaction-box {
+    background: rgba(26, 34, 48, 0.7);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 650px;
+  }
+  .sat-header {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+  }
+  .sat-meter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sat-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+  .sat-bar-bg {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .sat-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00a8e8, #10b981);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  /* Hero Actions */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+  }
+  .btn-tv {
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-tv.primary {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  /* Poster Card */
+  .poster-card {
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 2 / 3;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    background: #000;
+  }
+  .poster-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* TV Remote Controller Simulator Frame */
+  .remote-panel {
+    width: 290px;
+    background: #141b24;
+    border: 4px solid #232b38;
+    border-radius: 36px;
+    padding: 24px 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .remote-brand {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+
+  /* Remote D-Pad */
+  .dpad {
+    width: 200px;
+    height: 200px;
+    background: #232d3d;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.6), 0 6px 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dpad-btn {
+    position: absolute;
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: color 0.15s, transform 0.1s;
+  }
+  .dpad-btn:active { transform: scale(0.9); color: var(--accent); }
+  .dpad-up { top: 10px; }
+  .dpad-down { bottom: 10px; }
+  .dpad-left { left: 10px; }
+  .dpad-right { right: 10px; }
+
+  .dpad-center {
+    width: 82px;
+    height: 82px;
+    background: #1a2230;
+    border-radius: 50%;
+    border: 2px solid #334155;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: all 0.15s;
+  }
+  .dpad-center:active { background: var(--accent); color: #000; }
+
+  /* Remote Functional Buttons */
+  .remote-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  .remote-action-btn {
+    background: #232d3d;
+    border: 1px solid #334155;
+    color: #fff;
+    padding: 10px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.15s;
+  }
+  .remote-action-btn:hover { background: #2f3c50; }
+  .remote-action-btn:active { background: var(--accent); color: #000; }
+
+  .remote-hint {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Explanation / Refinement Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-card {
+    background: #1a2230;
+    border: 2px solid var(--accent);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 35px var(--accent-glow);
+    border-radius: 24px;
+    padding: 32px;
+    max-width: 600px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .modal-title { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+  .modal-body { font-size: 1.1rem; line-height: 1.6; color: #e2e8f0; }
+  .modal-footer { display: flex; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- Fire TV Display Screen -->
+  <div class="tv-frame" id="tvScreen">
+    <div class="tv-backdrop" id="tvBackdrop"></div>
+    <div class="tv-gradient"></div>
+
+    <div class="tv-content">
+      <!-- Top Bar: Logo & Active Viewers -->
+      <div class="top-bar">
+        <div class="logo">
+          <span class="logo-badge">FIRE TV</span>
+          <span class="logo-title">OnePick</span>
+        </div>
+
+        <div class="viewers-section">
+          <span class="section-label">Active Viewers:</span>
+          <div id="viewersContainer" style="display:flex; gap:8px;"></div>
+        </div>
+      </div>
+
+      <!-- Main Recommendation Hero -->
+      <div class="hero-grid">
+        <div class="pick-details">
+          <div class="fairness-badge" id="fairnessBadge">
+            <span>🤝</span> <span id="fairnessText">Loading Consensus...</span>
+          </div>
+
+          <h1 class="movie-title" id="movieTitle">Analyzing Library...</h1>
+
+          <div class="movie-meta">
+            <span class="meta-tag" id="movieYear">----</span>
+            <span class="meta-tag" id="movieRating">PG-13</span>
+            <span id="movieRuntime">-- min</span>
+            <span id="movieGenres" style="color:#cbd5e1;"></span>
+          </div>
+
+          <p class="movie-synopsis" id="movieSynopsis"></p>
+
+          <!-- Satisfaction Meter -->
+          <div class="satisfaction-box">
+            <div class="sat-header">
+              <span>Fairness Satisfaction Breakdown</span>
+              <span id="minSatisfactionLabel" style="color:var(--accent);">Min: --%</span>
+            </div>
+            <div id="satisfactionBars" style="display:flex; flex-direction:column; gap:8px;"></div>
+          </div>
+
+          <!-- Hero Action Buttons (D-Pad Focusable) -->
+          <div class="hero-actions">
+            <button class="btn-tv primary tv-focusable" id="btnPlay" tabindex="0">▶ Play Title</button>
+            <button class="btn-tv tv-focusable" id="btnExplain" tabindex="0">💡 Why This Pick?</button>
+            <button class="btn-tv tv-focusable" id="btnMax100" tabindex="0">⏳ Under 100m</button>
+            <button class="btn-tv tv-focusable" id="btnSawThat" tabindex="0">🚫 Saw That</button>
+            <button class="btn-tv tv-focusable" id="btnRefineVoice" tabindex="0">🎤 Bedrock Voice</button>
+          </div>
+        </div>
+
+        <div class="poster-card">
+          <img id="moviePoster" src="" alt="Poster">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simulated Physical Fire TV Remote Control -->
+  <div class="remote-panel">
+    <div class="remote-brand">Fire TV Remote</div>
+
+    <!-- Directional Navigation D-Pad -->
+    <div class="dpad">
+      <button class="dpad-btn dpad-up" id="dpadUp" title="Up">▲</button>
+      <button class="dpad-btn dpad-down" id="dpadDown" title="Down">▼</button>
+      <button class="dpad-btn dpad-left" id="dpadLeft" title="Left">◀</button>
+      <button class="dpad-btn dpad-right" id="dpadRight" title="Right">▶</button>
+      <button class="dpad-center" id="dpadSelect" title="Select / OK">OK</button>
+    </div>
+
+    <!-- Quick Keys -->
+    <div class="remote-buttons">
+      <button class="remote-action-btn" id="remoteBack">
+        <span>↩</span> Back
+      </button>
+      <button class="remote-action-btn" id="remoteVoice">
+        <span>🎙</span> Voice
+      </button>
+      <button class="remote-action-btn" id="remoteReset">
+        <span>🔄</span> Reset
+      </button>
+      <button class="remote-action-btn" id="remoteToggleMaya">
+        <span>Toggle</span> Maya
+      </button>
+    </div>
+
+    <div class="remote-hint">
+      <strong>Keyboard Enabled:</strong><br>
+      Use <strong>Arrow Keys</strong> to move focus.<br>
+      <strong>Enter / Space</strong> to select.<br>
+      <strong>Esc</strong> to go back.
+    </div>
+  </div>
+</div>
+
+<!-- Bedrock Explanation Modal -->
+<div class="modal-backdrop" id="explainModal">
+  <div class="modal-card">
+    <div class="modal-title">🤖 AWS Bedrock Consensus Rationale</div>
+    <div class="modal-body" id="modalBody">Synthesizing consensus breakdown...</div>
+    <div class="modal-footer">
+      <button class="btn-tv primary tv-focusable" id="modalCloseBtn" tabindex="0">Got It</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let state = null;
+  let currentCandidate = null;
+  let focusableElements = [];
+  let currentFocusIndex = 0;
+
+  async function loadState() {
+    try {
+      const res = await fetch('/api/state');
+      state = await res.json();
+      renderUI();
+    } catch (err) {
+      console.error('Failed to load state', err);
+    }
+  }
+
+  function renderUI() {
+    if (!state || !state.candidates || state.candidates.length === 0) return;
+    currentCandidate = state.candidates[0];
+    const title = currentCandidate.title;
+
+    // Background & Poster
+    document.getElementById('tvBackdrop').style.backgroundImage = `url('${title.art}')`;
+    document.getElementById('moviePoster').src = title.art;
+
+    // Metadata
+    document.getElementById('movieTitle').textContent = title.name;
+    document.getElementById('movieYear').textContent = title.year;
+    document.getElementById('movieRating').textContent = title.rating;
+    document.getElementById('movieRuntime').textContent = `${title.minutes} min`;
+    document.getElementById('movieGenres').textContent = title.genres.join(' • ');
+    document.getElementById('movieSynopsis').textContent = title.synopsis || '';
+
+    // Group Score
+    document.getElementById('fairnessText').textContent = `${currentCandidate.groupScore}% Group Consensus`;
+    document.getElementById('minSatisfactionLabel').textContent = `Min: ${currentCandidate.minViewerScore}%`;
+
+    // Viewers row
+    const viewersBox = document.getElementById('viewersContainer');
+    viewersBox.innerHTML = '';
+    state.allViewers.forEach((v) => {
+      const active = state.constraints.viewers.some((av) => av.id === v.id);
+      const chip = document.createElement('div');
+      chip.className = `viewer-chip ${active ? 'active' : 'inactive'}`;
+      chip.innerHTML = `<span>${v.avatar || '👤'}</span> <strong>${v.name}</strong>`;
+      chip.onclick = () => toggleViewer(v.id);
+      viewersBox.appendChild(chip);
+    });
+
+    // Per viewer satisfaction bars
+    const satBox = document.getElementById('satisfactionBars');
+    satBox.innerHTML = '';
+    currentCandidate.perViewer.forEach((pv) => {
+      const row = document.createElement('div');
+      row.className = 'sat-meter';
+      row.innerHTML = `
+        <div class="sat-info">
+          <span><strong>${pv.viewerName}</strong>: ${pv.reasons[0] || 'Neutral'}</span>
+          <span><strong>${pv.score}%</strong></span>
+        </div>
+        <div class="sat-bar-bg">
+          <div class="sat-bar-fill" style="width: ${pv.score}%"></div>
+        </div>
+      `;
+      satBox.appendChild(row);
+    });
+
+    updateFocusList();
+  }
+
+  function updateFocusList() {
+    focusableElements = Array.from(document.querySelectorAll('.tv-focusable:not([style*="display: none"])'));
+    if (focusableElements.length > 0 && currentFocusIndex >= focusableElements.length) {
+      currentFocusIndex = 0;
+    }
+    if (focusableElements[currentFocusIndex]) {
+      focusableElements[currentFocusIndex].focus();
+    }
+  }
+
+  function navigateFocus(direction) {
+    if (focusableElements.length === 0) return;
+    if (direction === 'next' || direction === 'right' || direction === 'down') {
+      currentFocusIndex = (currentFocusIndex + 1) % focusableElements.length;
+    } else {
+      currentFocusIndex = (currentFocusIndex - 1 + focusableElements.length) % focusableElements.length;
+    }
+    focusableElements[currentFocusIndex].focus();
+  }
+
+  async function toggleViewer(viewerId) {
+    const res = await fetch('/api/toggle-viewer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ viewerId }),
+    });
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    renderUI();
+  }
+
+  async function patchConstraint(patch) {
+    const res = await fetch('/api/patch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patch),
+    });
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    renderUI();
+  }
+
+  async function voiceRefine(utterance) {
+    const res = await fetch('/api/voice-refine', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ utterance }),
+    });
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    renderUI();
+  }
+
+  async function showExplanation() {
+    if (!currentCandidate) return;
+    const modal = document.getElementById('explainModal');
+    const body = document.getElementById('modalBody');
+    body.innerHTML = '<em>Consulting Amazon Bedrock Converse API...</em>';
+    modal.classList.add('open');
+
+    const res = await fetch('/api/explain', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ candidate: currentCandidate }),
+    });
+    const data = await res.json();
+    body.innerHTML = `
+      <p style="margin-bottom:12px;"><strong>${data.summary}</strong></p>
+      <p style="margin-bottom:12px; color:#93c5fd;">🤝 ${data.consensusHighlight}</p>
+      <p style="color:#cbd5e1;">⚖️ ${data.tradeOff}</p>
+    `;
+    document.getElementById('modalCloseBtn').focus();
+  }
+
+  function closeModal() {
+    document.getElementById('explainModal').classList.remove('open');
+    updateFocusList();
+  }
+
+  // Action Button Listeners
+  document.getElementById('btnPlay').onclick = () => {
+    alert(`Starting playback for "${currentCandidate.title.name}"!`);
+  };
+
+  document.getElementById('btnExplain').onclick = showExplanation;
+
+  document.getElementById('btnMax100').onclick = () => {
+    patchConstraint({ maxMinutes: 100 });
+  };
+
+  document.getElementById('btnSawThat').onclick = () => {
+    if (currentCandidate) {
+      patchConstraint({ watched: [currentCandidate.title.id] });
+    }
+  };
+
+  document.getElementById('btnRefineVoice').onclick = () => {
+    const val = prompt('Simulate Bedrock Voice Input:', 'Alex wants something witty under 95 minutes');
+    if (val) voiceRefine(val);
+  };
+
+  document.getElementById('modalCloseBtn').onclick = closeModal;
+
+  // Remote D-Pad Listeners
+  document.getElementById('dpadUp').onclick = () => navigateFocus('prev');
+  document.getElementById('dpadDown').onclick = () => navigateFocus('next');
+  document.getElementById('dpadLeft').onclick = () => navigateFocus('prev');
+  document.getElementById('dpadRight').onclick = () => navigateFocus('next');
+  document.getElementById('dpadSelect').onclick = () => {
+    if (focusableElements[currentFocusIndex]) {
+      focusableElements[currentFocusIndex].click();
+    }
+  };
+
+  document.getElementById('remoteBack').onclick = closeModal;
+  document.getElementById('remoteVoice').onclick = () => {
+    voiceRefine('Keep it under 100 minutes');
+  };
+  document.getElementById('remoteReset').onclick = async () => {
+    const res = await fetch('/api/reset', { method: 'POST' });
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    renderUI();
+  };
+  document.getElementById('remoteToggleMaya').onclick = () => toggleViewer('v-maya');
+
+  // Keyboard TV Remote Navigation
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      navigateFocus('next');
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      navigateFocus('prev');
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      if (document.getElementById('explainModal').classList.contains('open')) {
+        closeModal();
+      } else if (focusableElements[currentFocusIndex]) {
+        focusableElements[currentFocusIndex].click();
+      }
+    } else if (e.key === 'Escape' || e.key === 'Backspace') {
+      closeModal();
+    }
+  });
+
+  loadState();
+</script>
+</body>
+</html>

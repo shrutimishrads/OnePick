@@ -7,6 +7,8 @@
     "test": "node --import tsx --test core/scoring.test.ts",
     "start": "node --import tsx scripts/demo.ts",
     "demo": "node --import tsx scripts/demo.ts",
+    "tv": "node --import tsx app/server.ts",
+    "dev": "node --import tsx app/server.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc"
   },
