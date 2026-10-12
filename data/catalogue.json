@@ -1,0 +1,222 @@
+[
+  {
+    "id": "t-knives-out",
+    "name": "Glass Onion",
+    "genres": ["Mystery", "Comedy", "Drama"],
+    "moods": ["Clever", "Witty", "Fun"],
+    "minutes": 139,
+    "rating": "PG-13",
+    "year": 2022,
+    "art": "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Famed detective Benoit Blanc heads to Greece to peel back the layers of an extravagant murder mystery game."
+  },
+  {
+    "id": "t-arrival",
+    "name": "Arrival",
+    "genres": ["Sci-Fi", "Drama", "Mystery"],
+    "moods": ["Thoughtful", "Mind-bending", "Emotional"],
+    "minutes": 116,
+    "rating": "PG-13",
+    "year": 2016,
+    "art": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A linguist works with the military to communicate with alien lifeforms after mysterious spacecraft land around the world."
+  },
+  {
+    "id": "t-grand-budapest",
+    "name": "The Grand Budapest Hotel",
+    "genres": ["Comedy", "Adventure"],
+    "moods": ["Quirky", "Charming", "Visually Stunning"],
+    "minutes": 99,
+    "rating": "R",
+    "year": 2014,
+    "art": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A legendary concierge and his trusted lobby boy embark on a whirlwind theft and recovery quest across 1930s Europe."
+  },
+  {
+    "id": "t-spider-verse",
+    "name": "Spider-Man: Into the Spider-Verse",
+    "genres": ["Animation", "Action", "Adventure", "Sci-Fi"],
+    "moods": ["Exhilarating", "Vibrant", "Heartfelt"],
+    "minutes": 117,
+    "rating": "PG",
+    "year": 2018,
+    "art": "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Teen Miles Morales becomes the new Spider-Man and joins five alternate spider-powered heroes from across dimensions."
+  },
+  {
+    "id": "t-everything-everywhere",
+    "name": "Everything Everywhere All at Once",
+    "genres": ["Sci-Fi", "Comedy", "Action", "Drama"],
+    "moods": ["Wild", "Heartfelt", "Mind-bending"],
+    "minutes": 139,
+    "rating": "R",
+    "year": 2022,
+    "art": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A middle-aged immigrant is swept into an insane adventure connecting alternate realities to save her family."
+  },
+  {
+    "id": "t-whiplash",
+    "name": "Whiplash",
+    "genres": ["Drama", "Music"],
+    "moods": ["Intense", "Gripping", "Relentless"],
+    "minutes": 106,
+    "rating": "R",
+    "year": 2014,
+    "art": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A promising young drummer enrolls at a cut-throat music conservatory where his instructor stops at nothing to realize potential."
+  },
+  {
+    "id": "t-spirited-away",
+    "name": "Spirited Away",
+    "genres": ["Animation", "Fantasy", "Adventure"],
+    "moods": ["Magical", "Imaginative", "Nostalgic"],
+    "minutes": 125,
+    "rating": "PG",
+    "year": 2001,
+    "art": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "During her family's move to the suburbs, a 10-year-old girl wanders into a magical spirit bathhouse realm."
+  },
+  {
+    "id": "t-fantastic-mr-fox",
+    "name": "Fantastic Mr. Fox",
+    "genres": ["Animation", "Comedy", "Adventure"],
+    "moods": ["Charming", "Witty", "Feel-good"],
+    "minutes": 87,
+    "rating": "PG",
+    "year": 2009,
+    "art": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "An urbane fox cannot resist returning to his farm-raiding ways, putting his animal community into retaliation danger."
+  },
+  {
+    "id": "t-quiet-place",
+    "name": "A Quiet Place",
+    "genres": ["Horror", "Sci-Fi", "Drama"],
+    "moods": ["Suspenseful", "Terrifying", "Tense"],
+    "minutes": 90,
+    "rating": "PG-13",
+    "year": 2018,
+    "art": "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A family struggles for survival in a world where blind alien creatures hunt exclusively by sound."
+  },
+  {
+    "id": "t-get-out",
+    "name": "Get Out",
+    "genres": ["Horror", "Mystery", "Thriller"],
+    "moods": ["Chilling", "Unsettling", "Sharp"],
+    "minutes": 104,
+    "rating": "R",
+    "year": 2017,
+    "art": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A young African-American visits his white girlfriend's parents for the weekend, where a disturbing secret unravels."
+  },
+  {
+    "id": "t-palm-springs",
+    "name": "Palm Springs",
+    "genres": ["Comedy", "Romance", "Sci-Fi"],
+    "moods": ["Breezy", "Hilarious", "Smart"],
+    "minutes": 90,
+    "rating": "R",
+    "year": 2020,
+    "art": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Stuck in a time loop at a destination wedding, two unwilling guests develop a budding romance while reliving the same day."
+  },
+  {
+    "id": "t-coco",
+    "name": "Coco",
+    "genres": ["Animation", "Family", "Fantasy", "Music"],
+    "moods": ["Tearjerker", "Heartfelt", "Uplifting"],
+    "minutes": 105,
+    "rating": "PG",
+    "year": 2017,
+    "art": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Aspiring musician Miguel confronts his family's ancestral ban on music and enters the Land of the Dead."
+  },
+  {
+    "id": "t-interstellar",
+    "name": "Interstellar",
+    "genres": ["Sci-Fi", "Drama", "Adventure"],
+    "moods": ["Epic", "Emotional", "Awe-inspiring"],
+    "minutes": 169,
+    "rating": "PG-13",
+    "year": 2014,
+    "art": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "When Earth becomes uninhabitable, a team of explorers travels through a wormhole in search of a new home for mankind."
+  },
+  {
+    "id": "t-parasite",
+    "name": "Parasite",
+    "genres": ["Drama", "Thriller", "Comedy"],
+    "moods": ["Suspenseful", "Gripping", "Dark"],
+    "minutes": 132,
+    "rating": "R",
+    "year": 2019,
+    "art": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Greed and class discrimination threaten the newly formed symbiotic relationship between a wealthy family and the destitute Kim clan."
+  },
+  {
+    "id": "t-paddington-2",
+    "name": "Paddington 2",
+    "genres": ["Comedy", "Adventure", "Family"],
+    "moods": ["Delightful", "Warm", "Feel-good"],
+    "minutes": 103,
+    "rating": "PG",
+    "year": 2017,
+    "art": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Paddington picks up odd jobs to buy a unique pop-up book for Aunt Lucy's 100th birthday, only for the book to be stolen."
+  },
+  {
+    "id": "t-top-gun-maverick",
+    "name": "Top Gun: Maverick",
+    "genres": ["Action", "Drama"],
+    "moods": ["Thrilling", "Crowd-pleaser", "High-energy"],
+    "minutes": 130,
+    "rating": "PG-13",
+    "year": 2022,
+    "art": "https://images.unsplash.com/photo-1519074069444-1ba4e3bf6025?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "After thirty years, Maverick is still pushing the envelope as a top naval aviator, training graduates for a high-risk mission."
+  },
+  {
+    "id": "t-past-lives",
+    "name": "Past Lives",
+    "genres": ["Drama", "Romance"],
+    "moods": ["Poignant", "Gentle", "Reflective"],
+    "minutes": 105,
+    "rating": "PG-13",
+    "year": 2023,
+    "art": "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Nora and Hae Sung, two deeply connected childhood friends, are wrested apart after Nora's family emigrates from South Korea."
+  },
+  {
+    "id": "t-coda",
+    "name": "CODA",
+    "genres": ["Drama", "Music", "Comedy"],
+    "moods": ["Heartwarming", "Uplifting", "Tearjerker"],
+    "minutes": 111,
+    "rating": "PG-13",
+    "year": 2021,
+    "art": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "As a CODA (Child of Deaf Adults), Ruby is the only hearing person in her home, torn between her family's fishing business and choir dreams."
+  },
+  {
+    "id": "t-hunt-for-wilderpeople",
+    "name": "Hunt for the Wilderpeople",
+    "genres": ["Comedy", "Adventure", "Drama"],
+    "moods": ["Hilarious", "Endearing", "Outdoorsy"],
+    "minutes": 101,
+    "rating": "PG-13",
+    "year": 2016,
+    "art": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "A national manhunt is ordered for a rebellious kid and his foster uncle who go missing in the rugged New Zealand bush."
+  },
+  {
+    "id": "t-dune-2",
+    "name": "Dune: Part Two",
+    "genres": ["Sci-Fi", "Adventure", "Action"],
+    "moods": ["Epic", "Monumental", "Intense"],
+    "minutes": 166,
+    "rating": "PG-13",
+    "year": 2024,
+    "art": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&auto=format&fit=crop&q=80",
+    "synopsis": "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family."
+  }
+]

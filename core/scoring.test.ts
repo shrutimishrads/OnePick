@@ -1,0 +1,116 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
+import { Title, Viewer, Constraints } from './types';
+import { filterHardConstraints, scoreViewerTitle, rankCandidates, applyConstraintPatch } from './scoring';
+
+const mockTitles: Title[] = [
+  {
+    id: 't-spider-verse',
+    name: 'Spider-Man: Into the Spider-Verse',
+    genres: ['Animation', 'Action', 'Sci-Fi'],
+    moods: ['Exhilarating', 'Fun'],
+    minutes: 117,
+    rating: 'PG',
+    year: 2018,
+    art: 'poster1.jpg',
+  },
+  {
+    id: 't-grand-budapest',
+    name: 'The Grand Budapest Hotel',
+    genres: ['Comedy', 'Adventure'],
+    moods: ['Quirky', 'Witty'],
+    minutes: 99,
+    rating: 'R',
+    year: 2014,
+    art: 'poster2.jpg',
+  },
+  {
+    id: 't-quiet-place',
+    name: 'A Quiet Place',
+    genres: ['Horror', 'Sci-Fi'],
+    moods: ['Suspenseful'],
+    minutes: 90,
+    rating: 'PG-13',
+    year: 2018,
+    art: 'poster3.jpg',
+  },
+  {
+    id: 't-dune-2',
+    name: 'Dune: Part Two',
+    genres: ['Sci-Fi', 'Action'],
+    moods: ['Epic'],
+    minutes: 166,
+    rating: 'PG-13',
+    year: 2024,
+    art: 'poster4.jpg',
+  },
+];
+
+const mockViewers: Viewer[] = [
+  {
+    id: 'v-maya',
+    name: 'Maya',
+    likes: ['Sci-Fi', 'Action'],
+    mood: 'Epic',
+    maxMinutes: 120,
+    excludes: ['Horror'],
+  },
+  {
+    id: 'v-alex',
+    name: 'Alex',
+    likes: ['Comedy', 'Animation'],
+    mood: 'Fun',
+    maxMinutes: 120,
+    excludes: ['Horror'],
+  },
+];
+
+describe('OnePick Core Scoring Engine', () => {
+  it('hard filters out horror due to viewer dealbreaker', () => {
+    const constraints: Constraints = { viewers: mockViewers, watched: [] };
+    const filtered = filterHardConstraints(mockTitles, constraints);
+    const hasHorror = filtered.some((t) => t.genres.includes('Horror'));
+    assert.strictEqual(hasHorror, false, 'Horror titles should be excluded');
+  });
+
+  it('hard filters out titles exceeding runtime constraint', () => {
+    const constraints: Constraints = { viewers: mockViewers, watched: [], maxMinutes: 120 };
+    const filtered = filterHardConstraints(mockTitles, constraints);
+    const hasLong = filtered.some((t) => t.minutes > 120);
+    assert.strictEqual(hasLong, false, 'Titles > 120 mins must be excluded');
+  });
+
+  it('hard filters out already watched titles', () => {
+    const constraints: Constraints = {
+      viewers: mockViewers,
+      watched: ['t-spider-verse'],
+    };
+    const filtered = filterHardConstraints(mockTitles, constraints);
+    const hasWatched = filtered.some((t) => t.id === 't-spider-verse');
+    assert.strictEqual(hasWatched, false, 'Watched titles must be excluded');
+  });
+
+  it('scores individual viewers accurately', () => {
+    const score = scoreViewerTitle(mockViewers[0], mockTitles[0]);
+    assert.ok(score.score >= 50, 'Score should reflect base plus genre matches');
+    assert.ok(score.reasons.length > 0, 'Reasons should be populated');
+  });
+
+  it('applies Rawlsian max-min fairness ranking', () => {
+    const constraints: Constraints = { viewers: mockViewers, watched: [] };
+    const ranked = rankCandidates(mockTitles, constraints);
+    assert.ok(ranked.length > 0);
+    assert.ok(ranked[0].groupScore >= ranked[ranked.length - 1].groupScore);
+  });
+
+  it('applies constraint patches dynamically', () => {
+    const initial: Constraints = { viewers: mockViewers, watched: [] };
+    const patched = applyConstraintPatch(initial, {
+      maxMinutes: 100,
+      watched: ['t-spider-verse'],
+    });
+
+    assert.strictEqual(patched.maxMinutes, 100);
+    assert.deepStrictEqual(patched.watched, ['t-spider-verse']);
+  });
+});

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v-maya",
+    "name": "Maya",
+    "avatar": "👩‍🔬",
+    "likes": ["Sci-Fi", "Mystery", "Comedy"],
+    "mood": "Thoughtful",
+    "maxMinutes": 120,
+    "excludes": ["Horror"]
+  },
+  {
+    "id": "v-alex",
+    "name": "Alex",
+    "avatar": "🎨",
+    "likes": ["Animation", "Comedy", "Adventure"],
+    "mood": "Fun",
+    "maxMinutes": 110,
+    "excludes": ["Horror"]
+  },
+  {
+    "id": "v-sam",
+    "name": "Sam",
+    "avatar": "⚡",
+    "likes": ["Action", "Sci-Fi", "Adventure", "Comedy"],
+    "mood": "Witty",
+    "maxMinutes": 130,
+    "excludes": ["Horror"]
+  }
+]

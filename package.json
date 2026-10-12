@@ -1,0 +1,25 @@
+{
+  "name": "onepick",
+  "version": "1.0.0",
+  "description": "AI household viewing concierge on Fire TV",
+  "main": "core/index.ts",
+  "scripts": {
+    "test": "node --import tsx --test core/scoring.test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "keywords": [
+    "fire-tv",
+    "vega",
+    "bedrock",
+    "hackathon",
+    "consensus-algorithm"
+  ],
+  "author": "OnePick Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}
