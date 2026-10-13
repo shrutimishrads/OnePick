@@ -8,3 +8,5 @@ Thumbs.db
 coverage/
 .turbo/
 .cache/
+*.pdf
+*-Report.html
