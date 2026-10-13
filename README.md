@@ -75,7 +75,7 @@ npm test
 ---
 
 ## 🎬 3-Minute Demo
-See the complete step-by-step presentation script in [docs/demo-script.md](docs/demo-script.md).
+See the complete demo video here :
 
 ---
 
