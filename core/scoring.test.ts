@@ -113,4 +113,20 @@ describe('OnePick Core Scoring Engine', () => {
     assert.strictEqual(patched.maxMinutes, 100);
     assert.deepStrictEqual(patched.watched, ['t-spider-verse']);
   });
+
+  it('incorporates targetMood into viewer scores and candidate ranking', () => {
+    const baseConstraints: Constraints = { viewers: mockViewers, watched: [] };
+    const moodConstraints: Constraints = { viewers: mockViewers, watched: [], targetMood: 'Quirky' };
+
+    const baseRanked = rankCandidates(mockTitles, baseConstraints);
+    const moodRanked = rankCandidates(mockTitles, moodConstraints);
+
+    const budapestBase = baseRanked.find((c) => c.title.id === 't-grand-budapest')!;
+    const budapestMood = moodRanked.find((c) => c.title.id === 't-grand-budapest')!;
+
+    assert.ok(
+      budapestMood.groupScore > budapestBase.groupScore,
+      'Title matching targetMood should receive a higher group score'
+    );
+  });
 });

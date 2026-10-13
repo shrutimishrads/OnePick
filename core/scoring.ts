@@ -56,7 +56,11 @@ export function filterHardConstraints(titles: Title[], constraints: Constraints)
 /**
  * Calculate soft score (0 to 100) for a single viewer against a title.
  */
-export function scoreViewerTitle(viewer: Viewer, title: Title): ViewerScoreDetail {
+export function scoreViewerTitle(
+  viewer: Viewer,
+  title: Title,
+  targetMood?: string
+): ViewerScoreDetail {
   let score = 50; // base score for a valid contender
   const reasons: string[] = [];
 
@@ -74,7 +78,7 @@ export function scoreViewerTitle(viewer: Viewer, title: Title): ViewerScoreDetai
   }
   score += Math.min(35, likeMatches * 15);
 
-  // 2. Check mood match (up to +15 pts)
+  // 2. Check individual mood match (up to +15 pts)
   if (viewer.mood) {
     const vm = viewer.mood.toLowerCase();
     if (titleMoods.has(vm)) {
@@ -92,7 +96,24 @@ export function scoreViewerTitle(viewer: Viewer, title: Title): ViewerScoreDetai
     }
   }
 
-  // 3. Runtime comfort
+  // 3. Check shared household target mood if specified (up to +10 pts)
+  if (targetMood) {
+    const tm = targetMood.toLowerCase();
+    if (titleMoods.has(tm)) {
+      score += 10;
+      reasons.push(`Matches target mood: "${targetMood}"`);
+    } else {
+      for (const m of titleMoods) {
+        if (m.includes(tm) || tm.includes(m)) {
+          score += 5;
+          reasons.push(`Complements target mood: "${m}"`);
+          break;
+        }
+      }
+    }
+  }
+
+  // 4. Runtime comfort
   if (viewer.maxMinutes && title.minutes <= viewer.maxMinutes) {
     const margin = viewer.maxMinutes - title.minutes;
     if (margin >= 0 && margin <= 20) {
@@ -128,7 +149,9 @@ export function rankCandidates(titles: Title[], constraints: Constraints): Candi
   const validTitles = filterHardConstraints(titles, constraints);
 
   const candidates: Candidate[] = validTitles.map((title) => {
-    const perViewer = constraints.viewers.map((viewer) => scoreViewerTitle(viewer, title));
+    const perViewer = constraints.viewers.map((viewer) =>
+      scoreViewerTitle(viewer, title, constraints.targetMood)
+    );
     const scores = perViewer.map((v) => v.score);
 
     const minViewerScore = Math.min(...scores);
