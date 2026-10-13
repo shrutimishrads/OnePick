@@ -27,9 +27,9 @@ OnePick is a 10-foot Fire TV application that:
 ---
 
 ### How We Built It
-- **10-Foot TV UI:** Built using high-contrast 16:9 widescreen layouts, with native D-pad spatial focus management (`Arrow` keys, `Enter`, `Back`) and on-screen remote simulation.
+- **10-Foot TV UI & Fire OS Wrapper:** Built using high-contrast 16:9 widescreen layouts with native D-pad spatial focus management (`Arrow` keys, `Enter`, `Back`), on-screen remote simulation, and a native Android Leanback wrapper (`fireos/`) targeting Fire OS.
 - **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies. Executes locally on-device with sub-5ms latency and targeted unit tests for ranking and constraints.
-- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Bedrock Converse API with compact prompt templates and low token limits to parse intent and synthesize trade-off summaries.
+- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`) with strict JSON validation, timeout budgets, response caching, and deterministic local fallbacks for offline resilience.
 - **Curated Living Room Library:** 20+ diverse titles with detailed metadata, genre weights, mood tags, and runtime constraints.
 
 ---
