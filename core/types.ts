@@ -65,6 +65,7 @@ export interface BedrockExplainResponse {
   summary: string;
   tradeOff?: string;
   consensusHighlight: string;
+  source: 'bedrock' | 'fallback';
 }
 
 export interface BedrockParseRequest {
@@ -76,4 +77,5 @@ export interface BedrockParseRequest {
 export interface BedrockParseResponse {
   patch: ConstraintPatch;
   interpretedIntent: string;
+  source: 'bedrock' | 'fallback';
 }
