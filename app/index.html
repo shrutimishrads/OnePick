@@ -691,6 +691,9 @@
 
     content.textContent = 'Generating explanation...';
     modal.classList.add('visible');
+    if (window.OnePickNative && typeof window.OnePickNative.setModalOpen === 'function') {
+      window.OnePickNative.setModalOpen(true);
+    }
 
     const res = await fetch('/api/explain', {
       method: 'POST',
@@ -712,8 +715,20 @@
   function closeExplain() {
     playTick(380);
     document.getElementById('explainModal').classList.remove('visible');
+    if (window.OnePickNative && typeof window.OnePickNative.setModalOpen === 'function') {
+      window.OnePickNative.setModalOpen(false);
+    }
     updateFocusTargets();
   }
+
+  window.onepickHandleBack = function() {
+    const modal = document.getElementById('explainModal');
+    if (modal && modal.classList.contains('visible')) {
+      closeExplain();
+      return true;
+    }
+    return false;
+  };
 
   // Action Buttons
   document.getElementById('btnPlay').onclick = () => {

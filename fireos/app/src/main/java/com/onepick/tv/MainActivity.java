@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,8 +18,22 @@ import android.webkit.WebViewClient;
 public class MainActivity extends Activity {
 
     private WebView mWebView;
+    private volatile boolean mIsModalOpen = false;
+
     // Default URL: local emulator host alias or local machine server
     private static final String DEFAULT_URL = "http://10.0.2.2:3000";
+
+    public class WebAppInterface {
+        @JavascriptInterface
+        public void setModalOpen(boolean open) {
+            mIsModalOpen = open;
+        }
+
+        @JavascriptInterface
+        public boolean isModalOpen() {
+            return mIsModalOpen;
+        }
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -43,6 +57,7 @@ public class MainActivity extends Activity {
         // Enable remote debugging for TV inspection
         WebView.setWebContentsDebuggingEnabled(true);
 
+        mWebView.addJavascriptInterface(new WebAppInterface(), "OnePickNative");
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
 
@@ -51,7 +66,7 @@ public class MainActivity extends Activity {
         mWebView.setFocusableInTouchMode(true);
         mWebView.requestFocus();
 
-        // Check if custom URL was passed via intent extras (e.g. adb shell am start -e url http://...)
+        // Check if custom URL was passed via intent extras
         String targetUrl = DEFAULT_URL;
         if (getIntent() != null && getIntent().hasExtra("url")) {
             targetUrl = getIntent().getStringExtra("url");
@@ -80,8 +95,13 @@ public class MainActivity extends Activity {
                 dispatchJsKey("Enter");
                 return true;
             case KeyEvent.KEYCODE_BACK:
-                dispatchJsKey("Escape");
-                return true;
+                // Only consume BACK when web UI modal is open; otherwise exit app
+                if (mIsModalOpen) {
+                    mIsModalOpen = false;
+                    mWebView.evaluateJavascript("if (typeof window.onepickHandleBack === 'function') { window.onepickHandleBack(); }", null);
+                    return true;
+                }
+                return super.onKeyDown(keyCode, event);
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
             case KeyEvent.KEYCODE_MEDIA_PLAY:
                 dispatchJsKey("PlayPause");
