@@ -3,890 +3,542 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>OnePick 📺 Amazon Fire TV Living Room Concierge</title>
+<title>OnePick — Household Consensus Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-deep: #070a0f;
-    --tv-bg: #0b0f17;
-    --tv-surface: rgba(18, 25, 38, 0.78);
-    --tv-surface-hover: rgba(28, 38, 56, 0.9);
-    --tv-border: rgba(255, 255, 255, 0.08);
-    --tv-border-active: rgba(255, 153, 0, 0.4);
-    
-    /* Fire TV Brand Palette */
-    --fire-amber: #ff9900;
-    --fire-glow: rgba(255, 153, 0, 0.35);
-    --alexa-cyan: #00d2d3;
-    --alexa-glow: rgba(0, 210, 211, 0.4);
-    --alexa-blue: #0084ff;
-    
-    /* Status & Data */
-    --emerald: #10b981;
-    --emerald-bg: rgba(16, 185, 129, 0.15);
-    --rose: #f43f5e;
-    --text-primary: #f8fafc;
+    --bg-base: #11141a;
+    --surface-base: #181d26;
+    --surface-elevated: #222936;
+    --border-subtle: #2b3444;
+    --border-strong: #3d4a5f;
+    --accent: #f59e0b;
+    --accent-contrast: #11141a;
+    --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --text-tertiary: #64748b;
     
-    /* Elevation */
-    --shadow-cinema: 0 30px 80px rgba(0, 0, 0, 0.85);
-    --radius-tv: 20px;
-    --radius-card: 16px;
-    --radius-chip: 99px;
+    --font-heading: 'Space Grotesk', -apple-system, sans-serif;
+    --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    background: var(--bg-deep);
+    background-color: var(--bg-base);
     color: var(--text-primary);
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-family: var(--font-body);
+    font-size: 26px;
+    line-height: 1.45;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px;
-    overflow-x: hidden;
-  }
-
-  /* Workbench Layout */
-  .workbench {
-    display: flex;
-    gap: 28px;
-    width: 100%;
-    max-width: 1720px;
-    align-items: flex-start;
-    transition: all 0.3s ease;
-  }
-
-  .workbench.tv-fullscreen-mode {
-    max-width: 100vw;
-    height: 100vh;
     padding: 0;
-    margin: 0;
-  }
-  .workbench.tv-fullscreen-mode .remote-panel {
-    display: none;
-  }
-  .workbench.tv-fullscreen-mode .tv-frame {
-    height: 100vh;
-    border-radius: 0;
-    border: none;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* 16:9 Television Viewport */
-  .tv-frame {
-    flex: 1;
-    min-width: 0;
-    background: var(--tv-bg);
-    aspect-ratio: 16 / 9;
-    border-radius: var(--radius-tv);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: var(--shadow-cinema), 0 0 100px rgba(0, 210, 211, 0.08);
+  /* 16:9 1080p TV Display with 5% Overscan-Safe Zone */
+  .tv-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 1920px;
+    max-height: 1080px;
+    background-color: var(--bg-base);
+    padding: 5vh 5vw; /* 5% overscan safety margins */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
   }
 
-  /* Ambient TV Backlight Layer */
-  .ambient-canvas {
-    position: absolute;
-    inset: -20px;
-    background-size: cover;
-    background-position: center;
-    filter: blur(48px) brightness(0.28);
-    transform: scale(1.08);
-    transition: background-image 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 0;
-  }
-
-  .vignette-overlay {
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle at 85% 20%, rgba(0, 210, 211, 0.08) 0%, transparent 45%),
-      linear-gradient(90deg, rgba(7, 10, 15, 0.98) 0%, rgba(7, 10, 15, 0.82) 48%, rgba(7, 10, 15, 0.92) 100%),
-      linear-gradient(0deg, rgba(7, 10, 15, 0.98) 0%, transparent 40%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* TV Application UI Space */
-  .tv-app {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: clamp(20px, 3.5vh, 42px) clamp(24px, 4vw, 56px);
-    overflow-y: auto;
-    scrollbar-width: none;
-  }
-  .tv-app::-webkit-scrollbar { display: none; }
-
-  /* Broadcast Header */
-  .tv-header {
+  /* Top Navigation Bar */
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: clamp(16px, 2.5vh, 32px);
+    border-bottom: 2px solid var(--border-subtle);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
   }
 
-  .brand-group {
+  .brand-block {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .brand-sub {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Viewers Selection */
+  .viewers-strip {
     display: flex;
     align-items: center;
     gap: 14px;
   }
 
-  .fire-badge {
-    background: linear-gradient(135deg, var(--fire-amber), #e65100);
-    color: #000;
-    font-weight: 800;
-    font-size: 0.78rem;
-    padding: 4px 10px;
-    border-radius: 8px;
-    letter-spacing: 0.08em;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: 0 4px 14px rgba(255, 153, 0, 0.35);
-  }
-
-  .brand-title {
-    font-size: 1.65rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    background: linear-gradient(90deg, #ffffff 40%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .brand-subtitle {
-    font-size: 0.8rem;
+  .viewers-label {
+    font-family: var(--font-mono);
+    font-size: 20px;
     color: var(--text-tertiary);
-    font-family: 'JetBrains Mono', monospace;
-    margin-left: 2px;
-  }
-
-  /* Living Room Couch Profile Strip */
-  .couch-strip {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(18, 25, 38, 0.65);
-    backdrop-filter: blur(14px);
-    border: 1px solid var(--tv-border);
-    padding: 6px 14px;
-    border-radius: var(--radius-chip);
-  }
-
-  .couch-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
   }
 
-  .viewer-pill {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1.5px solid transparent;
-    padding: 5px 13px;
-    border-radius: var(--radius-chip);
-    font-size: 0.82rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .viewer-pill.active {
-    background: var(--emerald-bg);
-    border-color: rgba(16, 185, 129, 0.5);
-    color: #6ee7b7;
-  }
-  .viewer-pill.inactive {
-    opacity: 0.45;
-  }
-
-  /* TV Focus System - Premium 10-Foot Focus Ring */
-  .focus-ring {
-    outline: none !important;
-    position: relative;
-    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-                box-shadow 0.22s ease, 
-                border-color 0.22s ease,
-                background-color 0.22s ease;
-  }
-
-  .focus-ring:focus-visible,
-  .focus-ring.dpad-active {
-    border-color: var(--fire-amber) !important;
-    transform: scale(1.035) translateY(-2px);
-    box-shadow: 0 0 0 2px var(--fire-amber), 0 10px 28px var(--fire-glow) !important;
-    z-index: 10;
-  }
-
-  /* Main Hero Architecture */
-  .hero-container {
-    display: grid;
-    grid-template-columns: 1fr clamp(260px, 24vw, 360px);
-    gap: clamp(24px, 4vw, 56px);
-    align-items: center;
-    flex: 1;
-    margin-bottom: 24px;
-  }
-
-  .hero-meta-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  /* Broadcast Consensus Badge */
-  .consensus-pill-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .consensus-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 153, 0, 0.12);
-    border: 1px solid var(--fire-amber);
-    color: var(--fire-amber);
-    font-size: 0.86rem;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: var(--radius-chip);
-    letter-spacing: 0.02em;
-  }
-
-  .fairness-metric {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--alexa-cyan);
-    background: rgba(0, 210, 211, 0.1);
-    border: 1px solid rgba(0, 210, 211, 0.25);
-    padding: 5px 12px;
-    border-radius: var(--radius-chip);
-  }
-
-  .hero-title {
-    font-size: clamp(2.2rem, 3.8vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    color: #ffffff;
-  }
-
-  .meta-chips {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 0.95rem;
+  .viewer-button {
+    background-color: var(--surface-base);
+    border: 2px solid var(--border-subtle);
     color: var(--text-secondary);
-  }
-  .tag-badge {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    padding: 3px 10px;
+    font-family: var(--font-body);
+    font-size: 22px;
+    font-weight: 600;
+    padding: 8px 18px;
     border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
   }
-
-  .hero-synopsis {
-    font-size: clamp(0.95rem, 1.2vw, 1.12rem);
-    line-height: 1.55;
-    color: #cbd5e1;
-    max-width: 680px;
-  }
-
-  /* Multi-Viewer Consensus HUD (Rawlsian Welfare Breakdown) */
-  .consensus-hud {
-    background: var(--tv-surface);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--tv-border);
-    border-radius: var(--radius-card);
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 680px;
-  }
-
-  .hud-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.76rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
-  }
-
-  .viewer-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .viewer-row {
-    display: grid;
-    grid-template-columns: 140px 1fr 48px;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.84rem;
-  }
-
-  .viewer-name-tag {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 600;
-    color: #e2e8f0;
-  }
-
-  .track-bar {
-    height: 7px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 99px;
-    overflow: hidden;
-    position: relative;
-  }
-  .track-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--alexa-cyan), var(--emerald));
-    border-radius: 99px;
-    transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .score-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 0.84rem;
-    color: var(--emerald);
-    text-align: right;
-  }
-
-  /* Action Buttons Bar */
-  .actions-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 6px;
-  }
-
-  .tv-btn {
-    background: var(--tv-surface);
-    border: 1px solid var(--tv-border);
+  .viewer-button.active {
+    background-color: var(--surface-elevated);
+    border-color: var(--text-secondary);
     color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 11px 22px;
-    border-radius: 12px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    backdrop-filter: blur(10px);
+  }
+  .viewer-button.inactive {
+    opacity: 0.4;
   }
 
-  .tv-btn.primary {
-    background: linear-gradient(135deg, var(--fire-amber), #ff7700);
-    color: #000;
-    border-color: transparent;
-    font-weight: 700;
-    box-shadow: 0 4px 20px rgba(255, 153, 0, 0.3);
-  }
-
-  /* Cinematic Poster Card */
-  .hero-poster-frame {
-    position: relative;
-    aspect-ratio: 2 / 3;
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 153, 0, 0.15);
-  }
-
-  .hero-poster-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  /* Shelf / Alternative Contenders Carousel */
-  .shelf-section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 10px;
-  }
-  .shelf-title {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .shelf-row {
+  /* Main Two-Column TV Layout */
+  .main-stage {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  .shelf-card {
-    background: var(--tv-surface);
-    border: 1px solid var(--tv-border);
-    border-radius: 14px;
-    padding: 10px 14px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    cursor: pointer;
-    text-align: left;
-  }
-  .shelf-thumb {
-    width: 48px;
-    height: 64px;
-    border-radius: 6px;
-    object-fit: cover;
-    flex-shrink: 0;
-  }
-  .shelf-info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    min-width: 0;
-  }
-  .shelf-name {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .shelf-meta {
-    font-size: 0.75rem;
-    color: var(--text-tertiary);
-  }
-  .shelf-score {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--alexa-cyan);
-    font-weight: 700;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 5vw;
+    align-items: start;
+    flex: 1;
+    min-height: 0;
   }
 
-  /* Alexa Voice Waveform Bar */
-  .alexa-voice-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, #0084ff, var(--alexa-cyan), #00ffc4, var(--alexa-cyan), #0084ff);
-    background-size: 200% 100%;
-    animation: alexaWave 2.5s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 50;
-  }
-  .alexa-voice-bar.active { opacity: 1; }
-  @keyframes alexaWave {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
-  }
-
-  /* Physical Alexa Voice Remote Controller Simulation */
-  .remote-panel {
-    width: 290px;
-    flex-shrink: 0;
-    background: #111722;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 38px;
-    padding: 24px 18px;
-    box-shadow: var(--shadow-cinema), 0 0 40px rgba(0, 0, 0, 0.6);
+  /* Left Column: Hero Pick & Information */
+  .hero-panel {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
   }
 
-  .remote-header {
+  .consensus-indicator {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 22px;
+  }
+
+  .consensus-badge {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .source-pill {
+    color: var(--text-tertiary);
+    border: 1px solid var(--border-strong);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 18px;
+  }
+
+  .title-heading {
+    font-family: var(--font-heading);
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .metadata-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    color: var(--text-secondary);
+  }
+
+  .meta-tag {
+    border: 1px solid var(--border-strong);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .synopsis-text {
+    font-size: 26px;
+    line-height: 1.5;
+    color: #cbd5e1;
+    max-width: 900px;
+  }
+
+  /* Right Column: Typographic Title Card & Satisfaction Scorecard */
+  .detail-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  /* Typographic Title Card (No Stock Posters) */
+  .typographic-card {
+    background-color: var(--surface-base);
+    border: 2px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 16 / 9;
+    position: relative;
+  }
+
+  .card-top {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    padding: 0 8px;
-  }
-  .remote-badge {
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: #64748b;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--text-secondary);
     text-transform: uppercase;
   }
-  .mode-toggle {
-    background: rgba(255, 255, 255, 0.08);
-    border: none;
-    color: #94a3b8;
-    padding: 4px 10px;
-    border-radius: 99px;
-    font-size: 0.72rem;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  .mode-toggle:hover { color: #fff; background: rgba(255, 255, 255, 0.14); }
 
-  /* Alexa Blue Accent Mic Button */
-  .remote-mic-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #00a8e8, #0077b6);
-    border: 2px solid rgba(0, 210, 211, 0.5);
-    color: #fff;
-    font-size: 1.3rem;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0, 168, 232, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .remote-mic-btn:active {
-    transform: scale(0.92);
-    box-shadow: 0 0 25px var(--alexa-cyan);
-  }
-
-  /* Physical D-Pad Circle */
-  .remote-dpad-ring {
-    width: 184px;
-    height: 184px;
-    background: #1b2434;
-    border-radius: 50%;
-    position: relative;
-    border: 1px solid #2d3b52;
-    box-shadow: inset 0 3px 8px rgba(0,0,0,0.6), 0 8px 20px rgba(0,0,0,0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .dpad-key {
-    position: absolute;
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    font-size: 1.25rem;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
-  }
-  .dpad-key:active { color: var(--fire-amber); transform: scale(0.9); }
-  .dpad-k-up { top: 8px; }
-  .dpad-k-down { bottom: 8px; }
-  .dpad-k-left { left: 8px; }
-  .dpad-k-right { right: 8px; }
-
-  .dpad-k-center {
-    width: 76px;
-    height: 76px;
-    background: #111722;
-    border-radius: 50%;
-    border: 1px solid #334155;
-    color: #fff;
-    font-size: 0.88rem;
+  .card-center-title {
+    font-family: var(--font-heading);
+    font-size: 44px;
     font-weight: 700;
-    cursor: pointer;
+    line-height: 1.15;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    margin: 12px 0;
+  }
+
+  .card-bottom-genres {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* Group Fairness Scorecard */
+  .scorecard-block {
+    background-color: var(--surface-base);
+    border: 2px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 22px 26px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.15s;
-  }
-  .dpad-k-center:active {
-    background: var(--fire-amber);
-    color: #000;
+    flex-direction: column;
+    gap: 14px;
   }
 
-  .remote-cluster {
+  .scorecard-title {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .viewer-score-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    width: 100%;
+    grid-template-columns: 110px 1fr 70px;
+    align-items: center;
+    gap: 16px;
+    font-size: 22px;
   }
 
-  .cluster-btn {
-    background: #1c2535;
-    border: 1px solid #2d3b52;
-    color: #e2e8f0;
-    padding: 11px 4px;
-    border-radius: 12px;
-    font-size: 0.8rem;
+  .viewer-score-name {
     font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .meter-bar {
+    height: 12px;
+    background-color: var(--surface-elevated);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    background-color: var(--text-secondary);
+    transition: width 0.3s ease;
+  }
+  .meter-fill.lead {
+    background-color: var(--accent);
+  }
+
+  .viewer-score-num {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-align: right;
+    color: var(--text-primary);
+  }
+
+  /* Action Buttons Bar */
+  .actions-bar {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .dpad-target {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 600;
+    padding: 14px 28px;
+    background-color: var(--surface-base);
+    border: 2px solid var(--border-strong);
+    color: var(--text-primary);
+    border-radius: 6px;
     cursor: pointer;
-    text-align: center;
-  }
-  .cluster-btn:active { background: var(--fire-amber); color: #000; }
-
-  .remote-instructions {
-    font-size: 0.72rem;
-    color: #64748b;
-    line-height: 1.45;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top: 12px;
-    width: 100%;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    outline: none;
   }
 
-  /* AWS Bedrock Glass Modal */
-  .modal-overlay {
+  .dpad-target.primary {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    border-color: var(--accent);
+  }
+
+  /* 10-Foot D-Pad Focus State: Outline + Scale (High Contrast) */
+  .dpad-target:focus-visible,
+  .dpad-target.focused {
+    outline: 4px solid var(--accent) !important;
+    outline-offset: 4px !important;
+    transform: scale(1.03) !important;
+    background-color: var(--surface-elevated) !important;
+    z-index: 5;
+  }
+  .dpad-target.primary:focus-visible,
+  .dpad-target.primary.focused {
+    background-color: var(--accent) !important;
+  }
+
+  /* "Why This Pick" Modal Dialog (Full TV Viewport Readable) */
+  .explanation-dialog {
     position: fixed;
     inset: 0;
-    background: rgba(3, 7, 13, 0.8);
-    backdrop-filter: blur(12px);
+    background-color: rgba(17, 20, 26, 0.95);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 100;
-    padding: 20px;
+    padding: 5vw;
   }
-  .modal-overlay.open { display: flex; }
+  .explanation-dialog.visible {
+    display: flex;
+  }
 
-  .modal-window {
-    background: #0f1623;
-    border: 1px solid rgba(255, 153, 0, 0.4);
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px var(--fire-glow);
-    border-radius: 24px;
-    padding: 32px 36px;
-    max-width: 620px;
+  .dialog-card {
+    background-color: var(--surface-base);
+    border: 2px solid var(--border-strong);
+    border-radius: 8px;
+    max-width: 1050px;
     width: 100%;
+    padding: 44px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    position: relative;
+    gap: 24px;
   }
 
-  .modal-header-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--fire-amber);
+  .dialog-header {
     display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--border-subtle);
+    padding-bottom: 16px;
+  }
+
+  .dialog-title {
+    font-family: var(--font-heading);
+    font-size: 38px;
+    font-weight: 700;
+  }
+
+  .dialog-body {
+    font-size: 28px;
+    line-height: 1.55;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .dialog-source-tag {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--text-tertiary);
+  }
+
+  /* Controls Hint Footer */
+  .footer-hints {
+    border-top: 2px solid var(--border-subtle);
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    text-transform: uppercase;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--text-tertiary);
   }
 
-  .modal-main-title {
-    font-size: 1.45rem;
-    font-weight: 800;
-    line-height: 1.25;
-    color: #fff;
+  .hints-keys {
+    display: flex;
+    gap: 20px;
   }
-
-  .modal-content-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: 16px 18px;
-    font-size: 0.98rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 1100px) {
-    .workbench { flex-direction: column; align-items: center; }
-    .remote-panel { width: 100%; max-width: 420px; }
-  }
-
-  @media (max-width: 768px) {
-    body { padding: 8px; }
-    .tv-frame { border-radius: 12px; }
-    .hero-container { grid-template-columns: 1fr; }
-    .hero-poster-frame { display: none; }
-    .couch-strip { flex-wrap: wrap; }
-    .shelf-row { grid-template-columns: repeat(2, 1fr); }
+  .key-token {
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
+    padding: 2px 8px;
+    border-radius: 4px;
   }
 </style>
 </head>
 <body>
 
-<div class="workbench" id="workbench">
-  <!-- 16:9 Television Screen -->
-  <div class="tv-frame" id="tvViewport">
-    <div class="ambient-canvas" id="ambientBg"></div>
-    <div class="vignette-overlay"></div>
-    <div class="alexa-voice-bar" id="voiceBar"></div>
+<div class="tv-container">
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="brand-block">
+      <div class="brand-name">OnePick</div>
+      <div class="brand-sub">Consensus Engine • 10-Foot UI</div>
+    </div>
 
-    <div class="tv-app">
-      <!-- Television Navigation Header -->
-      <header class="tv-header">
-        <div class="brand-group">
-          <span class="fire-badge">FIRE TV</span>
-          <span class="brand-title">OnePick</span>
-          <span class="brand-subtitle">v1.0 • RAWLSIAN CONSENSUS</span>
+    <div class="viewers-strip">
+      <span class="viewers-label">Viewers:</span>
+      <div id="viewersButtons" style="display:flex; gap:10px;"></div>
+    </div>
+  </header>
+
+  <!-- Main 10-Foot Stage -->
+  <main class="main-stage">
+    <!-- Left Column: Consensus Pick Details -->
+    <section class="hero-panel">
+      <div class="consensus-indicator">
+        <span class="consensus-badge" id="consensusScore">86% Group Consensus</span>
+        <span class="source-pill" id="sourceBadge">Source: local</span>
+      </div>
+
+      <h1 class="title-heading" id="titleText">Loading...</h1>
+
+      <div class="metadata-row">
+        <span class="meta-tag" id="metaYear">2018</span>
+        <span class="meta-tag" id="metaRating">PG</span>
+        <span id="metaRuntime">117 min</span>
+        <span>•</span>
+        <span id="metaGenres">Animation, Action</span>
+      </div>
+
+      <p class="synopsis-text" id="synopsisText">
+        Evaluating household preferences...
+      </p>
+
+      <!-- Action Buttons (D-Pad Reachable) -->
+      <div class="actions-bar">
+        <button class="dpad-target primary" id="btnPlay" tabindex="0">Play</button>
+        <button class="dpad-target" id="btnWhy" tabindex="0">Why this pick?</button>
+        <button class="dpad-target" id="btnMax100" tabindex="0">Max 100m</button>
+        <button class="dpad-target" id="btnWatched" tabindex="0">Watched</button>
+        <button class="dpad-target" id="btnRefine" tabindex="0">Refine</button>
+      </div>
+    </section>
+
+    <!-- Right Column: Typographic Card & Group Scorecard -->
+    <section class="detail-panel">
+      <!-- Typographic Cinema Card -->
+      <div class="typographic-card" id="typographicCard">
+        <div class="card-top">
+          <span id="cardYearRating">2018 / PG</span>
+          <span id="cardRuntime">117 MIN</span>
         </div>
-
-        <!-- Couch Household Strip -->
-        <div class="couch-strip">
-          <span class="couch-label">In The Room:</span>
-          <div id="viewersList" style="display:flex; gap:8px;"></div>
+        <div class="card-center-title" id="cardTitle">
+          Title
         </div>
-      </header>
-
-      <!-- Main Consensus Hero Display -->
-      <section class="hero-container">
-        <div class="hero-meta-panel">
-          <div class="consensus-pill-group">
-            <div class="consensus-badge">
-              <span>🤝</span>
-              <span id="consensusScoreTag">73% Group Consensus</span>
-            </div>
-            <div class="fairness-metric" id="minSatisfiedTag">
-              Min Satisfaction: 70%
-            </div>
-          </div>
-
-          <h1 class="hero-title" id="filmTitle">Analyzing Library...</h1>
-
-          <div class="meta-chips">
-            <span class="tag-badge" id="filmYear">2020</span>
-            <span class="tag-badge" id="filmRating">PG-13</span>
-            <span id="filmRuntime">90 min</span>
-            <span>•</span>
-            <span id="filmGenres" style="color:#e2e8f0; font-weight:500;">Comedy • Sci-Fi</span>
-          </div>
-
-          <p class="hero-synopsis" id="filmSynopsis">
-            Loading movie overview...
-          </p>
-
-          <!-- Real-Time Rawlsian Satisfaction Breakdown -->
-          <div class="consensus-hud">
-            <div class="hud-header">
-              <span>Viewer Satisfaction Distribution</span>
-              <span style="color:var(--fire-amber);">Rawlsian Max-Min Fairness</span>
-            </div>
-            <div class="viewer-bars" id="satisfactionBars"></div>
-          </div>
-
-          <!-- D-Pad TV Action Buttons Row -->
-          <div class="actions-row">
-            <button class="tv-btn primary focus-ring" id="btnPlay" tabindex="0">
-              <span>▶</span> Play Title
-            </button>
-            <button class="tv-btn focus-ring" id="btnExplain" tabindex="0">
-              <span>💡</span> Why This Pick?
-            </button>
-            <button class="tv-btn focus-ring" id="btnMax100" tabindex="0">
-              <span>⏳</span> Under 100m
-            </button>
-            <button class="tv-btn focus-ring" id="btnWatched" tabindex="0">
-              <span>🚫</span> Saw That
-            </button>
-            <button class="tv-btn focus-ring" id="btnVoiceMic" tabindex="0">
-              <span>🎙</span> Alexa Voice
-            </button>
-          </div>
+        <div class="card-bottom-genres" id="cardGenres">
+          ANIMATION / ACTION
         </div>
+      </div>
 
-        <!-- Cinema Poster Glass Card -->
-        <div class="hero-poster-frame">
-          <img class="hero-poster-img" id="filmPoster" src="" alt="Poster Art">
+      <!-- Satisfaction Scorecard -->
+      <div class="scorecard-block">
+        <div class="scorecard-title">
+          <span>Household Satisfaction</span>
+          <span id="minSatisfactionText">Min: 85%</span>
         </div>
-      </section>
+        <div id="scorecardRows" style="display:flex; flex-direction:column; gap:12px;"></div>
+      </div>
+    </section>
+  </main>
 
-      <!-- Close Contenders Alternative Shelf -->
-      <section class="shelf-section">
-        <div class="shelf-title">Close Contenders (Alternative Compromises)</div>
-        <div class="shelf-row" id="runnerUpShelf"></div>
-      </section>
+  <!-- Bottom Hints -->
+  <footer class="footer-hints">
+    <div class="hints-keys">
+      <span><span class="key-token">▲ ▼ ◀ ▶</span> Move</span>
+      <span><span class="key-token">Enter</span> Select</span>
+      <span><span class="key-token">Esc</span> Back</span>
     </div>
-  </div>
-
-  <!-- Physical Alexa Voice Remote Controller Simulation -->
-  <aside class="remote-panel">
-    <div class="remote-header">
-      <span class="remote-badge">Fire TV Remote</span>
-      <button class="mode-toggle" id="btnFullscreenToggle" title="Toggle Fullscreen TV">⛶ Full TV</button>
-    </div>
-
-    <!-- Blue Alexa Voice Button -->
-    <button class="remote-mic-btn" id="remoteMic" title="Hold to Speak">
-      🎙
-    </button>
-
-    <!-- Physical D-Pad Directional Ring -->
-    <div class="remote-dpad-ring">
-      <button class="dpad-key dpad-k-up" id="dpadUp" title="Up">▲</button>
-      <button class="dpad-key dpad-k-down" id="dpadDown" title="Down">▼</button>
-      <button class="dpad-key dpad-k-left" id="dpadLeft" title="Left">◀</button>
-      <button class="dpad-key dpad-k-right" id="dpadRight" title="Right">▶</button>
-      <button class="dpad-k-center" id="dpadCenter" title="Select / OK">OK</button>
-    </div>
-
-    <!-- Remote Cluster Keys -->
-    <div class="remote-cluster">
-      <button class="cluster-btn" id="remoteBack" title="Back">↩ Back</button>
-      <button class="cluster-btn" id="remoteReset" title="Reset Filters">🔄 Reset</button>
-      <button class="cluster-btn" id="remoteSound" title="Toggle Remote Clicks">🔊 Audio</button>
-    </div>
-
-    <div class="remote-instructions">
-      <strong>Spatial D-Pad Enabled:</strong><br>
-      Use <strong>Arrow Keys</strong> to move focus.<br>
-      <strong>Enter / Space</strong> to activate.<br>
-      <strong>Esc / Backspace</strong> for back.
-    </div>
-  </aside>
+    <div id="audioStatus">Audio: On (Press 'M' to mute)</div>
+  </footer>
 </div>
 
-<!-- Bedrock Rationale Glass Modal -->
-<div class="modal-overlay" id="explainModal">
-  <div class="modal-window">
-    <div class="modal-header-tag">
-      <span>🤖</span> Amazon Bedrock • Converse AI Concierge
+<!-- "Why This Pick" Fullscreen Modal -->
+<div class="explanation-dialog" id="explainModal">
+  <div class="dialog-card">
+    <div class="dialog-header">
+      <div class="dialog-title">Why This Pick Was Selected</div>
+      <div class="dialog-source-tag" id="explainSourceTag">Engine: Bedrock Converse</div>
     </div>
-    <h2 class="modal-main-title" id="modalTitle">Why OnePick Selected This Title</h2>
-    <div class="modal-content-card" id="modalText">
-      Consulting consensus calculus...
+    <div class="dialog-body" id="explainContent">
+      Loading explanation...
     </div>
-    <div style="display:flex; justify-content:flex-end;">
-      <button class="tv-btn primary focus-ring" id="modalClose" tabindex="0">
-        Got It, Let's Watch
-      </button>
+    <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+      <button class="dpad-target primary" id="btnModalClose" tabindex="0">Close</button>
     </div>
   </div>
 </div>
 
 <script>
-  // Web Audio TV Remote Sound FX
-  let audioEnabled = true;
+  let state = null;
+  let topPick = null;
+  let focusTargets = [];
+  let currentFocusIndex = 0;
+  let soundEnabled = true;
+
+  // Web Audio TV Remote Sound Synthesizer
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  function playTickSound(freq = 440, duration = 0.04) {
-    if (!audioEnabled || audioCtx.state === 'suspended') return;
+  function playTick(freq = 420, duration = 0.03) {
+    if (!soundEnabled || audioCtx.state === 'suspended') return;
     try {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start();
@@ -894,124 +546,98 @@
     } catch (e) {}
   }
 
-  // App State
-  let state = null;
-  let topPick = null;
-  let focusables = [];
-  let currentFocus = 0;
-
-  async function fetchState() {
+  async function loadState() {
     try {
       const res = await fetch('/api/state');
       state = await res.json();
-      renderApp();
-    } catch (e) {
-      console.error('State load error:', e);
+      render();
+    } catch (err) {
+      console.error('Failed to load state:', err);
     }
   }
 
-  function renderApp() {
+  function render() {
     if (!state || !state.candidates || state.candidates.length === 0) return;
     topPick = state.candidates[0];
-    const film = topPick.title;
+    const title = topPick.title;
 
-    // Ambient Lighting & Artwork
-    document.getElementById('ambientBg').style.backgroundImage = `url('${film.art}')`;
-    document.getElementById('filmPoster').src = film.art;
-
-    // Film Details
-    document.getElementById('filmTitle').textContent = film.name;
-    document.getElementById('filmYear').textContent = film.year;
-    document.getElementById('filmRating').textContent = film.rating;
-    document.getElementById('filmRuntime').textContent = `${film.minutes} min`;
-    document.getElementById('filmGenres').textContent = film.genres.join(' • ');
-    document.getElementById('filmSynopsis').textContent = film.synopsis || '';
+    // Hero Text
+    document.getElementById('titleText').textContent = title.name;
+    document.getElementById('metaYear').textContent = title.year;
+    document.getElementById('metaRating').textContent = title.rating;
+    document.getElementById('metaRuntime').textContent = `${title.minutes} min`;
+    document.getElementById('metaGenres').textContent = title.genres.join(', ');
+    document.getElementById('synopsisText').textContent = title.synopsis || '';
 
     // Consensus Score
-    document.getElementById('consensusScoreTag').textContent = `${topPick.groupScore}% Group Consensus`;
-    document.getElementById('minSatisfiedTag').textContent = `Min Satisfaction: ${topPick.minViewerScore}%`;
+    document.getElementById('consensusScore').textContent = `${topPick.groupScore}% Group Consensus`;
+    document.getElementById('minSatisfactionText').textContent = `Min: ${topPick.minViewerScore}%`;
 
-    // Active Viewers Strip
-    const vContainer = document.getElementById('viewersList');
-    vContainer.innerHTML = '';
+    // Typographic Card
+    document.getElementById('cardTitle').textContent = title.name;
+    document.getElementById('cardYearRating').textContent = `${title.year} / ${title.rating}`;
+    document.getElementById('cardRuntime').textContent = `${title.minutes} MIN`;
+    document.getElementById('cardGenres').textContent = title.genres.join(' / ').toUpperCase();
+
+    // Viewers Buttons Strip
+    const viewersContainer = document.getElementById('viewersButtons');
+    viewersContainer.innerHTML = '';
     state.allViewers.forEach((v) => {
       const active = state.constraints.viewers.some((av) => av.id === v.id);
-      const pill = document.createElement('div');
-      pill.className = `viewer-pill ${active ? 'active' : 'inactive'}`;
-      pill.innerHTML = `<span>${v.avatar || '👤'}</span> <strong>${v.name}</strong>`;
-      pill.onclick = () => {
-        playTickSound(620);
+      const btn = document.createElement('button');
+      btn.className = `viewer-button dpad-target ${active ? 'active' : 'inactive'}`;
+      btn.tabIndex = 0;
+      btn.textContent = v.name;
+      btn.onclick = () => {
+        playTick(540);
         toggleViewer(v.id);
       };
-      vContainer.appendChild(pill);
+      viewersContainer.appendChild(btn);
     });
 
-    // Per-Viewer Satisfaction Breakdown
-    const barsContainer = document.getElementById('satisfactionBars');
-    barsContainer.innerHTML = '';
+    // Scorecard Breakdown
+    const scorecardContainer = document.getElementById('scorecardRows');
+    scorecardContainer.innerHTML = '';
     topPick.perViewer.forEach((pv) => {
+      const isLead = pv.score >= topPick.groupScore;
       const row = document.createElement('div');
-      row.className = 'viewer-row';
+      row.className = 'viewer-score-row';
       row.innerHTML = `
-        <span class="viewer-name-tag">${pv.viewerName}</span>
-        <div class="track-bar">
-          <div class="track-fill" style="width: ${pv.score}%"></div>
+        <span class="viewer-score-name">${pv.viewerName}</span>
+        <div class="meter-bar">
+          <div class="meter-fill ${isLead ? 'lead' : ''}" style="width: ${pv.score}%"></div>
         </div>
-        <span class="score-label">${pv.score}%</span>
+        <span class="viewer-score-num">${pv.score}%</span>
       `;
-      barsContainer.appendChild(row);
+      scorecardContainer.appendChild(row);
     });
 
-    // Runner-Up Contenders Shelf
-    const shelf = document.getElementById('runnerUpShelf');
-    shelf.innerHTML = '';
-    state.candidates.slice(1, 5).forEach((cand) => {
-      const card = document.createElement('div');
-      card.className = 'shelf-card focus-ring';
-      card.tabIndex = 0;
-      card.innerHTML = `
-        <img class="shelf-thumb" src="${cand.title.art}" alt="thumb">
-        <div class="shelf-info">
-          <span class="shelf-name">${cand.title.name}</span>
-          <span class="shelf-meta">${cand.title.minutes}m • ${cand.title.rating}</span>
-          <span class="shelf-score">${cand.groupScore}% Consensus</span>
-        </div>
-      `;
-      card.onclick = () => {
-        playTickSound(700);
-        alert(`Runner-up details for "${cand.title.name}" (${cand.groupScore}% consensus)`);
-      };
-      shelf.appendChild(card);
-    });
-
-    refreshFocusIndex();
+    updateFocusTargets();
   }
 
-  function refreshFocusIndex() {
-    focusables = Array.from(document.querySelectorAll('.focus-ring:not([style*="display: none"])'));
-    if (focusables.length > 0 && currentFocus >= focusables.length) {
-      currentFocus = 0;
+  function updateFocusTargets() {
+    focusTargets = Array.from(document.querySelectorAll('.dpad-target:not([style*="display: none"])'));
+    if (focusTargets.length > 0 && currentFocusIndex >= focusTargets.length) {
+      currentFocusIndex = 0;
     }
-    if (focusables[currentFocus]) {
-      focusables.forEach(f => f.classList.remove('dpad-active'));
-      focusables[currentFocus].classList.add('dpad-active');
-      focusables[currentFocus].focus();
+    focusTargets.forEach((t) => t.classList.remove('focused'));
+    if (focusTargets[currentFocusIndex]) {
+      focusTargets[currentFocusIndex].classList.add('focused');
+      focusTargets[currentFocusIndex].focus();
     }
   }
 
-  function stepFocus(direction) {
-    if (focusables.length === 0) return;
-    playTickSound(480, 0.03);
-    focusables.forEach(f => f.classList.remove('dpad-active'));
-
-    if (direction === 'next' || direction === 'right' || direction === 'down') {
-      currentFocus = (currentFocus + 1) % focusables.length;
+  function stepFocus(forward = true) {
+    if (focusTargets.length === 0) return;
+    playTick(420);
+    focusTargets.forEach((t) => t.classList.remove('focused'));
+    if (forward) {
+      currentFocusIndex = (currentFocusIndex + 1) % focusTargets.length;
     } else {
-      currentFocus = (currentFocus - 1 + focusables.length) % focusables.length;
+      currentFocusIndex = (currentFocusIndex - 1 + focusTargets.length) % focusTargets.length;
     }
-
-    focusables[currentFocus].classList.add('dpad-active');
-    focusables[currentFocus].focus();
+    focusTargets[currentFocusIndex].classList.add('focused');
+    focusTargets[currentFocusIndex].focus();
   }
 
   async function toggleViewer(viewerId) {
@@ -1020,145 +646,128 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ viewerId }),
     });
-    const d = await res.json();
-    state.constraints = d.constraints;
-    state.candidates = d.candidates;
-    renderApp();
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    document.getElementById('sourceBadge').textContent = 'Source: local';
+    render();
   }
 
-  async function sendPatch(patch) {
-    playTickSound(520);
+  async function applyPatch(patch) {
+    playTick(480);
     const res = await fetch('/api/patch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(patch),
     });
-    const d = await res.json();
-    state.constraints = d.constraints;
-    state.candidates = d.candidates;
-    renderApp();
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    document.getElementById('sourceBadge').textContent = 'Source: local';
+    render();
   }
 
-  async function triggerVoiceRefine(utterance) {
-    const wave = document.getElementById('voiceBar');
-    wave.classList.add('active');
-    playTickSound(880, 0.1);
-
-    try {
-      const res = await fetch('/api/voice-refine', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ utterance }),
-      });
-      const d = await res.json();
-      state.constraints = d.constraints;
-      state.candidates = d.candidates;
-      renderApp();
-    } finally {
-      setTimeout(() => wave.classList.remove('active'), 1200);
-    }
+  async function sendVoiceRefine(utterance) {
+    playTick(600);
+    const res = await fetch('/api/voice-refine', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ utterance }),
+    });
+    const data = await res.json();
+    state.constraints = data.constraints;
+    state.candidates = data.candidates;
+    const source = data.parsed?.source || 'local';
+    document.getElementById('sourceBadge').textContent = `Source: ${source}`;
+    render();
   }
 
-  async function openExplainModal() {
+  async function openExplain() {
     if (!topPick) return;
-    playTickSound(650);
+    playTick(620);
     const modal = document.getElementById('explainModal');
-    const content = document.getElementById('modalText');
-    content.innerHTML = '<span style="color:var(--alexa-cyan)">⚡ Synthesizing Bedrock trade-off calculus...</span>';
-    modal.classList.add('open');
+    const content = document.getElementById('explainContent');
+    const sourceTag = document.getElementById('explainSourceTag');
+
+    content.textContent = 'Generating explanation...';
+    modal.classList.add('visible');
 
     const res = await fetch('/api/explain', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ candidate: topPick }),
     });
-    const d = await res.json();
+    const data = await res.json();
+
+    sourceTag.textContent = `Source: ${data.source || 'fallback'}`;
     content.innerHTML = `
-      <p style="margin-bottom:12px; font-weight:700; color:#fff;">${d.summary}</p>
-      <p style="margin-bottom:12px; color:#6ee7b7;">🤝 ${d.consensusHighlight}</p>
-      <p style="color:#94a3b8;">⚖️ ${d.tradeOff}</p>
+      <p><strong>${data.summary}</strong></p>
+      <p style="color:#cbd5e1;">${data.consensusHighlight}</p>
+      ${data.tradeOff ? `<p style="color:#94a3b8; font-size:24px;">${data.tradeOff}</p>` : ''}
     `;
-    document.getElementById('modalClose').focus();
+
+    document.getElementById('btnModalClose').focus();
   }
 
-  function closeExplainModal() {
-    playTickSound(420);
-    document.getElementById('explainModal').classList.remove('open');
-    refreshFocusIndex();
+  function closeExplain() {
+    playTick(380);
+    document.getElementById('explainModal').classList.remove('visible');
+    updateFocusTargets();
   }
 
   // Action Buttons
   document.getElementById('btnPlay').onclick = () => {
-    playTickSound(780, 0.1);
-    alert(`Starting playback for "${topPick.title.name}"!`);
+    playTick(720);
+    alert(`Launching playback: ${topPick.title.name}`);
   };
-  document.getElementById('btnExplain').onclick = openExplainModal;
-  document.getElementById('btnMax100').onclick = () => sendPatch({ maxMinutes: 100 });
+
+  document.getElementById('btnWhy').onclick = openExplain;
+
+  document.getElementById('btnMax100').onclick = () => {
+    applyPatch({ maxMinutes: 100 });
+  };
+
   document.getElementById('btnWatched').onclick = () => {
-    if (topPick) sendPatch({ watched: [topPick.title.id] });
-  };
-  document.getElementById('btnVoiceMic').onclick = () => {
-    const speech = prompt('Simulate Alexa Voice Remote input:', 'Keep it under 100 minutes');
-    if (speech) triggerVoiceRefine(speech);
-  };
-  document.getElementById('modalClose').onclick = closeExplainModal;
-
-  // Remote Controller Buttons
-  document.getElementById('dpadUp').onclick = () => stepFocus('prev');
-  document.getElementById('dpadDown').onclick = () => stepFocus('next');
-  document.getElementById('dpadLeft').onclick = () => stepFocus('prev');
-  document.getElementById('dpadRight').onclick = () => stepFocus('next');
-  document.getElementById('dpadCenter').onclick = () => {
-    playTickSound(660);
-    if (focusables[currentFocus]) focusables[currentFocus].click();
-  };
-  document.getElementById('remoteBack').onclick = closeExplainModal;
-  document.getElementById('remoteReset').onclick = async () => {
-    playTickSound(400);
-    const res = await fetch('/api/reset', { method: 'POST' });
-    const d = await res.json();
-    state.constraints = d.constraints;
-    state.candidates = d.candidates;
-    renderApp();
-  };
-  document.getElementById('remoteMic').onclick = () => {
-    triggerVoiceRefine('Alex has to wake up early tomorrow, keep it under 100 minutes');
-  };
-  document.getElementById('remoteSound').onclick = () => {
-    audioEnabled = !audioEnabled;
-    document.getElementById('remoteSound').textContent = audioEnabled ? '🔊 Audio' : '🔇 Mute';
+    if (topPick) {
+      applyPatch({ watched: [topPick.title.id] });
+    }
   };
 
-  // Fullscreen TV Viewport Toggle
-  document.getElementById('btnFullscreenToggle').onclick = () => {
-    const wb = document.getElementById('workbench');
-    wb.classList.toggle('tv-fullscreen-mode');
-    document.getElementById('btnFullscreenToggle').textContent = 
-      wb.classList.contains('tv-fullscreen-mode') ? '⛶ Exit' : '⛶ Full TV';
-    refreshFocusIndex();
+  document.getElementById('btnRefine').onclick = () => {
+    const input = prompt('Enter refinement constraint (e.g., "keep under 95 minutes" or "we watched that"):', 'keep under 100 minutes');
+    if (input) sendVoiceRefine(input);
   };
 
-  // Keyboard Navigation (Fire TV remote keys)
+  document.getElementById('btnModalClose').onclick = closeExplain;
+
+  // Keyboard D-Pad Navigation
   window.addEventListener('keydown', (e) => {
     if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    if (e.key === 'm' || e.key === 'M') {
+      soundEnabled = !soundEnabled;
+      document.getElementById('audioStatus').textContent = `Audio: ${soundEnabled ? 'On' : 'Off'} (Press 'M' to toggle)`;
+      return;
+    }
+
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
-      stepFocus('next');
+      stepFocus(true);
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
-      stepFocus('prev');
+      stepFocus(false);
     } else if (e.key === 'Enter' || e.key === ' ') {
-      if (document.getElementById('explainModal').classList.contains('open')) {
-        closeExplainModal();
-      } else if (focusables[currentFocus]) {
-        focusables[currentFocus].click();
+      if (document.getElementById('explainModal').classList.contains('visible')) {
+        closeExplain();
+      } else if (focusTargets[currentFocusIndex]) {
+        focusTargets[currentFocusIndex].click();
       }
     } else if (e.key === 'Escape' || e.key === 'Backspace') {
-      closeExplainModal();
+      closeExplain();
     }
   });
 
-  fetchState();
+  loadState();
 </script>
 </body>
 </html>
