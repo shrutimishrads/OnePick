@@ -4,25 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>OnePick — Household Consensus Engine</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
+  @font-face {
+    font-family: 'Syne';
+    src: url('/fonts/syne-700.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Syne';
+    src: url('/fonts/syne-800.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Sora';
+    src: url('/fonts/sora-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Sora';
+    src: url('/fonts/sora-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Mono';
+    src: url('/fonts/dm-mono-500.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
-    --bg-base: #11141a;
-    --surface-base: #181d26;
-    --surface-elevated: #222936;
-    --border-subtle: #2b3444;
-    --border-strong: #3d4a5f;
-    --accent: #f59e0b;
-    --accent-contrast: #11141a;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-tertiary: #64748b;
+    --bg-base: #131419;
+    --surface-base: #1b1c23;
+    --surface-elevated: #252732;
+    --border-subtle: #313340;
+    --border-strong: #474b5e;
+    --accent: #e26d5c;
+    --accent-contrast: #131419;
+    --text-primary: #edece6;
+    --text-secondary: #a6a59e;
+    --text-tertiary: #6e6d66;
     
-    --font-heading: 'Space Grotesk', -apple-system, sans-serif;
-    --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'Sora', -apple-system, sans-serif;
+    --font-mono: 'DM Mono', monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,7 +64,7 @@
     background-color: var(--bg-base);
     color: var(--text-primary);
     font-family: var(--font-body);
-    font-size: 26px;
+    font-size: 28px;
     line-height: 1.45;
     min-height: 100vh;
     display: flex;
@@ -74,8 +107,8 @@
 
   .brand-name {
     font-family: var(--font-heading);
-    font-size: 40px;
-    font-weight: 700;
+    font-size: 42px;
+    font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--text-primary);
   }
@@ -152,7 +185,7 @@
     background-color: var(--accent);
     color: var(--accent-contrast);
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 4px 14px;
     border-radius: 4px;
   }
 
@@ -167,7 +200,7 @@
   .title-heading {
     font-family: var(--font-heading);
     font-size: 60px;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.1;
     color: var(--text-primary);
     letter-spacing: -0.02em;
@@ -189,9 +222,9 @@
   }
 
   .synopsis-text {
-    font-size: 26px;
+    font-size: 28px;
     line-height: 1.5;
-    color: #cbd5e1;
+    color: var(--text-secondary);
     max-width: 900px;
   }
 
@@ -226,8 +259,8 @@
 
   .card-center-title {
     font-family: var(--font-heading);
-    font-size: 44px;
-    font-weight: 700;
+    font-size: 42px;
+    font-weight: 800;
     line-height: 1.15;
     color: var(--text-primary);
     text-transform: uppercase;
@@ -266,7 +299,7 @@
     grid-template-columns: 110px 1fr 70px;
     align-items: center;
     gap: 16px;
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .viewer-score-name {
@@ -342,7 +375,7 @@
   .explanation-dialog {
     position: fixed;
     inset: 0;
-    background-color: rgba(17, 20, 26, 0.95);
+    background-color: rgba(19, 20, 25, 0.95);
     display: none;
     justify-content: center;
     align-items: center;
@@ -376,7 +409,7 @@
   .dialog-title {
     font-family: var(--font-heading);
     font-size: 38px;
-    font-weight: 700;
+    font-weight: 800;
   }
 
   .dialog-body {
@@ -704,9 +737,9 @@
 
     sourceTag.textContent = `Source: ${data.source || 'fallback'}`;
     content.innerHTML = `
-      <p><strong>${data.summary}</strong></p>
-      <p style="color:#cbd5e1;">${data.consensusHighlight}</p>
-      ${data.tradeOff ? `<p style="color:#94a3b8; font-size:24px;">${data.tradeOff}</p>` : ''}
+      <p style="color:var(--text-primary); font-size:32px;"><strong>${data.summary}</strong></p>
+      <p style="color:var(--text-secondary);">${data.consensusHighlight}</p>
+      ${data.tradeOff ? `<p style="color:var(--text-tertiary); font-size:26px;">${data.tradeOff}</p>` : ''}
     `;
 
     document.getElementById('btnModalClose').focus();

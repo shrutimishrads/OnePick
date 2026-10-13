@@ -159,6 +159,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Serve self-hosted fonts for offline TV display
+  if (url.pathname.startsWith('/fonts/')) {
+    const fontName = path.basename(url.pathname);
+    const fontPath = path.resolve(__dirname, './fonts', fontName);
+    if (fs.existsSync(fontPath)) {
+      res.writeHead(200, {
+        'Content-Type': 'font/woff2',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      });
+      res.end(fs.readFileSync(fontPath));
+      return;
+    }
+  }
+
   // Serve static HTML for the TV Simulator Frontend
   if (url.pathname === '/' || url.pathname === '/index.html') {
     const htmlPath = path.resolve(__dirname, './index.html');

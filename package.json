@@ -10,7 +10,8 @@
     "tv": "node --import tsx app/server.ts",
     "dev": "node --import tsx app/server.ts",
     "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "screenshots": "node --import tsx scripts/capture-screenshots.ts"
   },
   "keywords": [
     "fire-tv",
