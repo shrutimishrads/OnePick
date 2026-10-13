@@ -57,8 +57,36 @@ function isBedrockEnabled(): boolean {
   return process.env.USE_BEDROCK !== 'false';
 }
 
+export function getBedrockTimeoutMs(): number {
+  const envVal = process.env.BEDROCK_TIMEOUT_MS;
+  if (envVal) {
+    const parsed = parseInt(envVal, 10);
+    if (!isNaN(parsed) && parsed > 0) return parsed;
+  }
+  return 3000;
+}
+
 function getModelId(): string {
   return process.env.BEDROCK_MODEL_ID || 'amazon.nova-lite-v1:0';
+}
+
+/**
+ * Non-blocking warm-up call to initialize TLS connection and credentials.
+ */
+export async function warmupBedrock(): Promise<void> {
+  if (!isBedrockEnabled()) return;
+  try {
+    const client = getBedrockClient();
+    const command = new ConverseCommand({
+      modelId: getModelId(),
+      messages: [{ role: 'user', content: [{ text: 'ping' }] }],
+      inferenceConfig: { maxTokens: 1, temperature: 0 },
+    });
+    const timeoutSignal = AbortSignal.timeout(getBedrockTimeoutMs());
+    await client.send(command, { abortSignal: timeoutSignal });
+  } catch {
+    // Warm-up is best-effort and non-blocking
+  }
 }
 
 /**
@@ -223,7 +251,7 @@ JSON:`;
     };
 
     const command = new ConverseCommand(input);
-    const timeoutSignal = AbortSignal.timeout(1200);
+    const timeoutSignal = AbortSignal.timeout(getBedrockTimeoutMs());
 
     const res = await client.send(command, { abortSignal: timeoutSignal });
     const textOutput = res.output?.message?.content?.[0]?.text?.trim() || '';
@@ -243,9 +271,8 @@ JSON:`;
     return result;
   } catch {
     // Timeout, network failure, AWS credentials missing, or malformed JSON -> fallback
-    const fallbackRes = parseConstraintsFallback(req);
-    parseCache.set(cacheKey, fallbackRes);
-    return fallbackRes;
+    // Do not cache fallback results so transient errors do not permanently pin fallback
+    return parseConstraintsFallback(req);
   }
 }
 
@@ -344,7 +371,7 @@ Output raw JSON only.`;
     };
 
     const command = new ConverseCommand(input);
-    const timeoutSignal = AbortSignal.timeout(1200);
+    const timeoutSignal = AbortSignal.timeout(getBedrockTimeoutMs());
 
     const res = await client.send(command, { abortSignal: timeoutSignal });
     const textOutput = res.output?.message?.content?.[0]?.text?.trim() || '';
@@ -355,18 +382,38 @@ Output raw JSON only.`;
       throw new Error('Incomplete explanation from Bedrock');
     }
 
+    const summaryStr = String(parsed.summary);
+    const highlightStr = String(parsed.consensusHighlight);
+    const tradeOffStr = parsed.tradeOff ? String(parsed.tradeOff) : undefined;
+    const combinedText = `${summaryStr} ${highlightStr} ${tradeOffStr || ''}`.toLowerCase();
+
+    // 1. Must name the correct title
+    if (!combinedText.includes(req.candidate.title.name.toLowerCase())) {
+      throw new Error(`Bedrock explanation did not name correct title: "${req.candidate.title.name}"`);
+    }
+
+    // 2. Must not state a percentage that differs from groupScore
+    const summaryPercents = (summaryStr.match(/\b(\d+)\s*%/g) || []).map((m: string) => parseInt(m, 10));
+    for (const p of summaryPercents) {
+      if (p !== req.candidate.groupScore) {
+        throw new Error(
+          `Bedrock explanation stated percentage ${p}% which differs from groupScore ${req.candidate.groupScore}%`
+        );
+      }
+    }
+
     const result: BedrockExplainResponse = {
-      summary: String(parsed.summary),
-      consensusHighlight: String(parsed.consensusHighlight),
-      tradeOff: parsed.tradeOff ? String(parsed.tradeOff) : undefined,
+      summary: summaryStr,
+      consensusHighlight: highlightStr,
+      tradeOff: tradeOffStr,
       source: 'bedrock',
     };
 
     explainCache.set(cacheKey, result);
     return result;
   } catch {
-    const fallbackRes = explainPickFallback(req);
-    explainCache.set(cacheKey, fallbackRes);
-    return fallbackRes;
+    // Timeout, network failure, AWS credentials missing, malformed JSON, or failed validation -> fallback
+    // Do not cache fallback results so transient errors do not permanently pin fallback
+    return explainPickFallback(req);
   }
 }

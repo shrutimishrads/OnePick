@@ -6,6 +6,7 @@ import {
   setBedrockClient,
   clearBedrockCaches,
   sanitizeConstraintPatch,
+  getBedrockTimeoutMs,
 } from './bedrock';
 import { Candidate, Constraints } from '../core/types';
 
@@ -181,5 +182,114 @@ describe('AWS Bedrock Client Integration & Validation', () => {
 
     assert.strictEqual(callCount, 1, 'Second invocation should be served from memory cache');
     assert.deepStrictEqual(res1, res2);
+  });
+
+  it('does NOT cache failed Bedrock calls so subsequent retries can succeed', async () => {
+    let callCount = 0;
+    const mockClient = {
+      send: async () => {
+        callCount++;
+        if (callCount === 1) {
+          throw new Error('Transient TLS / network failure');
+        }
+        return {
+          output: {
+            message: {
+              content: [{ text: JSON.stringify({ maxMinutes: 75 }) }],
+            },
+          },
+        };
+      },
+    };
+
+    setBedrockClient(mockClient as any);
+
+    const req = {
+      userUtterance: 'under 75 minutes',
+      currentConstraints: { viewers: [], watched: [] },
+    };
+
+    // First call fails -> should return fallback, but NOT cache it
+    const res1 = await parseConstraintsWithBedrock(req);
+    assert.strictEqual(res1.source, 'fallback');
+
+    // Second call succeeds -> should return bedrock result
+    const res2 = await parseConstraintsWithBedrock(req);
+    assert.strictEqual(res2.source, 'bedrock');
+    assert.strictEqual(res2.patch.maxMinutes, 75);
+    assert.strictEqual(callCount, 2);
+  });
+
+  it('respects BEDROCK_TIMEOUT_MS environment variable', () => {
+    assert.strictEqual(getBedrockTimeoutMs(), 3000);
+
+    process.env.BEDROCK_TIMEOUT_MS = '1500';
+    assert.strictEqual(getBedrockTimeoutMs(), 1500);
+
+    delete process.env.BEDROCK_TIMEOUT_MS;
+    assert.strictEqual(getBedrockTimeoutMs(), 3000);
+  });
+
+  it('falls back if explain output does not name the correct title or contradicts groupScore', async () => {
+    const mockCandidate: Candidate = {
+      title: {
+        id: 't-spider-verse',
+        name: 'Spider-Man: Into the Spider-Verse',
+        genres: ['Animation', 'Action'],
+        moods: ['Exhilarating'],
+        minutes: 117,
+        rating: 'PG',
+        year: 2018,
+        art: 'art.jpg',
+      },
+      groupScore: 86,
+      minViewerScore: 85,
+      perViewer: [
+        { viewerId: 'v-maya', viewerName: 'Maya', score: 85, reasons: ['Animation'] },
+      ],
+    };
+
+    // 1. Hallucinated wrong title name
+    setBedrockClient({
+      send: async () => ({
+        output: {
+          message: {
+            content: [
+              {
+                text: JSON.stringify({
+                  summary: 'Arrival is your household pick with 86% score.',
+                  consensusHighlight: 'Everyone likes it.',
+                }),
+              },
+            ],
+          },
+        },
+      }),
+    } as any);
+
+    const explain1 = await explainPickWithBedrock({ candidate: mockCandidate, viewers: [] });
+    assert.strictEqual(explain1.source, 'fallback', 'Must fall back if wrong title is named');
+
+    // 2. Contradicted groupScore percentage (claims 50% instead of 86%)
+    clearBedrockCaches();
+    setBedrockClient({
+      send: async () => ({
+        output: {
+          message: {
+            content: [
+              {
+                text: JSON.stringify({
+                  summary: 'Spider-Man: Into the Spider-Verse is your pick with 50% group score.',
+                  consensusHighlight: 'Balances preferences.',
+                }),
+              },
+            ],
+          },
+        },
+      }),
+    } as any);
+
+    const explain2 = await explainPickWithBedrock({ candidate: mockCandidate, viewers: [] });
+    assert.strictEqual(explain2.source, 'fallback', 'Must fall back if percentage contradicts groupScore');
   });
 });

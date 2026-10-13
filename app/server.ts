@@ -2,7 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { rankCandidates, applyConstraintPatch } from '../core/scoring';
-import { parseConstraintsWithBedrock, explainPickWithBedrock } from '../api/bedrock';
+import { parseConstraintsWithBedrock, explainPickWithBedrock, warmupBedrock } from '../api/bedrock';
 import { Constraints, Title, Viewer } from '../core/types';
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
@@ -177,4 +177,7 @@ server.listen(PORT, () => {
   console.log(`\n============================================================`);
   console.log(` 📺 OnePick Fire TV Simulator running at http://localhost:${PORT}`);
   console.log(`============================================================\n`);
+
+  // Non-blocking warm-up call to initialize TLS connection and credentials
+  warmupBedrock().catch(() => {});
 });
