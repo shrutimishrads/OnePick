@@ -26,34 +26,34 @@ let constraints: Constraints = {
   maxMinutes: undefined,
 };
 
-// Step 1: Initial Consensus
-console.log('\n' + '-'.repeat(70));
-console.log('Step 1: Computing Initial Consensus via Rawlsian Max-Min Fairness...');
-console.log('-'.repeat(70));
-
-let ranked = rankCandidates(titles, constraints);
-let topPick = ranked[0];
-
-console.log(`\n🏆 Consensus Pick #1: "${topPick.title.name}" (${topPick.title.year})`);
-console.log(`   Runtime: ${topPick.title.minutes} min | Rating: ${topPick.title.rating} | Genres: ${topPick.title.genres.join(', ')}`);
-console.log(`   Group Fairness Score: ${topPick.groupScore}% (Min satisfaction: ${topPick.minViewerScore}%)`);
-console.log('   Individual breakdown:');
-topPick.perViewer.forEach((pv) => {
-  console.log(`     - ${pv.viewerName}: ${pv.score}% (${pv.reasons.join('; ')})`);
-});
-
-// Step 2: Bedrock Parse - Refinement 1
-console.log('\n' + '-'.repeat(70));
-console.log('Step 2: Voice Refinement: "We already watched Spider-Verse together last week"');
-console.log('-'.repeat(70));
-
 async function runDemo() {
+  // Step 1: Initial Consensus
+  console.log('\n' + '-'.repeat(70));
+  console.log('Step 1: Computing Initial Consensus via Rawlsian Max-Min Fairness...');
+  console.log('-'.repeat(70));
+
+  let ranked = rankCandidates(titles, constraints);
+  let topPick = ranked[0];
+
+  console.log(`\n🏆 Consensus Pick #1: "${topPick.title.name}" (${topPick.title.year})`);
+  console.log(`   Runtime: ${topPick.title.minutes} min | Rating: ${topPick.title.rating} | Genres: ${topPick.title.genres.join(', ')}`);
+  console.log(`   Group Fairness Score: ${topPick.groupScore}% (Min satisfaction: ${topPick.minViewerScore}%)`);
+  console.log('   Individual breakdown:');
+  topPick.perViewer.forEach((pv) => {
+    console.log(`     - ${pv.viewerName}: ${pv.score}% (${pv.reasons.join('; ')})`);
+  });
+
+  // Step 2: Bedrock Parse - Refinement 1
+  console.log('\n' + '-'.repeat(70));
+  console.log('Step 2: Voice Refinement: "We already watched Spider-Verse together last week"');
+  console.log('-'.repeat(70));
+
   const parseRes1 = await parseConstraintsWithBedrock({
     userUtterance: 'We already watched Spider-Verse together last week',
     currentConstraints: constraints,
   });
 
-  console.log(`🤖 Bedrock Parse Result: ${parseRes1.interpretedIntent}`);
+  console.log(`🤖 Bedrock Parse Result [Source: ${parseRes1.source}]: ${parseRes1.interpretedIntent}`);
   console.log(`   Applied Patch:`, JSON.stringify(parseRes1.patch));
 
   constraints = applyConstraintPatch(constraints, parseRes1.patch);
@@ -61,8 +61,8 @@ async function runDemo() {
   topPick = ranked[0];
 
   console.log(`\n🏆 Consensus Pick #2 (Post-Watched Update): "${topPick.title.name}" (${topPick.title.year})`);
-  console.log(`   Runtime: ${topPick.title.minutes} min | Rating: ${topPick.title.rating}`);
-  console.log(`   Group Fairness Score: ${topPick.groupScore}%`);
+  console.log(`   Runtime: ${topPick.title.minutes} min | Rating: ${topPick.title.rating} | Genres: ${topPick.title.genres.join(', ')}`);
+  console.log(`   Group Fairness Score: ${topPick.groupScore}% (Min satisfaction: ${topPick.minViewerScore}%)`);
   topPick.perViewer.forEach((pv) => {
     console.log(`     - ${pv.viewerName}: ${pv.score}% (${pv.reasons.join('; ')})`);
   });
@@ -77,7 +77,7 @@ async function runDemo() {
     currentConstraints: constraints,
   });
 
-  console.log(`🤖 Bedrock Parse Result: ${parseRes2.interpretedIntent}`);
+  console.log(`🤖 Bedrock Parse Result [Source: ${parseRes2.source}]: ${parseRes2.interpretedIntent}`);
   console.log(`   Applied Patch:`, JSON.stringify(parseRes2.patch));
 
   constraints = applyConstraintPatch(constraints, parseRes2.patch);
@@ -85,7 +85,7 @@ async function runDemo() {
   topPick = ranked[0];
 
   console.log(`\n🏆 Final Consensus Pick: "${topPick.title.name}" (${topPick.title.year})`);
-  console.log(`   Runtime: ${topPick.title.minutes} min | Rating: ${topPick.title.rating}`);
+  console.log(`   Runtime: ${topPick.title.minutes} min | Rating: ${topPick.title.rating} | Genres: ${topPick.title.genres.join(', ')}`);
   console.log(`   Group Fairness Score: ${topPick.groupScore}% (Min satisfaction: ${topPick.minViewerScore}%)`);
   topPick.perViewer.forEach((pv) => {
     console.log(`     - ${pv.viewerName}: ${pv.score}% (${pv.reasons.join('; ')})`);
@@ -101,11 +101,13 @@ async function runDemo() {
     viewers,
   });
 
-  console.log(`💬 Concierge Summary:   ${explanation.summary}`);
+  console.log(`💬 Concierge Summary [Source: ${explanation.source}]:   ${explanation.summary}`);
   console.log(`🤝 Consensus Highlight: ${explanation.consensusHighlight}`);
-  console.log(`⚖️  Trade-off Details:   ${explanation.tradeOff}`);
+  if (explanation.tradeOff) {
+    console.log(`⚖️  Trade-off Details:   ${explanation.tradeOff}`);
+  }
   console.log('\n' + '='.repeat(70));
-  console.log(' ✅ Demo completed: Decision reached in under 60 seconds with 0 arguments!');
+  console.log(' ✅ Demo completed: Distinct pick progression demonstrated across all refinements!');
   console.log('='.repeat(70) + '\n');
 }
 

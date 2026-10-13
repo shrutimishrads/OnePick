@@ -3,25 +3,25 @@
     "id": "v-maya",
     "name": "Maya",
     "avatar": "👩‍🔬",
-    "likes": ["Sci-Fi", "Mystery", "Comedy"],
-    "mood": "Thoughtful",
-    "maxMinutes": 120,
+    "likes": ["Sci-Fi", "Action", "Comedy"],
+    "mood": "Clever",
+    "maxMinutes": 130,
     "excludes": ["Horror"]
   },
   {
     "id": "v-alex",
     "name": "Alex",
     "avatar": "🎨",
-    "likes": ["Animation", "Comedy", "Adventure"],
+    "likes": ["Animation", "Action", "Comedy"],
     "mood": "Fun",
-    "maxMinutes": 110,
+    "maxMinutes": 130,
     "excludes": ["Horror"]
   },
   {
     "id": "v-sam",
     "name": "Sam",
     "avatar": "⚡",
-    "likes": ["Action", "Sci-Fi", "Adventure", "Comedy"],
+    "likes": ["Action", "Sci-Fi", "Adventure"],
     "mood": "Witty",
     "maxMinutes": 130,
     "excludes": ["Horror"]
