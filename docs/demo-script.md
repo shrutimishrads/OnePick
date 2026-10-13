@@ -1,6 +1,6 @@
 # OnePick Demo Script (3-Minute Presentation)
 
-**Track:** Fire TV / Amazon Vega Developer Hackathon  
+**Track:** Fire TV Developer Hackathon  
 **Target Time:** 2 minutes 45 seconds
 
 ---

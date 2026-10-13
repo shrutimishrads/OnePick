@@ -34,7 +34,8 @@ flowchart LR
 
 ```text
 onepick/
-├── app/            # Fire TV / Vega React Native TV app
+├── app/            # Fire TV 10-foot web app and Node server
+├── fireos/         # Fire OS Android Leanback WebView wrapper
 ├── core/           # Pure TypeScript: scoring, constraints, types (no I/O)
 │   ├── types.ts
 │   ├── scoring.ts

@@ -2,7 +2,7 @@
 
 ```mermaid
 flowchart TD
-    subgraph FireTVApp ["Fire TV / Vega Application"]
+    subgraph FireTVApp ["Fire TV Client (WebView / Fire OS)"]
         UI["TV UI & D-pad Remote Navigation"]
         State["Session State (Active Viewers & Constraints)"]
     end

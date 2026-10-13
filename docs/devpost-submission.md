@@ -27,29 +27,32 @@ OnePick is a 10-foot Fire TV application that:
 ---
 
 ### How We Built It
-- **10-Foot TV UI & Fire OS Wrapper:** Built using high-contrast 16:9 widescreen layouts with native D-pad spatial focus management (`Arrow` keys, `Enter`, `Back`), on-screen remote simulation, and a native Android Leanback wrapper (`fireos/`) targeting Fire OS.
-- **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies. Executes locally on-device with sub-5ms latency and targeted unit tests for ranking and constraints.
-- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`) with strict JSON validation, timeout budgets, response caching, and deterministic local fallbacks for offline resilience.
-- **Curated Living Room Library:** 20+ diverse titles with detailed metadata, genre weights, mood tags, and runtime constraints.
+- **Architecture & Runtimes:** The system uses a clean client-server architecture:
+  - **Fire OS Client (`fireos/`):** A native Android Leanback WebView wrapper configured for Fire TV, mapping remote D-pad controls (`KEYCODE_DPAD_*`, `KEYCODE_ENTER`, `KEYCODE_BACK`) and bridging Back button events to web modal states.
+  - **Node.js Application Server (`app/server.ts`):** Serves the 10-foot TV web client, executes the deterministic scoring engine, and communicates with AWS Bedrock via standard AWS SDK credential chains.
+- **10-Foot TV UI (`app/index.html`):** Built with overscan-safe margins, large typography (28px+ body), spatial keyboard navigation, on-screen remote simulation, and accessible focus outlines.
+- **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies, providing unit-tested Rawlsian max-min fairness ranking, group scoring, and constraint satisfaction.
+- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks.
+- **Curated Living Room Library:** Exactly 20 curated titles with detailed metadata, genre weights, mood tags, and runtime constraints.
 
 ---
 
 ### Challenges We Ran Into
-- **Windows Host Virtualization for Vega:** Setting up the Vega Virtual Device inside WSL2 on Windows machines presented virtualization bottlenecks. We resolved this by adopting a modular architecture that cleanly separates the deterministic core from the presentation layer, allowing Fire OS and web runtime execution.
-- **Living Room Latency Budgets:** Television users expect instantaneous feedback. Relying purely on an LLM to generate titles produces hallucinations and 3-second delays. We solved this by using AWS Bedrock solely for semantic extraction and explanation, keeping the ranking engine 100% deterministic and local.
+- **10-Foot Focus & WebView D-Pad Lifecycle:** Managing TV remote focus inside an embedded WebView without focus traps or invisible tab stops required strict spatial navigation and key listeners. Bridging Android's native Back button to dismiss modal overlays required a two-way JavaScript bridge so users don't accidentally exit the app while viewing candidate breakdowns.
+- **Predictable Television Response Times:** Living room users expect immediate feedback. Relying on an LLM to generate candidate recommendations risks hallucinations and latency spikes. We solved this by using AWS Bedrock strictly for structured constraint extraction and explanation, keeping the candidate ranking completely deterministic in TypeScript.
 
 ---
 
 ### Accomplishments That We're Proud Of
 - Designing a genuinely fair group aggregation formula that guarantees no viewer feels ignored.
-- Building a full 10-foot TV experience with remote control simulation that runs seamlessly in modern browsers and Fire TV runtimes.
+- Building a full 10-foot TV interface with keyboard and on-screen remote simulation, alongside an Android WebView wrapper project configured for Fire OS.
 - Automated unit test suite covering constraint filtering, watched history exclusions, Bedrock JSON sanitization, and fairness ranking.
 
 ---
 
 ### What We Learned
 - Designing for a 10-foot television interface demands completely different UX paradigms than desktop or mobile apps: focus clarity, contrast, and remote navigation speed are paramount.
-- How to effectively combine deterministic rule engines with generative AI to get the best of both worlds: zero hallucinations with conversational flexibility.
+- How to effectively combine deterministic rule engines with generative AI: preventing generative hallucinations by keeping scoring strictly grounded in deterministic rules, using LLMs only for semantic parsing and natural explanations.
 
 ---
 
