@@ -1,0 +1,116 @@
+package com.onepick.tv;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+/**
+ * Fire OS Fullscreen Leanback TV Activity.
+ * Hosts the OnePick 10-foot UI and maps Fire TV remote hardware keys
+ * (D-Pad UP/DOWN/LEFT/RIGHT, CENTER/OK, BACK, PLAY/PAUSE).
+ */
+public class MainActivity extends Activity {
+
+    private WebView mWebView;
+    // Default URL: local emulator host alias or local machine server
+    private static final String DEFAULT_URL = "http://10.0.2.2:3000";
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Keep screen on during TV viewing session
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        mWebView = new WebView(this);
+        setContentView(mWebView);
+
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setMediaPlaybackRequiresUserGesture(false);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+
+        // Enable remote debugging for TV inspection
+        WebView.setWebContentsDebuggingEnabled(true);
+
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebChromeClient(new WebChromeClient());
+
+        // TV spatial navigation configuration
+        mWebView.setFocusable(true);
+        mWebView.setFocusableInTouchMode(true);
+        mWebView.requestFocus();
+
+        // Check if custom URL was passed via intent extras (e.g. adb shell am start -e url http://...)
+        String targetUrl = DEFAULT_URL;
+        if (getIntent() != null && getIntent().hasExtra("url")) {
+            targetUrl = getIntent().getStringExtra("url");
+        }
+
+        mWebView.loadUrl(targetUrl);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                dispatchJsKey("ArrowUp");
+                return true;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                dispatchJsKey("ArrowDown");
+                return true;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                dispatchJsKey("ArrowLeft");
+                return true;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                dispatchJsKey("ArrowRight");
+                return true;
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                dispatchJsKey("Enter");
+                return true;
+            case KeyEvent.KEYCODE_BACK:
+                dispatchJsKey("Escape");
+                return true;
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+                dispatchJsKey("PlayPause");
+                return true;
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    private void dispatchJsKey(String keyName) {
+        if (mWebView != null) {
+            String js = "window.dispatchEvent(new KeyboardEvent('keydown', { key: '" + keyName + "', bubbles: true }));";
+            mWebView.evaluateJavascript(js, null);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mWebView != null) {
+            mWebView.onResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mWebView != null) {
+            mWebView.onPause();
+        }
+    }
+}

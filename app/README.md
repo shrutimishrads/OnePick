@@ -1,7 +1,7 @@
-# OnePick Fire TV / Vega Application
+# OnePick Fire TV Application
 
 ## Architecture
-- **Framework:** React Native for TV / Vega OS SDK
-- **Navigation:** 10-foot UI optimized for Fire TV D-pad navigation (`UP`, `DOWN`, `LEFT`, `RIGHT`, `SELECT`, `BACK`).
-- **Focus Management:** Uses native TV focus engine (`hasTVPreferredFocus`, `focusable={true}`).
-- **Scoring Integration:** Directly imports `@onepick/core` for zero-latency local consensus calculation, calling Bedrock only for conversational constraint parsing and natural language consensus explanations.
+- **TV Frontend:** 10-foot television HTML5/TypeScript application (`app/index.html`) optimized for television viewports and 1080p canvas displays.
+- **Fire OS Wrapper (`fireos/`):** Native Android Leanback Activity (`com.onepick.tv.MainActivity`) for deployment onto Fire TV hardware and Android TV emulators.
+- **Remote Navigation:** Spatial D-pad focus engine mapping directional navigation (`ArrowUp`, `ArrowDown`, `ArrowLeft`, `ArrowRight`, `Enter`, `Escape`) to TV remote hardware buttons.
+- **Server:** Node.js HTTP server (`app/server.ts`) serving the 10-foot frontend and exposing consensus calculation and Bedrock API endpoints.
