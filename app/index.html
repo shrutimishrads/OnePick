@@ -2,635 +2,1016 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OnePick 📺 Fire TV 10-Foot Concierge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>OnePick 📺 Amazon Fire TV Living Room Concierge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-dark: #0f141c;
-    --card-bg: #1a2230;
-    --card-border: #2c3a50;
-    --accent: #ff9900; /* Amazon Fire TV Amber */
-    --accent-glow: rgba(255, 153, 0, 0.45);
-    --focus-ring: #00a8e8;
-    --focus-glow: rgba(0, 168, 232, 0.6);
-    --text-primary: #ffffff;
-    --text-muted: #94a3b8;
-    --success: #10b981;
+    --bg-deep: #070a0f;
+    --tv-bg: #0b0f17;
+    --tv-surface: rgba(18, 25, 38, 0.78);
+    --tv-surface-hover: rgba(28, 38, 56, 0.9);
+    --tv-border: rgba(255, 255, 255, 0.08);
+    --tv-border-active: rgba(255, 153, 0, 0.4);
+    
+    /* Fire TV Brand Palette */
+    --fire-amber: #ff9900;
+    --fire-glow: rgba(255, 153, 0, 0.35);
+    --alexa-cyan: #00d2d3;
+    --alexa-glow: rgba(0, 210, 211, 0.4);
+    --alexa-blue: #0084ff;
+    
+    /* Status & Data */
+    --emerald: #10b981;
+    --emerald-bg: rgba(16, 185, 129, 0.15);
+    --rose: #f43f5e;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+    
+    /* Elevation */
+    --shadow-cinema: 0 30px 80px rgba(0, 0, 0, 0.85);
+    --radius-tv: 20px;
+    --radius-card: 16px;
+    --radius-chip: 99px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  
   body {
-    background: #090d14;
+    background: var(--bg-deep);
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 16px;
+    overflow-x: hidden;
   }
 
-  .wrapper {
+  /* Workbench Layout */
+  .workbench {
     display: flex;
-    gap: 24px;
-    max-width: 1540px;
+    gap: 28px;
     width: 100%;
+    max-width: 1720px;
     align-items: flex-start;
+    transition: all 0.3s ease;
   }
 
-  /* 16:9 TV Display Container */
+  .workbench.tv-fullscreen-mode {
+    max-width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+  .workbench.tv-fullscreen-mode .remote-panel {
+    display: none;
+  }
+  .workbench.tv-fullscreen-mode .tv-frame {
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+
+  /* 16:9 Television Viewport */
   .tv-frame {
     flex: 1;
-    background: var(--bg-dark);
+    min-width: 0;
+    background: var(--tv-bg);
     aspect-ratio: 16 / 9;
-    border-radius: 20px;
-    border: 8px solid #232b38;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 168, 232, 0.15);
+    border-radius: var(--radius-tv);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: var(--shadow-cinema), 0 0 100px rgba(0, 210, 211, 0.08);
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
   }
 
-  /* Backdrop Poster Overlay */
-  .tv-backdrop {
+  /* Ambient TV Backlight Layer */
+  .ambient-canvas {
     position: absolute;
-    inset: 0;
+    inset: -20px;
     background-size: cover;
     background-position: center;
-    filter: brightness(0.28) blur(3px);
-    transition: background-image 0.6s ease;
+    filter: blur(48px) brightness(0.28);
+    transform: scale(1.08);
+    transition: background-image 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 0;
   }
 
-  .tv-gradient {
+  .vignette-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(15,20,28,0.95) 0%, rgba(15,20,28,0.7) 50%, rgba(15,20,28,0.85) 100%);
+    background: 
+      radial-gradient(circle at 85% 20%, rgba(0, 210, 211, 0.08) 0%, transparent 45%),
+      linear-gradient(90deg, rgba(7, 10, 15, 0.98) 0%, rgba(7, 10, 15, 0.82) 48%, rgba(7, 10, 15, 0.92) 100%),
+      linear-gradient(0deg, rgba(7, 10, 15, 0.98) 0%, transparent 40%);
     z-index: 1;
+    pointer-events: none;
   }
 
-  .tv-content {
+  /* TV Application UI Space */
+  .tv-app {
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 32px 48px;
+    padding: clamp(20px, 3.5vh, 42px) clamp(24px, 4vw, 56px);
+    overflow-y: auto;
+    scrollbar-width: none;
   }
+  .tv-app::-webkit-scrollbar { display: none; }
 
-  /* Top Bar */
-  .top-bar {
+  /* Broadcast Header */
+  .tv-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: clamp(16px, 2.5vh, 32px);
   }
 
-  .logo {
+  .brand-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
   }
-  .logo-badge {
-    background: linear-gradient(135deg, var(--accent), #ff5500);
+
+  .fire-badge {
+    background: linear-gradient(135deg, var(--fire-amber), #e65100);
     color: #000;
-    font-weight: 900;
-    font-size: 0.9rem;
+    font-weight: 800;
+    font-size: 0.78rem;
     padding: 4px 10px;
     border-radius: 8px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 14px rgba(255, 153, 0, 0.35);
   }
-  .logo-title {
-    font-size: 1.6rem;
+
+  .brand-title {
+    font-size: 1.65rem;
     font-weight: 800;
-    letter-spacing: -0.02em;
-    background: linear-gradient(90deg, #fff, #94a3b8);
+    letter-spacing: -0.03em;
+    background: linear-gradient(90deg, #ffffff 40%, #cbd5e1 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* Viewers row */
-  .viewers-section {
+  .brand-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    font-family: 'JetBrains Mono', monospace;
+    margin-left: 2px;
+  }
+
+  /* Living Room Couch Profile Strip */
+  .couch-strip {
     display: flex;
     align-items: center;
     gap: 12px;
-  }
-  .section-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  .viewer-chip {
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid transparent;
+    background: rgba(18, 25, 38, 0.65);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--tv-border);
     padding: 6px 14px;
-    border-radius: 99px;
-    font-size: 0.9rem;
+    border-radius: var(--radius-chip);
+  }
+
+  .couch-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .viewer-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid transparent;
+    padding: 5px 13px;
+    border-radius: var(--radius-chip);
+    font-size: 0.82rem;
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .viewer-chip.active {
-    background: rgba(16, 185, 129, 0.18);
-    border-color: var(--success);
+  .viewer-pill.active {
+    background: var(--emerald-bg);
+    border-color: rgba(16, 185, 129, 0.5);
     color: #6ee7b7;
   }
-  .viewer-chip.inactive {
+  .viewer-pill.inactive {
     opacity: 0.45;
   }
 
-  /* TV Focusable Item Styling */
-  .tv-focusable {
-    outline: none;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s, border-color 0.2s;
-  }
-  .tv-focusable:focus, .tv-focusable.is-focused {
-    border-color: var(--focus-ring) !important;
-    transform: scale(1.05);
-    box-shadow: 0 0 25px var(--focus-glow) !important;
+  /* TV Focus System - Premium 10-Foot Focus Ring */
+  .focus-ring {
+    outline: none !important;
+    position: relative;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.22s ease, 
+                border-color 0.22s ease,
+                background-color 0.22s ease;
   }
 
-  /* Main Hero Layout */
-  .hero-grid {
+  .focus-ring:focus-visible,
+  .focus-ring.dpad-active {
+    border-color: var(--fire-amber) !important;
+    transform: scale(1.035) translateY(-2px);
+    box-shadow: 0 0 0 2px var(--fire-amber), 0 10px 28px var(--fire-glow) !important;
+    z-index: 10;
+  }
+
+  /* Main Hero Architecture */
+  .hero-container {
     display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 36px;
-    flex: 1;
+    grid-template-columns: 1fr clamp(260px, 24vw, 360px);
+    gap: clamp(24px, 4vw, 56px);
     align-items: center;
+    flex: 1;
+    margin-bottom: 24px;
   }
 
-  .pick-details {
+  .hero-meta-panel {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
   }
 
-  .fairness-badge {
-    align-self: flex-start;
+  /* Broadcast Consensus Badge */
+  .consensus-pill-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .consensus-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 153, 0, 0.15);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-size: 0.95rem;
+    background: rgba(255, 153, 0, 0.12);
+    border: 1px solid var(--fire-amber);
+    color: var(--fire-amber);
+    font-size: 0.86rem;
     font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 99px;
+    padding: 6px 14px;
+    border-radius: var(--radius-chip);
+    letter-spacing: 0.02em;
   }
 
-  .movie-title {
-    font-size: 2.8rem;
+  .fairness-metric {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--alexa-cyan);
+    background: rgba(0, 210, 211, 0.1);
+    border: 1px solid rgba(0, 210, 211, 0.25);
+    padding: 5px 12px;
+    border-radius: var(--radius-chip);
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.6rem);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #ffffff;
   }
 
-  .movie-meta {
+  .meta-chips {
     display: flex;
-    gap: 14px;
-    font-size: 1.05rem;
-    color: var(--text-muted);
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
   }
-  .meta-tag {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
+  .tag-badge {
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8rem;
   }
 
-  .movie-synopsis {
-    font-size: 1.05rem;
-    line-height: 1.5;
+  .hero-synopsis {
+    font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+    line-height: 1.55;
     color: #cbd5e1;
-    max-width: 650px;
+    max-width: 680px;
   }
 
-  /* Satisfaction Breakdown */
-  .satisfaction-box {
-    background: rgba(26, 34, 48, 0.7);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(8px);
-    border-radius: 16px;
+  /* Multi-Viewer Consensus HUD (Rawlsian Welfare Breakdown) */
+  .consensus-hud {
+    background: var(--tv-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--tv-border);
+    border-radius: var(--radius-card);
     padding: 16px 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-width: 650px;
+    gap: 10px;
+    max-width: 680px;
   }
-  .sat-header {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+
+  .hud-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
   }
-  .sat-meter {
+
+  .viewer-bars {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-  }
-  .sat-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-  }
-  .sat-bar-bg {
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .sat-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00a8e8, #10b981);
-    border-radius: 99px;
-    transition: width 0.4s ease;
+    gap: 8px;
   }
 
-  /* Hero Actions */
-  .hero-actions {
+  .viewer-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 48px;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.84rem;
+  }
+
+  .viewer-name-tag {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+
+  .track-bar {
+    height: 7px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+  }
+  .track-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--alexa-cyan), var(--emerald));
+    border-radius: 99px;
+    transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .score-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.84rem;
+    color: var(--emerald);
+    text-align: right;
+  }
+
+  /* Action Buttons Bar */
+  .actions-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 10px;
-  }
-  .btn-tv {
-    background: rgba(255, 255, 255, 0.12);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    font-size: 1.05rem;
-    font-weight: 600;
-    padding: 12px 24px;
-    border-radius: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .btn-tv.primary {
-    background: var(--accent);
-    color: #000;
-    border-color: var(--accent);
+    gap: 12px;
+    margin-top: 6px;
   }
 
-  /* Poster Card */
-  .poster-card {
-    border-radius: 18px;
-    overflow: hidden;
-    aspect-ratio: 2 / 3;
-    border: 3px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
-    background: #000;
+  .tv-btn {
+    background: var(--tv-surface);
+    border: 1px solid var(--tv-border);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    backdrop-filter: blur(10px);
   }
-  .poster-card img {
+
+  .tv-btn.primary {
+    background: linear-gradient(135deg, var(--fire-amber), #ff7700);
+    color: #000;
+    border-color: transparent;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(255, 153, 0, 0.3);
+  }
+
+  /* Cinematic Poster Card */
+  .hero-poster-frame {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 153, 0, 0.15);
+  }
+
+  .hero-poster-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
   }
 
-  /* TV Remote Controller Simulator Frame */
+  /* Shelf / Alternative Contenders Carousel */
+  .shelf-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  .shelf-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .shelf-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .shelf-card {
+    background: var(--tv-surface);
+    border: 1px solid var(--tv-border);
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+  }
+  .shelf-thumb {
+    width: 48px;
+    height: 64px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .shelf-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .shelf-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .shelf-meta {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+  .shelf-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--alexa-cyan);
+    font-weight: 700;
+  }
+
+  /* Alexa Voice Waveform Bar */
+  .alexa-voice-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #0084ff, var(--alexa-cyan), #00ffc4, var(--alexa-cyan), #0084ff);
+    background-size: 200% 100%;
+    animation: alexaWave 2.5s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 50;
+  }
+  .alexa-voice-bar.active { opacity: 1; }
+  @keyframes alexaWave {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* Physical Alexa Voice Remote Controller Simulation */
   .remote-panel {
     width: 290px;
-    background: #141b24;
-    border: 4px solid #232b38;
-    border-radius: 36px;
+    flex-shrink: 0;
+    background: #111722;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 38px;
     padding: 24px 18px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    box-shadow: var(--shadow-cinema), 0 0 40px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
   }
 
-  .remote-brand {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+  .remote-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 0 8px;
+  }
+  .remote-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     color: #64748b;
     text-transform: uppercase;
   }
+  .mode-toggle {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: #94a3b8;
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .mode-toggle:hover { color: #fff; background: rgba(255, 255, 255, 0.14); }
 
-  /* Remote D-Pad */
-  .dpad {
-    width: 200px;
-    height: 200px;
-    background: #232d3d;
+  /* Alexa Blue Accent Mic Button */
+  .remote-mic-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00a8e8, #0077b6);
+    border: 2px solid rgba(0, 210, 211, 0.5);
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 168, 232, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .remote-mic-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 25px var(--alexa-cyan);
+  }
+
+  /* Physical D-Pad Circle */
+  .remote-dpad-ring {
+    width: 184px;
+    height: 184px;
+    background: #1b2434;
     border-radius: 50%;
     position: relative;
-    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.6), 0 6px 15px rgba(0, 0, 0, 0.4);
+    border: 1px solid #2d3b52;
+    box-shadow: inset 0 3px 8px rgba(0,0,0,0.6), 0 8px 20px rgba(0,0,0,0.4);
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .dpad-btn {
+
+  .dpad-key {
     position: absolute;
-    background: none;
+    background: transparent;
     border: none;
-    color: #cbd5e1;
-    font-size: 1.4rem;
+    color: #94a3b8;
+    font-size: 1.25rem;
     cursor: pointer;
     padding: 8px;
     border-radius: 8px;
-    transition: color 0.15s, transform 0.1s;
   }
-  .dpad-btn:active { transform: scale(0.9); color: var(--accent); }
-  .dpad-up { top: 10px; }
-  .dpad-down { bottom: 10px; }
-  .dpad-left { left: 10px; }
-  .dpad-right { right: 10px; }
+  .dpad-key:active { color: var(--fire-amber); transform: scale(0.9); }
+  .dpad-k-up { top: 8px; }
+  .dpad-k-down { bottom: 8px; }
+  .dpad-k-left { left: 8px; }
+  .dpad-k-right { right: 8px; }
 
-  .dpad-center {
-    width: 82px;
-    height: 82px;
-    background: #1a2230;
+  .dpad-k-center {
+    width: 76px;
+    height: 76px;
+    background: #111722;
     border-radius: 50%;
-    border: 2px solid #334155;
+    border: 1px solid #334155;
     color: #fff;
+    font-size: 0.88rem;
     font-weight: 700;
-    font-size: 1rem;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     transition: all 0.15s;
   }
-  .dpad-center:active { background: var(--accent); color: #000; }
+  .dpad-k-center:active {
+    background: var(--fire-amber);
+    color: #000;
+  }
 
-  /* Remote Functional Buttons */
-  .remote-buttons {
+  .remote-cluster {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     width: 100%;
   }
-  .remote-action-btn {
-    background: #232d3d;
-    border: 1px solid #334155;
-    color: #fff;
-    padding: 10px;
-    border-radius: 14px;
-    font-size: 0.85rem;
-    cursor: pointer;
+
+  .cluster-btn {
+    background: #1c2535;
+    border: 1px solid #2d3b52;
+    color: #e2e8f0;
+    padding: 11px 4px;
+    border-radius: 12px;
+    font-size: 0.8rem;
     font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    transition: background 0.15s;
-  }
-  .remote-action-btn:hover { background: #2f3c50; }
-  .remote-action-btn:active { background: var(--accent); color: #000; }
-
-  .remote-hint {
-    font-size: 0.75rem;
-    color: #64748b;
+    cursor: pointer;
     text-align: center;
-    line-height: 1.4;
+  }
+  .cluster-btn:active { background: var(--fire-amber); color: #000; }
+
+  .remote-instructions {
+    font-size: 0.72rem;
+    color: #64748b;
+    line-height: 1.45;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 12px;
+    width: 100%;
   }
 
-  /* Explanation / Refinement Modal */
-  .modal-backdrop {
+  /* AWS Bedrock Glass Modal */
+  .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(6px);
+    background: rgba(3, 7, 13, 0.8);
+    backdrop-filter: blur(12px);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 100;
+    padding: 20px;
   }
-  .modal-backdrop.open { display: flex; }
-  .modal-card {
-    background: #1a2230;
-    border: 2px solid var(--accent);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 35px var(--accent-glow);
+  .modal-overlay.open { display: flex; }
+
+  .modal-window {
+    background: #0f1623;
+    border: 1px solid rgba(255, 153, 0, 0.4);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px var(--fire-glow);
     border-radius: 24px;
-    padding: 32px;
-    max-width: 600px;
-    width: 90%;
+    padding: 32px 36px;
+    max-width: 620px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
+    position: relative;
   }
-  .modal-title { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
-  .modal-body { font-size: 1.1rem; line-height: 1.6; color: #e2e8f0; }
-  .modal-footer { display: flex; justify-content: flex-end; }
+
+  .modal-header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--fire-amber);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+  }
+
+  .modal-main-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #fff;
+  }
+
+  .modal-content-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1100px) {
+    .workbench { flex-direction: column; align-items: center; }
+    .remote-panel { width: 100%; max-width: 420px; }
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 8px; }
+    .tv-frame { border-radius: 12px; }
+    .hero-container { grid-template-columns: 1fr; }
+    .hero-poster-frame { display: none; }
+    .couch-strip { flex-wrap: wrap; }
+    .shelf-row { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
 
-<div class="wrapper">
-  <!-- Fire TV Display Screen -->
-  <div class="tv-frame" id="tvScreen">
-    <div class="tv-backdrop" id="tvBackdrop"></div>
-    <div class="tv-gradient"></div>
+<div class="workbench" id="workbench">
+  <!-- 16:9 Television Screen -->
+  <div class="tv-frame" id="tvViewport">
+    <div class="ambient-canvas" id="ambientBg"></div>
+    <div class="vignette-overlay"></div>
+    <div class="alexa-voice-bar" id="voiceBar"></div>
 
-    <div class="tv-content">
-      <!-- Top Bar: Logo & Active Viewers -->
-      <div class="top-bar">
-        <div class="logo">
-          <span class="logo-badge">FIRE TV</span>
-          <span class="logo-title">OnePick</span>
+    <div class="tv-app">
+      <!-- Television Navigation Header -->
+      <header class="tv-header">
+        <div class="brand-group">
+          <span class="fire-badge">FIRE TV</span>
+          <span class="brand-title">OnePick</span>
+          <span class="brand-subtitle">v1.0 • RAWLSIAN CONSENSUS</span>
         </div>
 
-        <div class="viewers-section">
-          <span class="section-label">Active Viewers:</span>
-          <div id="viewersContainer" style="display:flex; gap:8px;"></div>
+        <!-- Couch Household Strip -->
+        <div class="couch-strip">
+          <span class="couch-label">In The Room:</span>
+          <div id="viewersList" style="display:flex; gap:8px;"></div>
         </div>
-      </div>
+      </header>
 
-      <!-- Main Recommendation Hero -->
-      <div class="hero-grid">
-        <div class="pick-details">
-          <div class="fairness-badge" id="fairnessBadge">
-            <span>🤝</span> <span id="fairnessText">Loading Consensus...</span>
-          </div>
-
-          <h1 class="movie-title" id="movieTitle">Analyzing Library...</h1>
-
-          <div class="movie-meta">
-            <span class="meta-tag" id="movieYear">----</span>
-            <span class="meta-tag" id="movieRating">PG-13</span>
-            <span id="movieRuntime">-- min</span>
-            <span id="movieGenres" style="color:#cbd5e1;"></span>
-          </div>
-
-          <p class="movie-synopsis" id="movieSynopsis"></p>
-
-          <!-- Satisfaction Meter -->
-          <div class="satisfaction-box">
-            <div class="sat-header">
-              <span>Fairness Satisfaction Breakdown</span>
-              <span id="minSatisfactionLabel" style="color:var(--accent);">Min: --%</span>
+      <!-- Main Consensus Hero Display -->
+      <section class="hero-container">
+        <div class="hero-meta-panel">
+          <div class="consensus-pill-group">
+            <div class="consensus-badge">
+              <span>🤝</span>
+              <span id="consensusScoreTag">73% Group Consensus</span>
             </div>
-            <div id="satisfactionBars" style="display:flex; flex-direction:column; gap:8px;"></div>
+            <div class="fairness-metric" id="minSatisfiedTag">
+              Min Satisfaction: 70%
+            </div>
           </div>
 
-          <!-- Hero Action Buttons (D-Pad Focusable) -->
-          <div class="hero-actions">
-            <button class="btn-tv primary tv-focusable" id="btnPlay" tabindex="0">▶ Play Title</button>
-            <button class="btn-tv tv-focusable" id="btnExplain" tabindex="0">💡 Why This Pick?</button>
-            <button class="btn-tv tv-focusable" id="btnMax100" tabindex="0">⏳ Under 100m</button>
-            <button class="btn-tv tv-focusable" id="btnSawThat" tabindex="0">🚫 Saw That</button>
-            <button class="btn-tv tv-focusable" id="btnRefineVoice" tabindex="0">🎤 Bedrock Voice</button>
+          <h1 class="hero-title" id="filmTitle">Analyzing Library...</h1>
+
+          <div class="meta-chips">
+            <span class="tag-badge" id="filmYear">2020</span>
+            <span class="tag-badge" id="filmRating">PG-13</span>
+            <span id="filmRuntime">90 min</span>
+            <span>•</span>
+            <span id="filmGenres" style="color:#e2e8f0; font-weight:500;">Comedy • Sci-Fi</span>
+          </div>
+
+          <p class="hero-synopsis" id="filmSynopsis">
+            Loading movie overview...
+          </p>
+
+          <!-- Real-Time Rawlsian Satisfaction Breakdown -->
+          <div class="consensus-hud">
+            <div class="hud-header">
+              <span>Viewer Satisfaction Distribution</span>
+              <span style="color:var(--fire-amber);">Rawlsian Max-Min Fairness</span>
+            </div>
+            <div class="viewer-bars" id="satisfactionBars"></div>
+          </div>
+
+          <!-- D-Pad TV Action Buttons Row -->
+          <div class="actions-row">
+            <button class="tv-btn primary focus-ring" id="btnPlay" tabindex="0">
+              <span>▶</span> Play Title
+            </button>
+            <button class="tv-btn focus-ring" id="btnExplain" tabindex="0">
+              <span>💡</span> Why This Pick?
+            </button>
+            <button class="tv-btn focus-ring" id="btnMax100" tabindex="0">
+              <span>⏳</span> Under 100m
+            </button>
+            <button class="tv-btn focus-ring" id="btnWatched" tabindex="0">
+              <span>🚫</span> Saw That
+            </button>
+            <button class="tv-btn focus-ring" id="btnVoiceMic" tabindex="0">
+              <span>🎙</span> Alexa Voice
+            </button>
           </div>
         </div>
 
-        <div class="poster-card">
-          <img id="moviePoster" src="" alt="Poster">
+        <!-- Cinema Poster Glass Card -->
+        <div class="hero-poster-frame">
+          <img class="hero-poster-img" id="filmPoster" src="" alt="Poster Art">
         </div>
-      </div>
+      </section>
+
+      <!-- Close Contenders Alternative Shelf -->
+      <section class="shelf-section">
+        <div class="shelf-title">Close Contenders (Alternative Compromises)</div>
+        <div class="shelf-row" id="runnerUpShelf"></div>
+      </section>
     </div>
   </div>
 
-  <!-- Simulated Physical Fire TV Remote Control -->
-  <div class="remote-panel">
-    <div class="remote-brand">Fire TV Remote</div>
-
-    <!-- Directional Navigation D-Pad -->
-    <div class="dpad">
-      <button class="dpad-btn dpad-up" id="dpadUp" title="Up">▲</button>
-      <button class="dpad-btn dpad-down" id="dpadDown" title="Down">▼</button>
-      <button class="dpad-btn dpad-left" id="dpadLeft" title="Left">◀</button>
-      <button class="dpad-btn dpad-right" id="dpadRight" title="Right">▶</button>
-      <button class="dpad-center" id="dpadSelect" title="Select / OK">OK</button>
+  <!-- Physical Alexa Voice Remote Controller Simulation -->
+  <aside class="remote-panel">
+    <div class="remote-header">
+      <span class="remote-badge">Fire TV Remote</span>
+      <button class="mode-toggle" id="btnFullscreenToggle" title="Toggle Fullscreen TV">⛶ Full TV</button>
     </div>
 
-    <!-- Quick Keys -->
-    <div class="remote-buttons">
-      <button class="remote-action-btn" id="remoteBack">
-        <span>↩</span> Back
-      </button>
-      <button class="remote-action-btn" id="remoteVoice">
-        <span>🎙</span> Voice
-      </button>
-      <button class="remote-action-btn" id="remoteReset">
-        <span>🔄</span> Reset
-      </button>
-      <button class="remote-action-btn" id="remoteToggleMaya">
-        <span>Toggle</span> Maya
-      </button>
+    <!-- Blue Alexa Voice Button -->
+    <button class="remote-mic-btn" id="remoteMic" title="Hold to Speak">
+      🎙
+    </button>
+
+    <!-- Physical D-Pad Directional Ring -->
+    <div class="remote-dpad-ring">
+      <button class="dpad-key dpad-k-up" id="dpadUp" title="Up">▲</button>
+      <button class="dpad-key dpad-k-down" id="dpadDown" title="Down">▼</button>
+      <button class="dpad-key dpad-k-left" id="dpadLeft" title="Left">◀</button>
+      <button class="dpad-key dpad-k-right" id="dpadRight" title="Right">▶</button>
+      <button class="dpad-k-center" id="dpadCenter" title="Select / OK">OK</button>
     </div>
 
-    <div class="remote-hint">
-      <strong>Keyboard Enabled:</strong><br>
+    <!-- Remote Cluster Keys -->
+    <div class="remote-cluster">
+      <button class="cluster-btn" id="remoteBack" title="Back">↩ Back</button>
+      <button class="cluster-btn" id="remoteReset" title="Reset Filters">🔄 Reset</button>
+      <button class="cluster-btn" id="remoteSound" title="Toggle Remote Clicks">🔊 Audio</button>
+    </div>
+
+    <div class="remote-instructions">
+      <strong>Spatial D-Pad Enabled:</strong><br>
       Use <strong>Arrow Keys</strong> to move focus.<br>
-      <strong>Enter / Space</strong> to select.<br>
-      <strong>Esc</strong> to go back.
+      <strong>Enter / Space</strong> to activate.<br>
+      <strong>Esc / Backspace</strong> for back.
     </div>
-  </div>
+  </aside>
 </div>
 
-<!-- Bedrock Explanation Modal -->
-<div class="modal-backdrop" id="explainModal">
-  <div class="modal-card">
-    <div class="modal-title">🤖 AWS Bedrock Consensus Rationale</div>
-    <div class="modal-body" id="modalBody">Synthesizing consensus breakdown...</div>
-    <div class="modal-footer">
-      <button class="btn-tv primary tv-focusable" id="modalCloseBtn" tabindex="0">Got It</button>
+<!-- Bedrock Rationale Glass Modal -->
+<div class="modal-overlay" id="explainModal">
+  <div class="modal-window">
+    <div class="modal-header-tag">
+      <span>🤖</span> Amazon Bedrock • Converse AI Concierge
+    </div>
+    <h2 class="modal-main-title" id="modalTitle">Why OnePick Selected This Title</h2>
+    <div class="modal-content-card" id="modalText">
+      Consulting consensus calculus...
+    </div>
+    <div style="display:flex; justify-content:flex-end;">
+      <button class="tv-btn primary focus-ring" id="modalClose" tabindex="0">
+        Got It, Let's Watch
+      </button>
     </div>
   </div>
 </div>
 
 <script>
-  let state = null;
-  let currentCandidate = null;
-  let focusableElements = [];
-  let currentFocusIndex = 0;
+  // Web Audio TV Remote Sound FX
+  let audioEnabled = true;
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  function playTickSound(freq = 440, duration = 0.04) {
+    if (!audioEnabled || audioCtx.state === 'suspended') return;
+    try {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {}
+  }
 
-  async function loadState() {
+  // App State
+  let state = null;
+  let topPick = null;
+  let focusables = [];
+  let currentFocus = 0;
+
+  async function fetchState() {
     try {
       const res = await fetch('/api/state');
       state = await res.json();
-      renderUI();
-    } catch (err) {
-      console.error('Failed to load state', err);
+      renderApp();
+    } catch (e) {
+      console.error('State load error:', e);
     }
   }
 
-  function renderUI() {
+  function renderApp() {
     if (!state || !state.candidates || state.candidates.length === 0) return;
-    currentCandidate = state.candidates[0];
-    const title = currentCandidate.title;
+    topPick = state.candidates[0];
+    const film = topPick.title;
 
-    // Background & Poster
-    document.getElementById('tvBackdrop').style.backgroundImage = `url('${title.art}')`;
-    document.getElementById('moviePoster').src = title.art;
+    // Ambient Lighting & Artwork
+    document.getElementById('ambientBg').style.backgroundImage = `url('${film.art}')`;
+    document.getElementById('filmPoster').src = film.art;
 
-    // Metadata
-    document.getElementById('movieTitle').textContent = title.name;
-    document.getElementById('movieYear').textContent = title.year;
-    document.getElementById('movieRating').textContent = title.rating;
-    document.getElementById('movieRuntime').textContent = `${title.minutes} min`;
-    document.getElementById('movieGenres').textContent = title.genres.join(' • ');
-    document.getElementById('movieSynopsis').textContent = title.synopsis || '';
+    // Film Details
+    document.getElementById('filmTitle').textContent = film.name;
+    document.getElementById('filmYear').textContent = film.year;
+    document.getElementById('filmRating').textContent = film.rating;
+    document.getElementById('filmRuntime').textContent = `${film.minutes} min`;
+    document.getElementById('filmGenres').textContent = film.genres.join(' • ');
+    document.getElementById('filmSynopsis').textContent = film.synopsis || '';
 
-    // Group Score
-    document.getElementById('fairnessText').textContent = `${currentCandidate.groupScore}% Group Consensus`;
-    document.getElementById('minSatisfactionLabel').textContent = `Min: ${currentCandidate.minViewerScore}%`;
+    // Consensus Score
+    document.getElementById('consensusScoreTag').textContent = `${topPick.groupScore}% Group Consensus`;
+    document.getElementById('minSatisfiedTag').textContent = `Min Satisfaction: ${topPick.minViewerScore}%`;
 
-    // Viewers row
-    const viewersBox = document.getElementById('viewersContainer');
-    viewersBox.innerHTML = '';
+    // Active Viewers Strip
+    const vContainer = document.getElementById('viewersList');
+    vContainer.innerHTML = '';
     state.allViewers.forEach((v) => {
       const active = state.constraints.viewers.some((av) => av.id === v.id);
-      const chip = document.createElement('div');
-      chip.className = `viewer-chip ${active ? 'active' : 'inactive'}`;
-      chip.innerHTML = `<span>${v.avatar || '👤'}</span> <strong>${v.name}</strong>`;
-      chip.onclick = () => toggleViewer(v.id);
-      viewersBox.appendChild(chip);
+      const pill = document.createElement('div');
+      pill.className = `viewer-pill ${active ? 'active' : 'inactive'}`;
+      pill.innerHTML = `<span>${v.avatar || '👤'}</span> <strong>${v.name}</strong>`;
+      pill.onclick = () => {
+        playTickSound(620);
+        toggleViewer(v.id);
+      };
+      vContainer.appendChild(pill);
     });
 
-    // Per viewer satisfaction bars
-    const satBox = document.getElementById('satisfactionBars');
-    satBox.innerHTML = '';
-    currentCandidate.perViewer.forEach((pv) => {
+    // Per-Viewer Satisfaction Breakdown
+    const barsContainer = document.getElementById('satisfactionBars');
+    barsContainer.innerHTML = '';
+    topPick.perViewer.forEach((pv) => {
       const row = document.createElement('div');
-      row.className = 'sat-meter';
+      row.className = 'viewer-row';
       row.innerHTML = `
-        <div class="sat-info">
-          <span><strong>${pv.viewerName}</strong>: ${pv.reasons[0] || 'Neutral'}</span>
-          <span><strong>${pv.score}%</strong></span>
+        <span class="viewer-name-tag">${pv.viewerName}</span>
+        <div class="track-bar">
+          <div class="track-fill" style="width: ${pv.score}%"></div>
         </div>
-        <div class="sat-bar-bg">
-          <div class="sat-bar-fill" style="width: ${pv.score}%"></div>
+        <span class="score-label">${pv.score}%</span>
+      `;
+      barsContainer.appendChild(row);
+    });
+
+    // Runner-Up Contenders Shelf
+    const shelf = document.getElementById('runnerUpShelf');
+    shelf.innerHTML = '';
+    state.candidates.slice(1, 5).forEach((cand) => {
+      const card = document.createElement('div');
+      card.className = 'shelf-card focus-ring';
+      card.tabIndex = 0;
+      card.innerHTML = `
+        <img class="shelf-thumb" src="${cand.title.art}" alt="thumb">
+        <div class="shelf-info">
+          <span class="shelf-name">${cand.title.name}</span>
+          <span class="shelf-meta">${cand.title.minutes}m • ${cand.title.rating}</span>
+          <span class="shelf-score">${cand.groupScore}% Consensus</span>
         </div>
       `;
-      satBox.appendChild(row);
+      card.onclick = () => {
+        playTickSound(700);
+        alert(`Runner-up details for "${cand.title.name}" (${cand.groupScore}% consensus)`);
+      };
+      shelf.appendChild(card);
     });
 
-    updateFocusList();
+    refreshFocusIndex();
   }
 
-  function updateFocusList() {
-    focusableElements = Array.from(document.querySelectorAll('.tv-focusable:not([style*="display: none"])'));
-    if (focusableElements.length > 0 && currentFocusIndex >= focusableElements.length) {
-      currentFocusIndex = 0;
+  function refreshFocusIndex() {
+    focusables = Array.from(document.querySelectorAll('.focus-ring:not([style*="display: none"])'));
+    if (focusables.length > 0 && currentFocus >= focusables.length) {
+      currentFocus = 0;
     }
-    if (focusableElements[currentFocusIndex]) {
-      focusableElements[currentFocusIndex].focus();
+    if (focusables[currentFocus]) {
+      focusables.forEach(f => f.classList.remove('dpad-active'));
+      focusables[currentFocus].classList.add('dpad-active');
+      focusables[currentFocus].focus();
     }
   }
 
-  function navigateFocus(direction) {
-    if (focusableElements.length === 0) return;
+  function stepFocus(direction) {
+    if (focusables.length === 0) return;
+    playTickSound(480, 0.03);
+    focusables.forEach(f => f.classList.remove('dpad-active'));
+
     if (direction === 'next' || direction === 'right' || direction === 'down') {
-      currentFocusIndex = (currentFocusIndex + 1) % focusableElements.length;
+      currentFocus = (currentFocus + 1) % focusables.length;
     } else {
-      currentFocusIndex = (currentFocusIndex - 1 + focusableElements.length) % focusableElements.length;
+      currentFocus = (currentFocus - 1 + focusables.length) % focusables.length;
     }
-    focusableElements[currentFocusIndex].focus();
+
+    focusables[currentFocus].classList.add('dpad-active');
+    focusables[currentFocus].focus();
   }
 
   async function toggleViewer(viewerId) {
@@ -639,130 +1020,145 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ viewerId }),
     });
-    const data = await res.json();
-    state.constraints = data.constraints;
-    state.candidates = data.candidates;
-    renderUI();
+    const d = await res.json();
+    state.constraints = d.constraints;
+    state.candidates = d.candidates;
+    renderApp();
   }
 
-  async function patchConstraint(patch) {
+  async function sendPatch(patch) {
+    playTickSound(520);
     const res = await fetch('/api/patch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(patch),
     });
-    const data = await res.json();
-    state.constraints = data.constraints;
-    state.candidates = data.candidates;
-    renderUI();
+    const d = await res.json();
+    state.constraints = d.constraints;
+    state.candidates = d.candidates;
+    renderApp();
   }
 
-  async function voiceRefine(utterance) {
-    const res = await fetch('/api/voice-refine', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ utterance }),
-    });
-    const data = await res.json();
-    state.constraints = data.constraints;
-    state.candidates = data.candidates;
-    renderUI();
+  async function triggerVoiceRefine(utterance) {
+    const wave = document.getElementById('voiceBar');
+    wave.classList.add('active');
+    playTickSound(880, 0.1);
+
+    try {
+      const res = await fetch('/api/voice-refine', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ utterance }),
+      });
+      const d = await res.json();
+      state.constraints = d.constraints;
+      state.candidates = d.candidates;
+      renderApp();
+    } finally {
+      setTimeout(() => wave.classList.remove('active'), 1200);
+    }
   }
 
-  async function showExplanation() {
-    if (!currentCandidate) return;
+  async function openExplainModal() {
+    if (!topPick) return;
+    playTickSound(650);
     const modal = document.getElementById('explainModal');
-    const body = document.getElementById('modalBody');
-    body.innerHTML = '<em>Consulting Amazon Bedrock Converse API...</em>';
+    const content = document.getElementById('modalText');
+    content.innerHTML = '<span style="color:var(--alexa-cyan)">⚡ Synthesizing Bedrock trade-off calculus...</span>';
     modal.classList.add('open');
 
     const res = await fetch('/api/explain', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ candidate: currentCandidate }),
+      body: JSON.stringify({ candidate: topPick }),
     });
-    const data = await res.json();
-    body.innerHTML = `
-      <p style="margin-bottom:12px;"><strong>${data.summary}</strong></p>
-      <p style="margin-bottom:12px; color:#93c5fd;">🤝 ${data.consensusHighlight}</p>
-      <p style="color:#cbd5e1;">⚖️ ${data.tradeOff}</p>
+    const d = await res.json();
+    content.innerHTML = `
+      <p style="margin-bottom:12px; font-weight:700; color:#fff;">${d.summary}</p>
+      <p style="margin-bottom:12px; color:#6ee7b7;">🤝 ${d.consensusHighlight}</p>
+      <p style="color:#94a3b8;">⚖️ ${d.tradeOff}</p>
     `;
-    document.getElementById('modalCloseBtn').focus();
+    document.getElementById('modalClose').focus();
   }
 
-  function closeModal() {
+  function closeExplainModal() {
+    playTickSound(420);
     document.getElementById('explainModal').classList.remove('open');
-    updateFocusList();
+    refreshFocusIndex();
   }
 
-  // Action Button Listeners
+  // Action Buttons
   document.getElementById('btnPlay').onclick = () => {
-    alert(`Starting playback for "${currentCandidate.title.name}"!`);
+    playTickSound(780, 0.1);
+    alert(`Starting playback for "${topPick.title.name}"!`);
   };
-
-  document.getElementById('btnExplain').onclick = showExplanation;
-
-  document.getElementById('btnMax100').onclick = () => {
-    patchConstraint({ maxMinutes: 100 });
+  document.getElementById('btnExplain').onclick = openExplainModal;
+  document.getElementById('btnMax100').onclick = () => sendPatch({ maxMinutes: 100 });
+  document.getElementById('btnWatched').onclick = () => {
+    if (topPick) sendPatch({ watched: [topPick.title.id] });
   };
-
-  document.getElementById('btnSawThat').onclick = () => {
-    if (currentCandidate) {
-      patchConstraint({ watched: [currentCandidate.title.id] });
-    }
+  document.getElementById('btnVoiceMic').onclick = () => {
+    const speech = prompt('Simulate Alexa Voice Remote input:', 'Keep it under 100 minutes');
+    if (speech) triggerVoiceRefine(speech);
   };
+  document.getElementById('modalClose').onclick = closeExplainModal;
 
-  document.getElementById('btnRefineVoice').onclick = () => {
-    const val = prompt('Simulate Bedrock Voice Input:', 'Alex wants something witty under 95 minutes');
-    if (val) voiceRefine(val);
+  // Remote Controller Buttons
+  document.getElementById('dpadUp').onclick = () => stepFocus('prev');
+  document.getElementById('dpadDown').onclick = () => stepFocus('next');
+  document.getElementById('dpadLeft').onclick = () => stepFocus('prev');
+  document.getElementById('dpadRight').onclick = () => stepFocus('next');
+  document.getElementById('dpadCenter').onclick = () => {
+    playTickSound(660);
+    if (focusables[currentFocus]) focusables[currentFocus].click();
   };
-
-  document.getElementById('modalCloseBtn').onclick = closeModal;
-
-  // Remote D-Pad Listeners
-  document.getElementById('dpadUp').onclick = () => navigateFocus('prev');
-  document.getElementById('dpadDown').onclick = () => navigateFocus('next');
-  document.getElementById('dpadLeft').onclick = () => navigateFocus('prev');
-  document.getElementById('dpadRight').onclick = () => navigateFocus('next');
-  document.getElementById('dpadSelect').onclick = () => {
-    if (focusableElements[currentFocusIndex]) {
-      focusableElements[currentFocusIndex].click();
-    }
-  };
-
-  document.getElementById('remoteBack').onclick = closeModal;
-  document.getElementById('remoteVoice').onclick = () => {
-    voiceRefine('Keep it under 100 minutes');
-  };
+  document.getElementById('remoteBack').onclick = closeExplainModal;
   document.getElementById('remoteReset').onclick = async () => {
+    playTickSound(400);
     const res = await fetch('/api/reset', { method: 'POST' });
-    const data = await res.json();
-    state.constraints = data.constraints;
-    state.candidates = data.candidates;
-    renderUI();
+    const d = await res.json();
+    state.constraints = d.constraints;
+    state.candidates = d.candidates;
+    renderApp();
   };
-  document.getElementById('remoteToggleMaya').onclick = () => toggleViewer('v-maya');
+  document.getElementById('remoteMic').onclick = () => {
+    triggerVoiceRefine('Alex has to wake up early tomorrow, keep it under 100 minutes');
+  };
+  document.getElementById('remoteSound').onclick = () => {
+    audioEnabled = !audioEnabled;
+    document.getElementById('remoteSound').textContent = audioEnabled ? '🔊 Audio' : '🔇 Mute';
+  };
 
-  // Keyboard TV Remote Navigation
+  // Fullscreen TV Viewport Toggle
+  document.getElementById('btnFullscreenToggle').onclick = () => {
+    const wb = document.getElementById('workbench');
+    wb.classList.toggle('tv-fullscreen-mode');
+    document.getElementById('btnFullscreenToggle').textContent = 
+      wb.classList.contains('tv-fullscreen-mode') ? '⛶ Exit' : '⛶ Full TV';
+    refreshFocusIndex();
+  };
+
+  // Keyboard Navigation (Fire TV remote keys)
   window.addEventListener('keydown', (e) => {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
-      navigateFocus('next');
+      stepFocus('next');
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
       e.preventDefault();
-      navigateFocus('prev');
+      stepFocus('prev');
     } else if (e.key === 'Enter' || e.key === ' ') {
       if (document.getElementById('explainModal').classList.contains('open')) {
-        closeModal();
-      } else if (focusableElements[currentFocusIndex]) {
-        focusableElements[currentFocusIndex].click();
+        closeExplainModal();
+      } else if (focusables[currentFocus]) {
+        focusables[currentFocus].click();
       }
     } else if (e.key === 'Escape' || e.key === 'Backspace') {
-      closeModal();
+      closeExplainModal();
     }
   });
 
-  loadState();
+  fetchState();
 </script>
 </body>
 </html>
