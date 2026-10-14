@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>OnePick — Household Consensus Engine</title>
+<meta name="viewport" content="width=1920, height=1080, initial-scale=1.0, user-scalable=no">
+<title>OnePick — 10-Foot Living Room Viewing Concierge (Fire TV Edition)</title>
 <style>
   @font-face {
     font-family: 'Syne';
@@ -43,134 +43,389 @@
 
   :root {
     --bg-base: #131419;
-    --surface-base: #1b1c23;
-    --surface-elevated: #252732;
-    --border-subtle: #313340;
-    --border-strong: #474b5e;
+    --surface-base: #1a1b24;
+    --surface-elevated: #242633;
+    --surface-card: #1f202b;
+    --border-subtle: #2d3040;
+    --border-strong: #44485c;
     --accent: #e26d5c;
+    --accent-glow: rgba(226, 109, 92, 0.45);
     --accent-contrast: #131419;
     --text-primary: #edece6;
     --text-secondary: #a6a59e;
-    --text-tertiary: #6e6d66;
+    --text-tertiary: #75756f;
+    --badge-gold: #f5a623;
     
-    --font-heading: 'Syne', sans-serif;
+    --font-heading: 'Syne', -apple-system, sans-serif;
     --font-body: 'Sora', -apple-system, sans-serif;
     --font-mono: 'DM Mono', monospace;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    background-color: var(--bg-base);
+  html, body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0b0c10;
     color: var(--text-primary);
     font-family: var(--font-body);
     font-size: 28px;
     line-height: 1.45;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* 16:9 1080p TV Display with 5% Overscan-Safe Zone */
-  .tv-container {
+  /* Responsive Viewport Frame that centers and auto-fits the 10-Foot 16:9 TV canvas */
+  .tv-viewport-frame {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #0b0c10;
+  }
+
+  /* 16:9 1080p TV Container with Strict 5% Overscan Safe Area (54px top/bottom, 96px left/right) */
+  .tv-container {
+    width: 1920px;
+    height: 1080px;
+    min-width: 1920px;
+    min-height: 1080px;
     max-width: 1920px;
     max-height: 1080px;
-    background-color: var(--bg-base);
-    padding: 5vh 5vw; /* 5% overscan safety margins */
+    padding: 54px 96px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
+    background-color: var(--bg-base);
+    background: radial-gradient(1300px circle at 85% 15%, rgba(226, 109, 92, 0.09) 0%, rgba(28, 30, 41, 0.5) 45%, #131419 85%), #131419;
+    transform-origin: center center;
+    transform: scale(var(--tv-scale, 1));
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.85);
   }
 
-  /* Top Navigation Bar */
+  /* Screen views */
+  .screen-view {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+  .screen-view.active {
+    display: flex;
+  }
+
+  /* Top Navigation Bar — Fire TV Style Header */
   .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--border-subtle);
-    padding-bottom: 24px;
-    margin-bottom: 28px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    flex-shrink: 0;
   }
 
   .brand-block {
     display: flex;
-    align-items: baseline;
-    gap: 16px;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .brand-logo-firetv {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .brand-name {
     font-family: var(--font-heading);
-    font-size: 42px;
+    font-size: 46px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: var(--text-primary);
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .brand-firetv-badge {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background-color: rgba(226, 109, 92, 0.18);
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    text-transform: uppercase;
   }
 
   .brand-sub {
     font-family: var(--font-mono);
-    font-size: 20px;
+    font-size: 22px;
     color: var(--text-tertiary);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
   }
 
-  /* Viewers Selection */
-  .viewers-strip {
+  .top-status {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
   }
 
-  .viewers-label {
-    font-family: var(--font-mono);
-    font-size: 20px;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-  }
-
-  .viewer-button {
-    background-color: var(--surface-base);
-    border: 2px solid var(--border-subtle);
-    color: var(--text-secondary);
-    font-family: var(--font-body);
-    font-size: 22px;
-    font-weight: 600;
-    padding: 8px 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.15s, color 0.15s;
-  }
-  .viewer-button.active {
+  .couch-pill {
     background-color: var(--surface-elevated);
-    border-color: var(--text-secondary);
+    border: 2px solid var(--border-strong);
+    padding: 6px 18px;
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+  }
+
+  /* Action Buttons & Focusable D-Pad Targets (Fire TV 10-Foot Design) */
+  .dpad-target {
+    font-family: var(--font-body);
+    font-size: 26px;
+    font-weight: 700;
+    padding: 16px 30px;
+    min-height: 74px;
+    background-color: var(--surface-base);
+    border: 2px solid var(--border-strong);
+    color: var(--text-primary);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .dpad-target.primary {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(226, 109, 92, 0.3);
+  }
+
+  /* 10-Foot Focus State: 4px Solid Outline + Scale + Fire TV Ambient Glow */
+  .dpad-target:focus-visible,
+  .dpad-target.focused {
+    outline: 4px solid var(--accent) !important;
+    outline-offset: 4px !important;
+    transform: scale(1.04) !important;
+    background-color: var(--surface-elevated) !important;
+    box-shadow: 0 0 0 4px var(--accent), 0 0 28px var(--accent-glow), 0 10px 26px rgba(0, 0, 0, 0.75) !important;
+    z-index: 10;
+  }
+  .dpad-target.primary:focus-visible,
+  .dpad-target.primary.focused {
+    background-color: var(--accent) !important;
+    color: var(--accent-contrast) !important;
+    box-shadow: 0 0 0 4px #ffffff, 0 0 32px var(--accent-glow), 0 10px 28px rgba(0, 0, 0, 0.8) !important;
+  }
+
+  /* ========================================================
+     SCREEN 1: VIEWER SELECTION SCREEN (FIRE TV PROFILE PICKER)
+     ======================================================== */
+  .viewers-screen-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .screen-title-block {
+    margin-bottom: 20px;
+  }
+
+  .screen-hero-title {
+    font-family: var(--font-heading);
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .screen-hero-sub {
+    font-size: 28px;
+    color: var(--text-secondary);
+  }
+
+  .viewers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+
+  /* Fire TV Profile Card */
+  .viewer-card {
+    background-color: var(--surface-card);
+    border: 3px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 26px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 385px;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .viewer-card.active {
+    border-color: var(--border-strong);
+    background: linear-gradient(180deg, #232532 0%, #1a1b24 100%);
+  }
+
+  .viewer-card-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  /* Profile Avatar Circle */
+  .viewer-avatar-circle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background-color: var(--surface-elevated);
+    border: 2px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+  .viewer-card.active .viewer-avatar-circle {
+    border-color: var(--accent);
+    background: rgba(226, 109, 92, 0.15);
+  }
+
+  .viewer-name-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .viewer-card-name {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .viewer-status-pill {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    display: inline-block;
+    width: fit-content;
+  }
+  .viewer-card.active .viewer-status-pill {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .viewer-card:not(.active) .viewer-status-pill {
+    background-color: var(--surface-elevated);
+    color: var(--text-tertiary);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .viewer-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 24px;
+    color: var(--text-secondary);
+    background-color: rgba(19, 20, 25, 0.5);
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .viewer-detail-row strong {
     color: var(--text-primary);
   }
-  .viewer-button.inactive {
-    opacity: 0.4;
+
+  .viewer-card-bottom {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 14px;
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 
-  /* Main Two-Column TV Layout */
+  .viewer-card-bottom .status-cue {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .viewer-card.active .viewer-card-bottom .status-cue {
+    color: var(--accent);
+  }
+
+  .viewers-action-bar {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-top: 6px;
+  }
+
+  /* ========================================================
+     SCREEN 2: CONSENSUS PICK SCREEN (FIRE TV HERO DETAIL)
+     ======================================================== */
   .main-stage {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
-    gap: 5vw;
+    gap: 48px;
     align-items: start;
     flex: 1;
     min-height: 0;
   }
 
-  /* Left Column: Hero Pick & Information */
+  /* Left Column: Hero Pick */
   .hero-panel {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
   }
 
   .consensus-indicator {
@@ -178,238 +433,300 @@
     align-items: center;
     gap: 16px;
     font-family: var(--font-mono);
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .consensus-badge {
     background-color: var(--accent);
     color: var(--accent-contrast);
-    font-weight: 600;
-    padding: 4px 14px;
-    border-radius: 4px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(226, 109, 92, 0.35);
   }
 
   .source-pill {
-    color: var(--text-tertiary);
-    border: 1px solid var(--border-strong);
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-size: 18px;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--surface-elevated);
+    border: 2px solid var(--border-strong);
+    padding: 6px 16px;
+    border-radius: 8px;
   }
 
   .title-heading {
     font-family: var(--font-heading);
-    font-size: 60px;
+    font-size: 64px;
     font-weight: 800;
     line-height: 1.1;
-    color: var(--text-primary);
+    color: #ffffff;
     letter-spacing: -0.02em;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   }
 
   .metadata-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     font-family: var(--font-mono);
-    font-size: 22px;
+    font-size: 24px;
     color: var(--text-secondary);
+    flex-wrap: wrap;
   }
 
   .meta-tag {
-    border: 1px solid var(--border-strong);
-    padding: 2px 8px;
-    border-radius: 4px;
+    border: 2px solid var(--border-strong);
+    padding: 4px 12px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .meta-feature-badge {
+    background-color: rgba(245, 166, 35, 0.2);
+    border: 1.5px solid var(--badge-gold);
+    color: var(--badge-gold);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
   }
 
   .synopsis-text {
     font-size: 28px;
     line-height: 1.5;
     color: var(--text-secondary);
-    max-width: 900px;
+    max-width: 920px;
   }
 
-  /* Right Column: Typographic Title Card & Satisfaction Scorecard */
+  .actions-bar {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* Right Column: Visual Artwork Hero & Satisfaction Scorecard */
   .detail-panel {
     display: flex;
     flex-direction: column;
     gap: 22px;
   }
 
-  /* Typographic Title Card (No Stock Posters) */
-  .typographic-card {
+  /* Artwork Hero Card (Visual poster/backdrop with gradient overlay - NO DUPLICATE TITLE) */
+  .artwork-hero-card {
     background-color: var(--surface-base);
     border: 2px solid var(--border-strong);
-    border-radius: 8px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    border-radius: 16px;
+    overflow: hidden;
     aspect-ratio: 16 / 9;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   }
 
-  .card-top {
+  .artwork-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .artwork-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(19, 20, 25, 0.95) 0%, rgba(19, 20, 25, 0.4) 60%, rgba(19, 20, 25, 0.1) 100%);
+    z-index: 2;
+  }
+
+  .artwork-content-overlay {
+    position: relative;
+    z-index: 3;
+    padding: 22px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .artwork-featured-tag {
     font-family: var(--font-mono);
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .artwork-metadata {
+    font-family: var(--font-mono);
+    font-size: 22px;
     color: var(--text-secondary);
     text-transform: uppercase;
-  }
-
-  .card-center-title {
-    font-family: var(--font-heading);
-    font-size: 42px;
-    font-weight: 800;
-    line-height: 1.15;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    margin: 12px 0;
-  }
-
-  .card-bottom-genres {
-    font-family: var(--font-mono);
-    font-size: 20px;
-    color: var(--accent);
     letter-spacing: 0.05em;
   }
 
-  /* Group Fairness Scorecard */
+  .artwork-genres {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+
+  /* Group Fairness Scorecard (Fire TV Telemetry Widget) */
   .scorecard-block {
     background-color: var(--surface-base);
     border: 2px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 22px 26px;
+    border-radius: 16px;
+    padding: 24px 26px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   }
 
-  .scorecard-title {
-    font-family: var(--font-mono);
-    font-size: 20px;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
+  .scorecard-title-row {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 24px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 12px;
   }
 
   .viewer-score-row {
     display: grid;
-    grid-template-columns: 110px 1fr 70px;
+    grid-template-columns: 140px 105px 1fr 85px;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
     font-size: 24px;
   }
 
   .viewer-score-name {
-    font-weight: 600;
-    color: var(--text-primary);
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .lowest-pill {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+    padding: 3px 10px;
+    border-radius: 6px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+
+  .lowest-placeholder {
+    visibility: hidden;
   }
 
   .meter-bar {
-    height: 12px;
+    height: 24px;
     background-color: var(--surface-elevated);
-    border-radius: 2px;
+    border-radius: 999px;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .meter-fill {
     height: 100%;
-    background-color: var(--text-secondary);
+    background-color: #555b6e;
+    border-radius: 999px;
     transition: width 0.3s ease;
   }
-  .meter-fill.lead {
+  .meter-fill.lowest {
     background-color: var(--accent);
+    box-shadow: 0 0 10px rgba(226, 109, 92, 0.5);
   }
 
   .viewer-score-num {
     font-family: var(--font-mono);
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
     text-align: right;
-    color: var(--text-primary);
+    color: #ffffff;
   }
 
-  /* Action Buttons Bar */
-  .actions-bar {
+  /* Fire TV Remote Controls Hint Footer */
+  .footer-hints {
+    border-top: 2px solid var(--border-subtle);
+    padding-top: 16px;
+    margin-top: 14px;
     display: flex;
-    gap: 16px;
-    margin-top: 12px;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
   }
 
-  .dpad-target {
-    font-family: var(--font-body);
-    font-size: 24px;
-    font-weight: 600;
-    padding: 14px 28px;
-    background-color: var(--surface-base);
+  .hints-keys {
+    display: flex;
+    gap: 24px;
+  }
+  .key-token {
+    color: #ffffff;
     border: 2px solid var(--border-strong);
-    color: var(--text-primary);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.15s ease, background-color 0.15s ease;
-    outline: none;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background-color: var(--surface-elevated);
+    font-weight: 600;
   }
 
-  .dpad-target.primary {
-    background-color: var(--accent);
-    color: var(--accent-contrast);
-    border-color: var(--accent);
-  }
-
-  /* 10-Foot D-Pad Focus State: Outline + Scale (High Contrast) */
-  .dpad-target:focus-visible,
-  .dpad-target.focused {
-    outline: 4px solid var(--accent) !important;
-    outline-offset: 4px !important;
-    transform: scale(1.03) !important;
-    background-color: var(--surface-elevated) !important;
-    z-index: 5;
-  }
-  .dpad-target.primary:focus-visible,
-  .dpad-target.primary.focused {
-    background-color: var(--accent) !important;
-  }
-
-  /* "Why This Pick" Modal Dialog (Full TV Viewport Readable) */
+  /* "Why This Pick" Fullscreen Modal Dialog with High WCAG Contrast (Dark Scrim) */
   .explanation-dialog {
-    position: fixed;
+    position: absolute;
     inset: 0;
-    background-color: rgba(19, 20, 25, 0.95);
+    background-color: rgba(9, 10, 14, 0.96);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 100;
-    padding: 5vw;
+    padding: 54px 96px;
   }
   .explanation-dialog.visible {
     display: flex;
   }
 
   .dialog-card {
-    background-color: var(--surface-base);
-    border: 2px solid var(--border-strong);
-    border-radius: 8px;
-    max-width: 1050px;
+    background-color: #1a1b24;
+    border: 2px solid #474b5e;
+    border-left: 8px solid var(--accent);
+    border-radius: 16px;
+    max-width: 1120px;
     width: 100%;
-    padding: 44px;
+    padding: 48px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 26px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
   }
 
   .dialog-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     border-bottom: 2px solid var(--border-subtle);
-    padding-bottom: 16px;
+    padding-bottom: 18px;
   }
 
   .dialog-title {
     font-family: var(--font-heading);
     font-size: 38px;
     font-weight: 800;
+    color: #ffffff;
   }
 
   .dialog-body {
@@ -418,150 +735,199 @@
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
-    gap: 16px;
-  }
-
-  .dialog-source-tag {
-    font-family: var(--font-mono);
-    font-size: 20px;
-    color: var(--text-tertiary);
-  }
-
-  /* Controls Hint Footer */
-  .footer-hints {
-    border-top: 2px solid var(--border-subtle);
-    padding-top: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 20px;
-    color: var(--text-tertiary);
-  }
-
-  .hints-keys {
-    display: flex;
     gap: 20px;
   }
-  .key-token {
-    color: var(--text-secondary);
-    border: 1px solid var(--border-strong);
-    padding: 2px 8px;
-    border-radius: 4px;
+
+  .dialog-body p strong {
+    font-size: 32px;
+    color: #ffffff;
+  }
+
+  .dialog-highlight {
+    font-size: 28px;
+    color: #edece6;
+  }
+
+  .dialog-tradeoff {
+    font-size: 28px;
+    color: #d4d3cc;
   }
 </style>
 </head>
 <body>
 
-<div class="tv-container">
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <div class="brand-block">
-      <div class="brand-name">OnePick</div>
-      <div class="brand-sub">Consensus Engine • 10-Foot UI</div>
-    </div>
+<div class="tv-viewport-frame">
+  <div class="tv-container">
 
-    <div class="viewers-strip">
-      <span class="viewers-label">Viewers:</span>
-      <div id="viewersButtons" style="display:flex; gap:10px;"></div>
-    </div>
-  </header>
-
-  <!-- Main 10-Foot Stage -->
-  <main class="main-stage">
-    <!-- Left Column: Consensus Pick Details -->
-    <section class="hero-panel">
-      <div class="consensus-indicator">
-        <span class="consensus-badge" id="consensusScore">86% Group Consensus</span>
-        <span class="source-pill" id="sourceBadge">Source: local</span>
-      </div>
-
-      <h1 class="title-heading" id="titleText">Loading...</h1>
-
-      <div class="metadata-row">
-        <span class="meta-tag" id="metaYear">2018</span>
-        <span class="meta-tag" id="metaRating">PG</span>
-        <span id="metaRuntime">117 min</span>
-        <span>•</span>
-        <span id="metaGenres">Animation, Action</span>
-      </div>
-
-      <p class="synopsis-text" id="synopsisText">
-        Evaluating household preferences...
-      </p>
-
-      <!-- Action Buttons (D-Pad Reachable) -->
-      <div class="actions-bar">
-        <button class="dpad-target primary" id="btnPlay" tabindex="0">Play</button>
-        <button class="dpad-target" id="btnWhy" tabindex="0">Why this pick?</button>
-        <button class="dpad-target" id="btnMax100" tabindex="0">Max 100m</button>
-        <button class="dpad-target" id="btnWatched" tabindex="0">Watched</button>
-        <button class="dpad-target" id="btnRefine" tabindex="0">Refine</button>
-      </div>
-    </section>
-
-    <!-- Right Column: Typographic Card & Group Scorecard -->
-    <section class="detail-panel">
-      <!-- Typographic Cinema Card -->
-      <div class="typographic-card" id="typographicCard">
-        <div class="card-top">
-          <span id="cardYearRating">2018 / PG</span>
-          <span id="cardRuntime">117 MIN</span>
+  <!-- ========================================================
+       SCREEN 1: VIEWER SELECTION SCREEN (FIRE TV PROFILES)
+       ======================================================== -->
+  <section id="screenViewers" class="screen-view active">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="brand-block">
+        <div class="brand-logo-firetv">
+          <span class="brand-name">OnePick</span>
+          <span class="brand-firetv-badge">Fire TV</span>
         </div>
-        <div class="card-center-title" id="cardTitle">
-          Title
-        </div>
-        <div class="card-bottom-genres" id="cardGenres">
-          ANIMATION / ACTION
-        </div>
+        <div class="brand-sub">Household Concierge • Step 1</div>
+      </div>
+      <div class="top-status">
+        <span class="couch-pill"><span>🛋️</span> Setup Couch Viewers</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="viewers-screen-content">
+      <div class="screen-title-block">
+        <h1 class="screen-hero-title">Who is watching tonight?</h1>
+        <p class="screen-hero-sub">Select everyone sitting on the couch to calculate a fair Rawlsian group consensus pick.</p>
       </div>
 
-      <!-- Satisfaction Scorecard -->
-      <div class="scorecard-block">
-        <div class="scorecard-title">
-          <span>Household Satisfaction</span>
-          <span id="minSatisfactionText">Min: 85%</span>
-        </div>
-        <div id="scorecardRows" style="display:flex; flex-direction:column; gap:12px;"></div>
+      <!-- 3 Viewer Cards Grid -->
+      <div class="viewers-grid" id="viewersGrid">
+        <!-- Rendered dynamically -->
       </div>
-    </section>
-  </main>
 
-  <!-- Bottom Hints -->
-  <footer class="footer-hints">
-    <div class="hints-keys">
-      <span><span class="key-token">▲ ▼ ◀ ▶</span> Move</span>
-      <span><span class="key-token">Enter</span> Select</span>
-      <span><span class="key-token">Esc</span> Back</span>
+      <!-- Action Buttons -->
+      <div class="viewers-action-bar">
+        <button class="dpad-target primary" id="btnGoConsensus" tabindex="0">▶ Find Consensus Pick</button>
+        <button class="dpad-target" id="btnToggleAll" tabindex="0">⟳ Toggle All Viewers</button>
+      </div>
     </div>
-    <div id="audioStatus">Audio: On (Press 'M' to mute)</div>
-  </footer>
-</div>
 
-<!-- "Why This Pick" Fullscreen Modal -->
-<div class="explanation-dialog" id="explainModal">
-  <div class="dialog-card">
-    <div class="dialog-header">
-      <div class="dialog-title">Why This Pick Was Selected</div>
-      <div class="dialog-source-tag" id="explainSourceTag">Engine: Bedrock Converse</div>
-    </div>
-    <div class="dialog-body" id="explainContent">
-      Loading explanation...
-    </div>
-    <div style="display:flex; justify-content:flex-end; margin-top:12px;">
-      <button class="dpad-target primary" id="btnModalClose" tabindex="0">Close</button>
+    <!-- Bottom Hints -->
+    <footer class="footer-hints">
+      <div class="hints-keys">
+        <span><span class="key-token">▲ ▼ ◀ ▶</span> D-Pad Navigate</span>
+        <span><span class="key-token">Select / Enter</span> Toggle Couch</span>
+      </div>
+      <div id="audioStatusViewers">Audio: On (Press 'M' to mute)</div>
+    </footer>
+  </section>
+
+  <!-- ========================================================
+       SCREEN 2: CONSENSUS PICK SCREEN (FIRE TV HERO DETAIL)
+       ======================================================== -->
+  <section id="screenConsensus" class="screen-view">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="brand-block">
+        <div class="brand-logo-firetv">
+          <span class="brand-name">OnePick</span>
+          <span class="brand-firetv-badge">Fire TV</span>
+        </div>
+        <div class="brand-sub">Consensus Engine • 10-Foot UI</div>
+      </div>
+
+      <div class="top-status">
+        <span class="couch-pill" id="activeViewersLabel">🛋️ Couch: Maya, Alex, Sam</span>
+        <button class="dpad-target" id="btnChangeViewers" style="min-height:60px; font-size:24px; padding:10px 24px;" tabindex="0">Change Viewers</button>
+      </div>
+    </header>
+
+    <!-- Main Two-Column Stage -->
+    <main class="main-stage">
+      <!-- Left Column: Hero Pick Details (Movie Title Shown ONCE) -->
+      <section class="hero-panel">
+        <div class="consensus-indicator">
+          <span class="consensus-badge" id="consensusScore">86% Group Consensus</span>
+          <span class="source-pill" id="sourceBadge">Source: local</span>
+        </div>
+
+        <!-- Hero Title (Unique on Screen) -->
+        <h1 class="title-heading" id="titleText">Loading...</h1>
+
+        <div class="metadata-row">
+          <span class="meta-feature-badge">FIRE TV PICK</span>
+          <span class="meta-tag" id="metaYear">2018</span>
+          <span class="meta-tag" id="metaRating">PG</span>
+          <span class="meta-tag">4K UHD</span>
+          <span class="meta-tag" id="metaRuntime">117 min</span>
+          <span class="meta-tag">5.1 AUDIO</span>
+          <span id="metaGenres" style="color:var(--text-secondary); margin-left:4px;">Animation, Action</span>
+        </div>
+
+        <p class="synopsis-text" id="synopsisText">
+          Evaluating household preferences...
+        </p>
+
+        <!-- Fire TV Action Buttons (Min 74px height, Font >= 26px) -->
+        <div class="actions-bar">
+          <button class="dpad-target primary" id="btnPlay" tabindex="0">▶ Watch Now</button>
+          <button class="dpad-target" id="btnWhy" tabindex="0">ℹ Why this pick?</button>
+          <button class="dpad-target" id="btnMax100" tabindex="0">⏱ Max 100m</button>
+          <button class="dpad-target" id="btnWatched" tabindex="0">✓ Watched</button>
+          <button class="dpad-target" id="btnRefine" tabindex="0">🎙 Alexa Refine</button>
+        </div>
+      </section>
+
+      <!-- Right Column: Visual Artwork Hero & Satisfaction Scorecard (NO DUPLICATE TITLE) -->
+      <section class="detail-panel">
+        <!-- Visual Artwork Card (Poster/Backdrop with Gradient Overlay) -->
+        <div class="artwork-hero-card" id="artworkHeroCard">
+          <img class="artwork-image" id="artworkImage" src="/assets/fallback-hero.svg" alt="Movie Artwork">
+          <div class="artwork-gradient-overlay"></div>
+          <div class="artwork-content-overlay">
+            <div class="artwork-featured-tag">FEATURED GROUP CONSENSUS</div>
+            <div class="artwork-metadata" id="artworkMetadata">2018 / PG • 117 MIN</div>
+            <div class="artwork-genres" id="artworkGenres">ANIMATION • ACTION • ADVENTURE • SCI-FI</div>
+          </div>
+        </div>
+
+        <!-- Household Satisfaction Scorecard (Enlarged, Lowest Target Highlighted) -->
+        <div class="scorecard-block">
+          <div class="scorecard-title-row">
+            <span>Household Satisfaction</span>
+            <span id="minSatisfactionText">Fairness Target: 85%</span>
+          </div>
+          <div id="scorecardRows" style="display:flex; flex-direction:column; gap:16px;">
+            <!-- Rows rendered dynamically -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Hints (Fire TV Remote Style) -->
+    <footer class="footer-hints">
+      <div class="hints-keys">
+        <span><span class="key-token">▲ ▼ ◀ ▶</span> D-Pad Navigate</span>
+        <span><span class="key-token">Select / Enter</span> Choose</span>
+        <span><span class="key-token">↩ Back / Esc</span> Viewers</span>
+        <span><span class="key-token">🎙 Alexa</span> Voice Refine</span>
+      </div>
+      <div id="audioStatusConsensus">Audio: On (Press 'M' to mute)</div>
+    </footer>
+  </section>
+
+  <!-- "Why This Pick" Fullscreen Modal Dialog with WCAG AA Contrast (Nested to scale proportionally) -->
+  <div class="explanation-dialog" id="explainModal">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <div class="dialog-title">Why This Pick Was Selected</div>
+        <div class="source-pill" id="explainSourceTag">Source: fallback</div>
+      </div>
+      <div class="dialog-body" id="explainContent">
+        Loading explanation...
+      </div>
+      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+        <button class="dpad-target primary" id="btnModalClose" tabindex="0">↩ Close (Back)</button>
+      </div>
     </div>
   </div>
-</div>
+
+  </div> <!-- /tv-container -->
+</div> <!-- /tv-viewport-frame -->
 
 <script>
   let state = null;
   let topPick = null;
+  let activeScreen = 'viewers'; // 'viewers' | 'consensus'
   let focusTargets = [];
   let currentFocusIndex = 0;
   let soundEnabled = true;
 
-  // Web Audio TV Remote Sound Synthesizer
+  // Web Audio TV Remote Synthesizer
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   function playTick(freq = 420, duration = 0.03) {
     if (!soundEnabled || audioCtx.state === 'suspended') return;
@@ -589,70 +955,124 @@
     }
   }
 
+  function setScreen(screenName) {
+    activeScreen = screenName;
+    document.getElementById('screenViewers').classList.toggle('active', screenName === 'viewers');
+    document.getElementById('screenConsensus').classList.toggle('active', screenName === 'consensus');
+    if (state) {
+      if (screenName === 'viewers') renderViewersScreen();
+      if (screenName === 'consensus') renderConsensusScreen();
+    }
+    currentFocusIndex = 0;
+    updateFocusTargets();
+  }
+
   function render() {
-    if (!state || !state.candidates || state.candidates.length === 0) return;
+    if (!state) return;
+
+    renderViewersScreen();
+    renderConsensusScreen();
+    updateFocusTargets();
+  }
+
+  function renderViewersScreen() {
+    const grid = document.getElementById('viewersGrid');
+    grid.innerHTML = '';
+
+    state.allViewers.forEach((v) => {
+      const isActive = state.constraints.viewers.some((av) => av.id === v.id);
+      const card = document.createElement('div');
+      card.className = `viewer-card dpad-target ${isActive ? 'active' : ''}`;
+      card.tabIndex = 0;
+      card.onclick = () => {
+        playTick(540);
+        toggleViewer(v.id);
+      };
+
+      card.innerHTML = `
+        <div>
+          <div class="viewer-card-top">
+            <div class="viewer-avatar-circle">${v.avatar || '👤'}</div>
+            <div class="viewer-name-col">
+              <span class="viewer-card-name">${v.name}</span>
+              <span class="viewer-status-pill">${isActive ? '✓ On Couch' : '+ Inactive'}</span>
+            </div>
+          </div>
+          <div class="viewer-card-details">
+            <div class="viewer-detail-row"><strong>Likes:</strong> ${(v.likes || []).join(', ')}</div>
+            <div class="viewer-detail-row"><strong>Excludes:</strong> ${(v.excludes || []).join(', ')}</div>
+            <div class="viewer-detail-row"><strong>Target Mood:</strong> ${v.mood || 'Any'}</div>
+          </div>
+        </div>
+        <div class="viewer-card-bottom">
+          <span>Max: ${v.maxMinutes ? v.maxMinutes + 'm' : 'Flexible'}</span>
+          <span class="status-cue">${isActive ? '✓ On Couch' : '+ Tap to add'}</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function renderConsensusScreen() {
+    if (!state.candidates || state.candidates.length === 0) return;
     topPick = state.candidates[0];
     const title = topPick.title;
 
-    // Hero Text
+    // Top Bar Status
+    const activeNames = state.constraints.viewers.map((v) => v.name).join(', ');
+    document.getElementById('activeViewersLabel').textContent = `🛋️ Couch: ${activeNames || 'None'}`;
+
+    // Left Column: Hero Pick (Single Title Display)
     document.getElementById('titleText').textContent = title.name;
     document.getElementById('metaYear').textContent = title.year;
     document.getElementById('metaRating').textContent = title.rating;
     document.getElementById('metaRuntime').textContent = `${title.minutes} min`;
     document.getElementById('metaGenres').textContent = title.genres.join(', ');
     document.getElementById('synopsisText').textContent = title.synopsis || '';
+    document.getElementById('consensusScore').textContent = `★ ${topPick.groupScore}% Group Consensus`;
 
-    // Consensus Score
-    document.getElementById('consensusScore').textContent = `${topPick.groupScore}% Group Consensus`;
-    document.getElementById('minSatisfactionText').textContent = `Min: ${topPick.minViewerScore}%`;
+    // Right Column: Artwork Hero Card (NO DUPLICATE TITLE)
+    const artworkImg = document.getElementById('artworkImage');
+    artworkImg.src = `/assets/${title.id}.svg`;
+    artworkImg.onerror = () => {
+      artworkImg.src = '/assets/fallback-hero.svg';
+    };
+    document.getElementById('artworkMetadata').textContent = `${title.year} / ${title.rating} • ${title.minutes} MIN`;
+    document.getElementById('artworkGenres').textContent = title.genres.join(' • ').toUpperCase();
 
-    // Typographic Card
-    document.getElementById('cardTitle').textContent = title.name;
-    document.getElementById('cardYearRating').textContent = `${title.year} / ${title.rating}`;
-    document.getElementById('cardRuntime').textContent = `${title.minutes} MIN`;
-    document.getElementById('cardGenres').textContent = title.genres.join(' / ').toUpperCase();
-
-    // Viewers Buttons Strip
-    const viewersContainer = document.getElementById('viewersButtons');
-    viewersContainer.innerHTML = '';
-    state.allViewers.forEach((v) => {
-      const active = state.constraints.viewers.some((av) => av.id === v.id);
-      const btn = document.createElement('button');
-      btn.className = `viewer-button dpad-target ${active ? 'active' : 'inactive'}`;
-      btn.tabIndex = 0;
-      btn.textContent = v.name;
-      btn.onclick = () => {
-        playTick(540);
-        toggleViewer(v.id);
-      };
-      viewersContainer.appendChild(btn);
-    });
-
-    // Scorecard Breakdown
+    // Scorecard Breakdown (Enlarged Bars, Highlight Lowest Target)
+    document.getElementById('minSatisfactionText').textContent = `Fairness Bottleneck: ${topPick.minViewerScore}%`;
     const scorecardContainer = document.getElementById('scorecardRows');
     scorecardContainer.innerHTML = '';
+
     topPick.perViewer.forEach((pv) => {
-      const isLead = pv.score >= topPick.groupScore;
+      const isLowest = pv.score === topPick.minViewerScore;
       const row = document.createElement('div');
       row.className = 'viewer-score-row';
       row.innerHTML = `
         <span class="viewer-score-name">${pv.viewerName}</span>
+        ${isLowest ? '<span class="lowest-pill">LOWEST</span>' : '<span class="lowest-placeholder">------</span>'}
         <div class="meter-bar">
-          <div class="meter-fill ${isLead ? 'lead' : ''}" style="width: ${pv.score}%"></div>
+          <div class="meter-fill ${isLowest ? 'lowest' : ''}" style="width: ${pv.score}%"></div>
         </div>
         <span class="viewer-score-num">${pv.score}%</span>
       `;
       scorecardContainer.appendChild(row);
     });
-
-    updateFocusTargets();
   }
 
   function updateFocusTargets() {
-    focusTargets = Array.from(document.querySelectorAll('.dpad-target:not([style*="display: none"])'));
-    if (focusTargets.length > 0 && currentFocusIndex >= focusTargets.length) {
+    const activeContainer = activeScreen === 'viewers'
+      ? document.getElementById('screenViewers')
+      : document.getElementById('screenConsensus');
+
+    focusTargets = Array.from(activeContainer.querySelectorAll('.dpad-target:not([style*="display: none"])'));
+
+    if (focusTargets.length === 0) return;
+    if (currentFocusIndex >= focusTargets.length) {
       currentFocusIndex = 0;
     }
+
     focusTargets.forEach((t) => t.classList.remove('focused'));
     if (focusTargets[currentFocusIndex]) {
       focusTargets[currentFocusIndex].classList.add('focused');
@@ -682,8 +1102,25 @@
     const data = await res.json();
     state.constraints = data.constraints;
     state.candidates = data.candidates;
-    document.getElementById('sourceBadge').textContent = 'Source: local';
     render();
+  }
+
+  async function toggleAllViewers() {
+    playTick(500);
+    const allActive = state.constraints.viewers.length === state.allViewers.length;
+    if (allActive) {
+      // Keep at least Maya
+      for (const v of state.allViewers) {
+        if (v.id !== 'v-maya') await toggleViewer(v.id);
+      }
+    } else {
+      // Activate all
+      for (const v of state.allViewers) {
+        if (!state.constraints.viewers.some((av) => av.id === v.id)) {
+          await toggleViewer(v.id);
+        }
+      }
+    }
   }
 
   async function applyPatch(patch) {
@@ -722,7 +1159,7 @@
     const content = document.getElementById('explainContent');
     const sourceTag = document.getElementById('explainSourceTag');
 
-    content.textContent = 'Generating explanation...';
+    content.innerHTML = '<p><strong>Evaluating compromise rationale...</strong></p>';
     modal.classList.add('visible');
     if (window.OnePickNative && typeof window.OnePickNative.setModalOpen === 'function') {
       window.OnePickNative.setModalOpen(true);
@@ -737,9 +1174,9 @@
 
     sourceTag.textContent = `Source: ${data.source || 'fallback'}`;
     content.innerHTML = `
-      <p style="color:var(--text-primary); font-size:32px;"><strong>${data.summary}</strong></p>
-      <p style="color:var(--text-secondary);">${data.consensusHighlight}</p>
-      ${data.tradeOff ? `<p style="color:var(--text-tertiary); font-size:26px;">${data.tradeOff}</p>` : ''}
+      <p><strong>${data.summary}</strong></p>
+      <p class="dialog-highlight">${data.consensusHighlight}</p>
+      ${data.tradeOff ? `<p class="dialog-tradeoff">${data.tradeOff}</p>` : ''}
     `;
 
     document.getElementById('btnModalClose').focus();
@@ -760,10 +1197,26 @@
       closeExplain();
       return true;
     }
+    if (activeScreen === 'consensus') {
+      setScreen('viewers');
+      return true;
+    }
     return false;
   };
 
-  // Action Buttons
+  // Action Button Listeners
+  document.getElementById('btnGoConsensus').onclick = () => {
+    playTick(580);
+    setScreen('consensus');
+  };
+
+  document.getElementById('btnToggleAll').onclick = toggleAllViewers;
+
+  document.getElementById('btnChangeViewers').onclick = () => {
+    playTick(500);
+    setScreen('viewers');
+  };
+
   document.getElementById('btnPlay').onclick = () => {
     playTick(720);
     alert(`Launching playback: ${topPick.title.name}`);
@@ -788,13 +1241,15 @@
 
   document.getElementById('btnModalClose').onclick = closeExplain;
 
-  // Keyboard D-Pad Navigation
+  // TV Remote D-Pad Navigation & Keyboard Handlers
   window.addEventListener('keydown', (e) => {
     if (audioCtx.state === 'suspended') audioCtx.resume();
 
     if (e.key === 'm' || e.key === 'M') {
       soundEnabled = !soundEnabled;
-      document.getElementById('audioStatus').textContent = `Audio: ${soundEnabled ? 'On' : 'Off'} (Press 'M' to toggle)`;
+      const statusText = `Audio: ${soundEnabled ? 'On' : 'Off'} (Press 'M' to toggle)`;
+      document.getElementById('audioStatusViewers').textContent = statusText;
+      document.getElementById('audioStatusConsensus').textContent = statusText;
       return;
     }
 
@@ -811,9 +1266,22 @@
         focusTargets[currentFocusIndex].click();
       }
     } else if (e.key === 'Escape' || e.key === 'Backspace') {
-      closeExplain();
+      if (document.getElementById('explainModal').classList.contains('visible')) {
+        closeExplain();
+      } else if (activeScreen === 'consensus') {
+        setScreen('viewers');
+      }
     }
   });
+
+  // Dynamic Responsive 10-Foot 16:9 Viewport Scaler
+  function autoScaleViewport() {
+    const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    document.documentElement.style.setProperty('--tv-scale', scale.toString());
+  }
+  window.addEventListener('resize', autoScaleViewport);
+  window.addEventListener('DOMContentLoaded', autoScaleViewport);
+  autoScaleViewport();
 
   loadState();
 </script>

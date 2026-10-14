@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <linearGradient id="fallbackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#131419"/>
+      <stop offset="50%" stop-color="#1b1c23"/>
+      <stop offset="100%" stop-color="#2c2227"/>
+    </linearGradient>
+    <radialGradient id="emberRadial" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#e26d5c" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#131419" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#fallbackGrad)"/>
+  <rect width="960" height="540" fill="url(#emberRadial)"/>
+
+  <!-- Cinema Projection Rays & Geometry -->
+  <g stroke="#ffffff" stroke-width="1" opacity="0.1" fill="none">
+    <circle cx="700" cy="270" r="160"/>
+    <circle cx="700" cy="270" r="260"/>
+    <line x1="0" y1="0" x2="700" y2="270"/>
+    <line x1="0" y1="540" x2="700" y2="270"/>
+    <line x1="960" y1="0" x2="700" y2="270"/>
+    <line x1="960" y1="540" x2="700" y2="270"/>
+  </g>
+
+  <!-- Film Clapper / Frame Minimal Icon -->
+  <g transform="translate(650, 220) scale(1.2)" stroke="#e26d5c" stroke-width="2.5" fill="none" opacity="0.65">
+    <rect x="-40" y="-30" width="80" height="60" rx="6"/>
+    <line x1="-40" y1="-10" x2="40" y2="-10"/>
+    <line x1="-20" y1="-30" x2="-10" y2="-10"/>
+    <line x1="5" y1="-30" x2="15" y2="-10"/>
+  </g>
+
+  <rect width="960" height="540" fill="black" opacity="0.25"/>
+</svg>

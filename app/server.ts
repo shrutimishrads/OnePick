@@ -155,7 +155,7 @@ const server = http.createServer(async (req, res) => {
     };
     const candidates = rankCandidates(titles, sessionConstraints);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ constraints: sessionConstraints, candidates }));
+    res.end(JSON.stringify({ constraints: sessionConstraints, allViewers: defaultViewers, candidates }));
     return;
   }
 
@@ -169,6 +169,29 @@ const server = http.createServer(async (req, res) => {
         'Cache-Control': 'public, max-age=31536000, immutable',
       });
       res.end(fs.readFileSync(fontPath));
+      return;
+    }
+  }
+
+  // Serve local offline image and artwork assets
+  if (url.pathname.startsWith('/assets/')) {
+    const assetName = path.basename(url.pathname);
+    const assetPath = path.resolve(__dirname, './assets', assetName);
+    if (fs.existsSync(assetPath)) {
+      const ext = path.extname(assetPath).toLowerCase();
+      const contentType =
+        ext === '.svg'
+          ? 'image/svg+xml'
+          : ext === '.png'
+          ? 'image/png'
+          : ext === '.jpg' || ext === '.jpeg'
+          ? 'image/jpeg'
+          : 'application/octet-stream';
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      });
+      res.end(fs.readFileSync(assetPath));
       return;
     }
   }

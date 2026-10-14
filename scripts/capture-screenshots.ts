@@ -114,25 +114,36 @@ async function run() {
 
     // Reset session state to default viewers and no patches
     await fetch('http://127.0.0.1:3000/api/reset', { method: 'POST' });
-    await client.eval('loadState()');
-    await sleep(1500);
+    await client.eval(`(async () => { await loadState(); setScreen('viewers'); })()`);
 
-    // 1. Viewer Select Screenshot: Focus on first viewer button
-    console.log('Capturing: viewer select...');
+    // Wait until viewers cards are rendered
+    for (let i = 0; i < 30; i++) {
+      await sleep(200);
+      const ready = await client.eval(`
+        Boolean(state && state.candidates && state.candidates.length > 0 && document.querySelectorAll('.viewer-card').length === 3)
+      `);
+      if (ready) break;
+    }
+    await sleep(400);
+
+    // 1. Viewer Select Screenshot: Dedicated viewer selection screen with focus on first viewer card
+    console.log('Capturing: viewer select screen...');
     await client.eval(`
-      const viewers = document.querySelectorAll('.viewer-button');
-      if (viewers.length > 0) {
-        viewers.forEach(v => v.classList.remove('focused'));
-        viewers[0].classList.add('focused');
-        viewers[0].focus();
+      setScreen('viewers');
+      const cards = document.querySelectorAll('.viewer-card');
+      if (cards.length > 0) {
+        cards.forEach(c => c.classList.remove('focused'));
+        cards[0].classList.add('focused');
+        cards[0].focus();
       }
     `);
     await sleep(400);
     await client.captureScreenshot(path.join(OUT_DIR, '01-viewer-select.png'));
 
-    // 2. First Pick Screenshot: Normal focus on primary 'Play' button
-    console.log('Capturing: first pick...');
+    // 2. First Pick Screenshot: Transition to consensus screen, focus on primary 'Play' button
+    console.log('Capturing: first pick screen...');
     await client.eval(`
+      setScreen('consensus');
       document.querySelectorAll('.focused').forEach(e => e.classList.remove('focused'));
       const btnPlay = document.getElementById('btnPlay');
       if (btnPlay) {
@@ -140,18 +151,13 @@ async function run() {
         btnPlay.focus();
       }
     `);
-    await sleep(400);
+    await sleep(600);
     await client.captureScreenshot(path.join(OUT_DIR, '02-first-pick.png'));
 
-    // 3. After a Refinement: Mark Spider-Verse as watched, get next consensus pick
+    // 3. After a Refinement: Mark Spider-Verse as watched, get next consensus pick (Top Gun)
     console.log('Capturing: after refinement...');
-    await client.eval(`
-      (async () => {
-        const btnWatched = document.getElementById('btnWatched');
-        if (btnWatched) btnWatched.click();
-      })();
-    `);
-    await sleep(1000);
+    await client.eval(`(async () => { await applyPatch({ watched: ['t-spider-verse'] }); })()`);
+    await sleep(800);
     await client.eval(`
       document.querySelectorAll('.focused').forEach(e => e.classList.remove('focused'));
       const btnWhy = document.getElementById('btnWhy');
@@ -163,23 +169,20 @@ async function run() {
     await sleep(400);
     await client.captureScreenshot(path.join(OUT_DIR, '03-after-refinement.png'));
 
-    // 4. Explanation Modal: Open Why This Pick dialog
+    // 4. Explanation Modal: Open Why This Pick dialog with WCAG contrast
     console.log('Capturing: explanation modal...');
-    await client.eval(`
-      (async () => {
-        const btnWhy = document.getElementById('btnWhy');
-        if (btnWhy) btnWhy.click();
-      })();
-    `);
+    await client.eval(`openExplain()`);
     // Wait for explanation content to arrive
-    for (let i = 0; i < 30; i++) {
-      await sleep(300);
+    for (let i = 0; i < 40; i++) {
+      await sleep(250);
       const isReady = await client.eval(`
-        !document.getElementById('explainContent').textContent.includes('Generating')
+        document.getElementById('explainModal').classList.contains('visible') &&
+        !document.getElementById('explainContent').textContent.includes('Evaluating') &&
+        !document.getElementById('explainContent').textContent.includes('Loading')
       `);
       if (isReady) break;
     }
-    await sleep(400);
+    await sleep(500);
     await client.captureScreenshot(path.join(OUT_DIR, '04-explanation-modal.png'));
 
     client.close();
