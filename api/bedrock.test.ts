@@ -19,7 +19,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('strictly sanitizes constraint patches: bounds maxMinutes, drops non-catalogue titles and unknown keys', () => {
     const raw = {
       maxMinutes: 95.8,
-      watched: ['Spider-Man: Into the Spider-Verse', 'non-existent-movie-xyz'],
+      watched: ['Cosmic Drift: Web of Worlds', 'non-existent-movie-xyz'],
       addedExcludes: [{ exclude: 'Horror' }, { exclude: 123 }],
       unknownHackerKey: 'drop_me',
       negativeMinutes: -40,
@@ -234,7 +234,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     const mockCandidate: Candidate = {
       title: {
         id: 't-spider-verse',
-        name: 'Spider-Man: Into the Spider-Verse',
+        name: 'Cosmic Drift: Web of Worlds',
         genres: ['Animation', 'Action'],
         moods: ['Exhilarating'],
         minutes: 117,
@@ -279,7 +279,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Spider-Man: Into the Spider-Verse is your pick with 50% group score.',
+                  summary: 'Cosmic Drift: Web of Worlds is your pick with 50% group score.',
                   consensusHighlight: 'Balances preferences.',
                 }),
               },

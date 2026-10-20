@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <linearGradient id="spiritSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="50%" stop-color="#161b2e"/>
+      <stop offset="85%" stop-color="#2a1b32"/>
+      <stop offset="100%" stop-color="#3d1e2b"/>
+    </linearGradient>
+    <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffb703" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#e63946" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bridgeRed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c1121f"/>
+      <stop offset="50%" stop-color="#e63946"/>
+      <stop offset="100%" stop-color="#780000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Deep Night Spirit Sky -->
+  <rect width="960" height="540" fill="url(#spiritSky)"/>
+
+  <!-- Golden Moon Crescent Glow -->
+  <circle cx="720" cy="140" r="80" fill="#fefae0" opacity="0.15"/>
+  <circle cx="720" cy="140" r="60" fill="#fefae0" opacity="0.3"/>
+
+  <!-- Distant Foggy Mist Layers -->
+  <path d="M 0 320 Q 240 280 480 310 T 960 300 L 960 540 L 0 540 Z" fill="#1b2038" opacity="0.6"/>
+  <path d="M 0 370 Q 300 340 600 365 T 960 355 L 960 540 L 0 540 Z" fill="#141829" opacity="0.8"/>
+
+  <!-- Traditional Arched Red Bridge -->
+  <g transform="translate(0, 40)">
+    <!-- Bridge Arch -->
+    <path d="M 460 410 Q 640 290 840 390 L 840 430 Q 640 330 460 450 Z" fill="url(#bridgeRed)"/>
+    <path d="M 460 395 Q 640 275 840 375" stroke="#ffb703" stroke-width="4" fill="none" opacity="0.8"/>
+    <!-- Railing Posts -->
+    <line x1="520" y1="380" x2="520" y2="430" stroke="#780000" stroke-width="6"/>
+    <line x1="580" y1="345" x2="580" y2="400" stroke="#780000" stroke-width="6"/>
+    <line x1="640" y1="325" x2="640" y2="385" stroke="#780000" stroke-width="6"/>
+    <line x1="700" y1="325" x2="700" y2="385" stroke="#780000" stroke-width="6"/>
+    <line x1="760" y1="345" x2="760" y2="405" stroke="#780000" stroke-width="6"/>
+    <line x1="810" y1="370" x2="810" y2="425" stroke="#780000" stroke-width="6"/>
+  </g>
+
+  <!-- Glowing Paper Lanterns -->
+  <g transform="translate(680, 220)">
+    <circle cx="0" cy="0" r="32" fill="url(#lanternGlow)"/>
+    <rect x="-10" y="-14" width="20" height="28" rx="4" fill="#e63946"/>
+    <rect x="-8" y="-12" width="16" height="24" rx="2" fill="#ffb703" opacity="0.9"/>
+    <line x1="0" y1="-22" x2="0" y2="-14" stroke="#fdf0d5" stroke-width="2"/>
+    <line x1="0" y1="14" x2="0" y2="24" stroke="#e63946" stroke-width="2"/>
+  </g>
+  <g transform="translate(560, 260) scale(0.8)">
+    <circle cx="0" cy="0" r="32" fill="url(#lanternGlow)"/>
+    <rect x="-10" y="-14" width="20" height="28" rx="4" fill="#e63946"/>
+    <rect x="-8" y="-12" width="16" height="24" rx="2" fill="#ffb703" opacity="0.9"/>
+    <line x1="0" y1="-22" x2="0" y2="-14" stroke="#fdf0d5" stroke-width="2"/>
+  </g>
+
+  <!-- Water Reflection Ripples -->
+  <path d="M 380 490 L 880 490" stroke="#ffb703" stroke-width="2" opacity="0.3" stroke-dasharray="12,18"/>
+  <path d="M 420 515 L 820 515" stroke="#e63946" stroke-width="1.5" opacity="0.25" stroke-dasharray="8,14"/>
+
+  <!-- Vignette -->
+  <rect width="960" height="540" fill="black" opacity="0.2"/>
+</svg>

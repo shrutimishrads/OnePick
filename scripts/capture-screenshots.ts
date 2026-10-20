@@ -154,7 +154,7 @@ async function run() {
     await sleep(600);
     await client.captureScreenshot(path.join(OUT_DIR, '02-first-pick.png'));
 
-    // 3. After a Refinement: Mark Spider-Verse as watched, get next consensus pick (Top Gun)
+    // 3. After a Refinement: Mark Cosmic Drift as watched, get next consensus pick (Spirit Realm Crossing)
     console.log('Capturing: after refinement...');
     await client.eval(`(async () => { await applyPatch({ watched: ['t-spider-verse'] }); })()`);
     await sleep(800);

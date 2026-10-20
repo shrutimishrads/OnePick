@@ -1033,7 +1033,13 @@
 
     // Right Column: Artwork Hero Card (NO DUPLICATE TITLE)
     const artworkImg = document.getElementById('artworkImage');
-    artworkImg.src = `/assets/${title.id}.svg`;
+    const artworkMap = {
+      't-spider-verse': '/assets/t-cosmic-drift.svg',
+      't-spirited-away': '/assets/t-spirit-realm.svg',
+      't-fantastic-mr-fox': '/assets/t-clever-burrower.svg',
+      't-top-gun-maverick': '/assets/t-mach-3.svg',
+    };
+    artworkImg.src = artworkMap[title.id] || `/assets/${title.id}.svg`;
     artworkImg.onerror = () => {
       artworkImg.src = '/assets/fallback-hero.svg';
     };

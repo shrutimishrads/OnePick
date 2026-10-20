@@ -6,7 +6,7 @@ import { filterHardConstraints, scoreViewerTitle, rankCandidates, applyConstrain
 const mockTitles: Title[] = [
   {
     id: 't-spider-verse',
-    name: 'Spider-Man: Into the Spider-Verse',
+    name: 'Cosmic Drift: Web of Worlds',
     genres: ['Animation', 'Action', 'Sci-Fi'],
     moods: ['Exhilarating', 'Fun'],
     minutes: 117,
@@ -16,7 +16,7 @@ const mockTitles: Title[] = [
   },
   {
     id: 't-grand-budapest',
-    name: 'The Grand Budapest Hotel',
+    name: 'The Grand Continental',
     genres: ['Comedy', 'Adventure'],
     moods: ['Quirky', 'Witty'],
     minutes: 99,
@@ -26,7 +26,7 @@ const mockTitles: Title[] = [
   },
   {
     id: 't-quiet-place',
-    name: 'A Quiet Place',
+    name: 'Sound of Silence',
     genres: ['Horror', 'Sci-Fi'],
     moods: ['Suspenseful'],
     minutes: 90,
@@ -36,7 +36,7 @@ const mockTitles: Title[] = [
   },
   {
     id: 't-dune-2',
-    name: 'Dune: Part Two',
+    name: 'Desert Prophecy: Part Two',
     genres: ['Sci-Fi', 'Action'],
     moods: ['Epic'],
     minutes: 166,
