@@ -3,7 +3,7 @@
     "id": "v-areeba",
     "name": "Areeba",
     "avatar": "👩‍🔬",
-    "likes": ["Sci-Fi", "Action", "Mystery"],
+    "likes": ["Action", "Adventure", "Sci-Fi"],
     "mood": "Clever",
     "maxMinutes": 130,
     "excludes": ["Horror"]
@@ -12,7 +12,7 @@
     "id": "v-harshit",
     "name": "Harshit",
     "avatar": "🎨",
-    "likes": ["Action", "Adventure", "Sci-Fi"],
+    "likes": ["Sci-Fi", "Action", "Mystery"],
     "mood": "High-energy",
     "maxMinutes": 135,
     "excludes": ["Romance"]
