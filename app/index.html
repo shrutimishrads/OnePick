@@ -821,7 +821,7 @@
       </div>
 
       <div class="top-status">
-        <span class="couch-pill" id="activeViewersLabel">🛋️ Couch: Maya, Alex, Sam</span>
+        <span class="couch-pill" id="activeViewersLabel">🛋️ Couch: Areeba, Harshit, Shruti</span>
         <button class="dpad-target" id="btnChangeViewers" style="min-height:60px; font-size:24px; padding:10px 24px;" tabindex="0">Change Viewers</button>
       </div>
     </header>
@@ -1109,9 +1109,10 @@
     playTick(500);
     const allActive = state.constraints.viewers.length === state.allViewers.length;
     if (allActive) {
-      // Keep at least Maya
+      // Keep at least the first viewer
+      const primaryId = state.allViewers[0]?.id;
       for (const v of state.allViewers) {
-        if (v.id !== 'v-maya') await toggleViewer(v.id);
+        if (v.id !== primaryId) await toggleViewer(v.id);
       }
     } else {
       // Activate all

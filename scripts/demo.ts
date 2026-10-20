@@ -45,11 +45,11 @@ async function runDemo() {
 
   // Step 2: Bedrock Parse - Refinement 1
   console.log('\n' + '-'.repeat(70));
-  console.log('Step 2: Voice Refinement: "We already watched Spider-Verse together last week"');
+  console.log('Step 2: Voice-style Refinement: "We already watched Cosmic Drift together last week"');
   console.log('-'.repeat(70));
 
   const parseRes1 = await parseConstraintsWithBedrock({
-    userUtterance: 'We already watched Spider-Verse together last week',
+    userUtterance: 'We already watched Cosmic Drift together last week',
     currentConstraints: constraints,
   });
 
@@ -69,11 +69,11 @@ async function runDemo() {
 
   // Step 3: Bedrock Parse - Refinement 2 (Runtime)
   console.log('\n' + '-'.repeat(70));
-  console.log('Step 3: Voice Refinement: "Alex has to wake up early tomorrow, keep it under 100 minutes"');
+  console.log('Step 3: Voice-style Refinement: "Shruti has to wake up early tomorrow, keep it under 100 minutes"');
   console.log('-'.repeat(70));
 
   const parseRes2 = await parseConstraintsWithBedrock({
-    userUtterance: 'Alex has to wake up early tomorrow, keep it under 100 minutes',
+    userUtterance: 'Shruti has to wake up early tomorrow, keep it under 100 minutes',
     currentConstraints: constraints,
   });
 

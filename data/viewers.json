@@ -1,29 +1,29 @@
 [
   {
-    "id": "v-maya",
-    "name": "Maya",
+    "id": "v-areeba",
+    "name": "Areeba",
     "avatar": "👩‍🔬",
-    "likes": ["Sci-Fi", "Action", "Comedy"],
+    "likes": ["Sci-Fi", "Action", "Mystery"],
     "mood": "Clever",
     "maxMinutes": 130,
     "excludes": ["Horror"]
   },
   {
-    "id": "v-alex",
-    "name": "Alex",
+    "id": "v-harshit",
+    "name": "Harshit",
     "avatar": "🎨",
-    "likes": ["Animation", "Action", "Comedy"],
-    "mood": "Fun",
-    "maxMinutes": 130,
-    "excludes": ["Horror"]
+    "likes": ["Action", "Adventure", "Sci-Fi"],
+    "mood": "High-energy",
+    "maxMinutes": 135,
+    "excludes": ["Romance"]
   },
   {
-    "id": "v-sam",
-    "name": "Sam",
+    "id": "v-shruti",
+    "name": "Shruti",
     "avatar": "⚡",
-    "likes": ["Action", "Sci-Fi", "Adventure"],
-    "mood": "Witty",
-    "maxMinutes": 130,
-    "excludes": ["Horror"]
+    "likes": ["Animation", "Comedy", "Fantasy"],
+    "mood": "Charming",
+    "maxMinutes": 125,
+    "excludes": ["Mystery"]
   }
 ]
