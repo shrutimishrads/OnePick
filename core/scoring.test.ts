@@ -129,4 +129,32 @@ describe('OnePick Core Scoring Engine', () => {
       'Title matching targetMood should receive a higher group score'
     );
   });
+
+  it('returns an empty array when zero viewers are selected without throwing', () => {
+    const constraints: Constraints = { viewers: [], watched: [] };
+    const ranked = rankCandidates(mockTitles, constraints);
+    assert.deepStrictEqual(ranked, [], 'Should return [] when no viewers on couch');
+  });
+
+  it('returns an empty array when catalogue is empty without throwing', () => {
+    const constraints: Constraints = { viewers: mockViewers, watched: [] };
+    const ranked = rankCandidates([], constraints);
+    assert.deepStrictEqual(ranked, [], 'Should return [] on empty catalogue');
+  });
+
+  it('returns an empty array when all titles are vetoed by constraints without throwing', () => {
+    const strictViewers: Viewer[] = [
+      {
+        id: 'v-strict',
+        name: 'Vetoer',
+        likes: ['Animation'],
+        mood: 'Clever',
+        maxMinutes: 10, // All catalogue titles exceed 10m
+        excludes: ['Animation', 'Comedy', 'Horror', 'Sci-Fi'],
+      },
+    ];
+    const constraints: Constraints = { viewers: strictViewers, watched: [] };
+    const ranked = rankCandidates(mockTitles, constraints);
+    assert.deepStrictEqual(ranked, [], 'Should return [] when all titles are vetoed');
+  });
 });
