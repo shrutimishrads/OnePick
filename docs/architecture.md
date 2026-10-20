@@ -2,12 +2,12 @@
 
 ```mermaid
 flowchart TD
-    subgraph FireTVApp ["Fire TV Client (WebView / Fire OS)"]
+    subgraph FireTVApp ["Fire TV Client (app/ served by Node server, wrapped in fireos/ WebView)"]
         UI["TV UI & D-pad Remote Navigation"]
         State["Session State (Active Viewers & Constraints)"]
     end
 
-    subgraph DeterministicCore ["Deterministic TypeScript Core (Runs on-device or Cloud)"]
+    subgraph DeterministicCore ["Deterministic TypeScript Core (Runs in Node Server / On-Device)"]
         Filter["Hard Filters (Dealbreakers, Watched, Runtime)"]
         Scorer["Viewer Soft Scoring (Likes, Moods, Comfort)"]
         Fairness["Max-Min Rawlsian Fairness Aggregator"]
@@ -26,7 +26,7 @@ flowchart TD
     Fairness --> Ranker
     Ranker --> UI
 
-    UI -- "Voice / Quick Refinement" --> BedrockParse
+    UI -- "Voice-Style Refine (Text Input)" --> BedrockParse
     BedrockParse -- "JSON Patch" --> State
 
     Ranker -- "Candidate & Viewer Scores" --> BedrockExplain
@@ -34,6 +34,7 @@ flowchart TD
 ```
 
 ## Architectural Highlights
-1. **Separation of Concerns:** Bedrock never invents movie titles or hallucinates rankings. All ranking is strictly deterministic, fast, and repeatable.
-2. **Offline Fallback:** If internet connectivity drops or Bedrock is unreachable, the core scoring engine and rule-based explanations run entirely locally on the Fire TV device.
-3. **Max-Min Group Fairness:** Rather than simple averaging (which favors the majority and leaves one person miserable), OnePick maximizes the lowest satisfaction score across all present viewers.
+1. **Client / Server Model:** `app/` is a 10-foot web interface served by a local Node server (`app/server.ts`) and packaged inside a native Fire OS Android Leanback WebView (`fireos/`).
+2. **Separation of Concerns:** Bedrock never invents movie titles or hallucinates rankings. All ranking is strictly deterministic, fast, and repeatable via pure TypeScript algorithms in `core/`.
+3. **Offline Fallback:** If internet connectivity drops or Bedrock is unreachable, the core scoring engine and rule-based explanations run entirely locally in the Node server / on-device.
+4. **Max-Min Group Fairness:** Rather than simple averaging (which favors the majority and leaves one person miserable), OnePick maximizes the lowest satisfaction score across all present viewers.

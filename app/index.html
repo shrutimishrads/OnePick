@@ -902,7 +902,7 @@
           <button class="dpad-target" id="btnWhy" tabindex="0">ℹ Why this pick?</button>
           <button class="dpad-target" id="btnMax100" tabindex="0">⏱ Max 100m</button>
           <button class="dpad-target" id="btnWatched" tabindex="0">✓ Watched</button>
-          <button class="dpad-target" id="btnRefine" tabindex="0">🎙 Alexa Refine</button>
+          <button class="dpad-target" id="btnRefine" tabindex="0">🎙 Voice-style Refine (Text)</button>
         </div>
       </section>
 
@@ -951,7 +951,7 @@
         <span><span class="key-token">▲ ▼ ◀ ▶</span> D-Pad Navigate</span>
         <span><span class="key-token">Select / Enter</span> Choose</span>
         <span><span class="key-token">↩ Back / Esc</span> Viewers</span>
-        <span><span class="key-token">🎙 Alexa</span> Voice Refine</span>
+        <span><span class="key-token">🎙 Refine</span> Voice-style (Text)</span>
       </div>
       <div id="audioStatusConsensus">Audio: On (Press 'M' to mute)</div>
     </footer>
@@ -1311,7 +1311,7 @@
   };
 
   document.getElementById('btnRefine').onclick = () => {
-    const input = prompt('Enter refinement constraint (e.g., "keep under 95 minutes" or "we watched that"):', 'keep under 100 minutes');
+    const input = prompt('Voice-style refine (text input): Enter refinement constraint (e.g., "keep under 95 minutes" or "we watched that"):', 'keep under 100 minutes');
     if (input) sendVoiceRefine(input);
   };
 

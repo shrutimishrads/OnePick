@@ -21,7 +21,7 @@ Every evening in millions of households, friends and families sit on the couch a
 OnePick is a 10-foot Fire TV application that:
 1. **Activates Household Profiles:** Quickly toggles who is sitting on the couch via D-pad remote navigation, gathering individual likes, runtime limits, and hard dealbreakers (e.g. no horror).
 2. **Computes Rawlsian Max-Min Consensus:** Rather than a simple majority vote (which leaves minority tastes steamrolled), our deterministic fairness engine maximizes the satisfaction of the least-satisfied viewer.
-3. **Conversational Constraint Patching:** Uses the **Amazon Bedrock Converse API** to interpret voice or quick-text refinements (*"We saw that last week"*, *"Alex has an early meeting, keep it under 100 minutes"*) into structured JSON patches without losing state.
+3. **Conversational Constraint Patching:** Uses the **Amazon Bedrock Converse API** to interpret voice-style refine (text input) (*"We saw that last week"*, *"Shruti has an early meeting, keep it under 100 minutes"*) into structured JSON patches without losing state.
 4. **Transparent Consensus AI:** Explains *why* the title was picked in plain English, explaining compromises and keeping everyone happy before hitting play.
 
 ---
