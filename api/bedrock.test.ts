@@ -21,7 +21,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('strictly sanitizes constraint patches: bounds maxMinutes, drops non-catalogue titles and unknown keys', () => {
     const raw = {
       maxMinutes: 95.8,
-      watched: ['Harbor Cadence', 'non-existent-movie-xyz'],
+      watched: ['Timberline Cadence', 'non-existent-movie-xyz'],
       addedExcludes: [{ exclude: 'Horror' }, { exclude: 123 }],
       unknownHackerKey: 'drop_me',
       negativeMinutes: -40,
@@ -56,7 +56,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     setBedrockClient(mockClient as any);
 
     const parseRes = await parseConstraintsWithBedrock({
-      userUtterance: 'Keep under 90 mins and skip Harbor Cadence',
+      userUtterance: 'Keep under 90 mins and skip Timberline Cadence',
       currentConstraints: { viewers: [], watched: [] },
     });
 
@@ -235,7 +235,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     const mockCandidate: Candidate = {
       title: {
         id: 't-harbor-cadence',
-        name: 'Harbor Cadence',
+        name: 'Timberline Cadence',
         genres: ['Animation', 'Action'],
         moods: ['Exhilarating'],
         minutes: 117,
@@ -279,7 +279,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Harbor Cadence is your pick with 50% group score.',
+                  summary: 'Timberline Cadence is your pick with 50% group score.',
                   consensusHighlight: 'Balances preferences.',
                 }),
               },
@@ -296,7 +296,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     const mockCandidate: Candidate = {
       title: {
         id: 't-harbor-cadence',
-        name: 'Harbor Cadence',
+        name: 'Timberline Cadence',
         genres: ['Drama', 'Music'],
         moods: ['Heartfelt', 'Uplifting'],
         minutes: 117,

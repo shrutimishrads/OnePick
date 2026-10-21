@@ -154,7 +154,7 @@ async function run() {
     await sleep(600);
     await client.captureScreenshot(path.join(OUT_DIR, '02-first-pick.png'));
 
-    // 3. After a Refinement: Mark Harbor Cadence as watched, get next consensus pick (The Canopy Post)
+    // 3. After a Refinement: Mark Timberline Cadence as watched, get next consensus pick (The Canopy Post)
     console.log('Capturing: after refinement...');
     await client.eval(`(async () => { await applyPatch({ watched: ['t-harbor-cadence'] }); })()`);
     await sleep(850);

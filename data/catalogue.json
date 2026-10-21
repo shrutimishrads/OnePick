@@ -323,8 +323,8 @@
   },
   {
     "id": "t-harbor-cadence",
-    "name": "Harbor Cadence",
-    "tagline": "Every rivet in the bay has its own rhythm.",
+    "name": "Timberline Cadence",
+    "tagline": "The highest ridges catch the purest notes.",
     "genres": [
       "Drama",
       "Music",
@@ -338,7 +338,7 @@
     "minutes": 117,
     "rating": "PG-13",
     "year": 2023,
-    "synopsis": "A drydock welder who gauges hull integrity by feeling engine vibrations partners with an eccentric harbor radio host. Together with dockworkers, they wire acoustic sensors to ship hulls to create a live industrial broadcast that saves their terminal."
+    "synopsis": "An acoustic ornithologist monitoring migratory alpine birds in the Pyrenees partners with an eccentric village brass band. To halt commercial radio tower construction along the ridge, they broadcast synchronized mountain echoes proving how songbirds navigate the pass."
   },
   {
     "id": "t-lighthouse-trio",

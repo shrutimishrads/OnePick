@@ -183,11 +183,11 @@ function parseConstraintsFallback(req: BedrockParseRequest): BedrockParseRespons
     }
   }
 
-  if (utterance.includes('harbor cadence') || utterance.includes('watched that')) {
-    const harborId = knownIdMap.get('harbor cadence') || 't-harbor-cadence';
+  if (utterance.includes('timberline cadence') || utterance.includes('watched that')) {
+    const harborId = knownIdMap.get('timberline cadence') || 't-harbor-cadence';
     return {
       patch: { watched: [harborId] },
-      interpretedIntent: 'Marked "Harbor Cadence" as watched.',
+      interpretedIntent: 'Marked "Timberline Cadence" as watched.',
       source: 'fallback',
     };
   }
@@ -243,7 +243,7 @@ export async function parseConstraintsWithBedrock(
     const systemPrompt = `You are the constraint parser for OnePick Fire TV concierge.
 Extract user constraint updates into a single JSON object with these allowed fields only:
 - "maxMinutes": integer (e.g. 100)
-- "watched": array of title IDs or exact title names (e.g. ["t-harbor-cadence"] or ["Harbor Cadence"])
+- "watched": array of title IDs or exact title names (e.g. ["t-harbor-cadence"] or ["Timberline Cadence"])
 - "addedExcludes": array of {"exclude": string, "viewerId": optional string}
 - "targetMood": string (optional)
 - "requiredGenre": string (optional)
