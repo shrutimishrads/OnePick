@@ -17,11 +17,16 @@ import android.webkit.WebViewClient;
  */
 public class MainActivity extends Activity {
 
+    // =========================================================================
+    // CONFIGURATION: Reviewer Server URL Constant
+    // For Android/Fire TV Emulator: "http://10.0.2.2:3000" connects to host machine.
+    // For Physical Fire TV Stick: set to your local LAN IP (e.g., "http://192.168.1.50:3000")
+    // Can also be overridden at runtime via: adb shell am start -n com.onepick.tv/.MainActivity --es url "http://YOUR_IP:3000"
+    // =========================================================================
+    public static final String SERVER_URL = "http://10.0.2.2:3000";
+
     private WebView mWebView;
     private volatile boolean mIsModalOpen = false;
-
-    // Default URL: local emulator host alias or local machine server
-    private static final String DEFAULT_URL = "http://10.0.2.2:3000";
 
     public class WebAppInterface {
         @JavascriptInterface
@@ -66,8 +71,8 @@ public class MainActivity extends Activity {
         mWebView.setFocusableInTouchMode(true);
         mWebView.requestFocus();
 
-        // Check if custom URL was passed via intent extras
-        String targetUrl = DEFAULT_URL;
+        // Check if custom URL was passed via intent extras, fallback to configurable SERVER_URL constant
+        String targetUrl = SERVER_URL;
         if (getIntent() != null && getIntent().hasExtra("url")) {
             targetUrl = getIntent().getStringExtra("url");
         }
