@@ -3,6 +3,8 @@ import assert from 'node:assert';
 import {
   parseConstraintsWithBedrock,
   explainPickWithBedrock,
+  explainPickFallback,
+  findLowestViewerCompromise,
   setBedrockClient,
   clearBedrockCaches,
   sanitizeConstraintPatch,
@@ -292,4 +294,55 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     const explain2 = await explainPickWithBedrock({ candidate: mockCandidate, viewers: [] });
     assert.strictEqual(explain2.source, 'fallback', 'Must fall back if percentage contradicts groupScore');
   });
+  it('explanation fallback names the lowest-scoring viewer and the preference they gave up', () => {
+    const mockCandidate: Candidate = {
+      title: {
+        id: 't-coda',
+        name: 'Echoes of Silence',
+        genres: ['Drama', 'Music'],
+        moods: ['Heartfelt', 'Uplifting'],
+        minutes: 111,
+        rating: 'PG-13',
+        year: 2021,
+        art: 'art.jpg',
+      },
+      groupScore: 68,
+      minViewerScore: 65,
+      perViewer: [
+        { viewerId: 'v-1', viewerName: 'Areeba', score: 85, reasons: ['Drama'] },
+        { viewerId: 'v-2', viewerName: 'Harshit', score: 65, reasons: ['overall genre match'] },
+      ],
+    };
+
+    const viewers = [
+      {
+        id: 'v-1',
+        name: 'Areeba',
+        likes: ['Drama'],
+        mood: 'Clever',
+        excludes: [],
+      },
+      {
+        id: 'v-2',
+        name: 'Harshit',
+        likes: ['Comedy', 'Sci-Fi'],
+        mood: 'High-energy',
+        excludes: [],
+      },
+    ];
+
+    const compromise = findLowestViewerCompromise(mockCandidate, viewers);
+    assert.ok(compromise);
+    assert.strictEqual(compromise.viewerName, 'Harshit');
+    assert.strictEqual(compromise.compromise, 'Comedy genre');
+
+    const fallback = explainPickFallback({ candidate: mockCandidate, viewers });
+    assert.strictEqual(fallback.source, 'fallback');
+    assert.ok(fallback.consensusHighlight.includes('Harshit'));
+    assert.ok(
+      fallback.consensusHighlight.includes('Comedy genre') || fallback.tradeOff?.includes('Comedy genre'),
+      'Explanation must name the lowest viewer and the preference they gave up'
+    );
+  });
+
 });

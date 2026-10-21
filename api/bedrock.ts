@@ -10,6 +10,8 @@ import {
   BedrockExplainResponse,
   ConstraintPatch,
   Title,
+  Viewer,
+  Candidate,
 } from '../core/types';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -289,19 +291,64 @@ function formatViewerReasons(reasons: string[]): string {
 /**
  * Deterministic local fallback for explanation.
  */
-function explainPickFallback(req: BedrockExplainRequest): BedrockExplainResponse {
-  const { candidate } = req;
+/**
+ * Identifies the viewer with the lowest score and determines which preference they gave up.
+ */
+export function findLowestViewerCompromise(
+  candidate: Candidate,
+  viewers: Viewer[]
+): { viewerName: string; score: number; compromise: string } | null {
+  if (!candidate.perViewer || candidate.perViewer.length === 0) return null;
+  const sorted = [...candidate.perViewer].sort((a, b) => a.score - b.score);
+  const lowest = sorted[0];
+  const viewerObj = viewers.find(
+    (v) => v.id === lowest.viewerId || v.name.toLowerCase() === lowest.viewerName.toLowerCase()
+  );
+
+  let compromise = 'top genre preference';
+  if (viewerObj) {
+    const unfulfilledLikes = (viewerObj.likes || []).filter(
+      (l) => !candidate.title.genres.includes(l)
+    );
+    if (unfulfilledLikes.length > 0) {
+      compromise = `${unfulfilledLikes[0]} genre`;
+    } else if (viewerObj.mood && !candidate.title.moods.includes(viewerObj.mood)) {
+      compromise = `${viewerObj.mood} mood`;
+    } else if (viewerObj.maxMinutes && candidate.title.minutes > viewerObj.maxMinutes) {
+      compromise = `${viewerObj.maxMinutes}m runtime limit`;
+    } else if (viewerObj.likes && viewerObj.likes.length > 0) {
+      compromise = `${viewerObj.likes[0]} genre`;
+    }
+  }
+
+  return {
+    viewerName: lowest.viewerName,
+    score: lowest.score,
+    compromise,
+  };
+}
+
+/**
+ * Deterministic local fallback for explanation.
+ */
+export function explainPickFallback(req: BedrockExplainRequest): BedrockExplainResponse {
+  const { candidate, viewers } = req;
   const sorted = [...candidate.perViewer].sort((a, b) => a.score - b.score);
   const lowest = sorted[0];
   const highest = sorted[sorted.length - 1];
 
   const highestReason = highest ? formatViewerReasons(highest.reasons) : 'genre match';
+  const comp = findLowestViewerCompromise(candidate, viewers || []);
 
   const summary = `"${candidate.title.name}" is your household's consensus pick with a group fairness score of ${candidate.groupScore}%.`;
-  const consensusHighlight = highest && lowest
+  const consensusHighlight = highest && lowest && comp
+    ? `It strongly aligns with ${highest.viewerName}'s taste (${highestReason}) while keeping ${lowest.viewerName}'s satisfaction at ${lowest.score}%, though ${comp.viewerName} gave up their preferred ${comp.compromise}.`
+    : highest && lowest
     ? `It strongly aligns with ${highest.viewerName}'s taste (${highestReason}) while keeping ${lowest.viewerName}'s satisfaction at a solid ${lowest.score}%.`
     : `It maintains a balanced satisfaction of ${candidate.minViewerScore}% across all active viewers.`;
-  const tradeOff = `At ${candidate.title.minutes} minutes, it fits within all viewers' time windows without compromise.`;
+  const tradeOff = comp
+    ? `At ${candidate.title.minutes} minutes, it fits runtime limits while ${comp.viewerName} conceded their preferred ${comp.compromise}.`
+    : `At ${candidate.title.minutes} minutes, it fits within all viewers' time windows without compromise.`;
 
   return {
     summary,
@@ -343,10 +390,11 @@ Rules:
 - Do NOT change the ranking or invent facts.
 - Output JSON with:
   "summary": one clear sentence stating the title and group score.
-  "consensusHighlight": one natural sentence highlighting how the top viewer is satisfied while protecting the lowest-scoring viewer's satisfaction.
+  "consensusHighlight": one natural sentence highlighting how the top viewer is satisfied while protecting the lowest-scoring viewer's satisfaction, including a clause explicitly naming the lowest-scoring viewer and the preference (genre or mood) they gave up.
   "tradeOff": one sentence describing the runtime or compromises.
 Output raw JSON only.`;
 
+    const comp = findLowestViewerCompromise(req.candidate, req.viewers || []);
     const userMessage = `Candidate: ${JSON.stringify({
       title: req.candidate.title.name,
       year: req.candidate.title.year,
@@ -358,6 +406,7 @@ Output raw JSON only.`;
         score: v.score,
         reasons: formatViewerReasons(v.reasons),
       })),
+      lowestViewerCompromise: comp ? { viewer: comp.viewerName, preferenceGivenUp: comp.compromise } : undefined,
     })}`;
 
     const input: ConverseCommandInput = {
