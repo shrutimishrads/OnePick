@@ -88,8 +88,7 @@ npm run tv
 ---
 
 ## 🎬 3-Minute Demo
-<!-- TODO: Add demo video link prior to final hackathon submission -->
-- **Demo Video:** [Coming Soon / Link Pending Upload]
+- **Demo Video:** [TODO: Upload 3-minute demo video and insert URL prior to final hackathon deadline]
 - **Demo Script:** See [docs/demo-script.md](docs/demo-script.md) for the 3-minute video recording walkthrough.
 
 ---

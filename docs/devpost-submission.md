@@ -58,13 +58,50 @@ OnePick is a 10-foot Fire TV application that:
 ---
 
 ### Product Feedback & Friction Log
-*(Detailed breakdown provided in `docs/product-feedback.md` using Amazon's standard friction log format)*
+*(Full friction log with observations provided in `docs/product-feedback.md`)*
 
-- **Fire TV & Fire OS Developer Tooling:**
-  - [TODO: Record first-hand friction log entries for Fire TV emulator setup, physical ADB sideloading, and remote D-pad repeat rate testing once executed on a workstation with JDK 17 / Android SDK / Fire TV hardware.]
-- **AWS Bedrock & Converse API:**
-  - **Structured JSON Output:** The Converse API lacks native JSON schema enforcement in its inference configuration, necessitating prompt-level guidance and client-side regex fence cleaning.
-  - **TV Latency Budget:** [TODO: Record exact measured cold vs warm millisecond latencies from `npm run bedrock:check` once authenticated with active AWS credentials.]
+#### Entry 1: Fire TV Emulator Setup & Tooling
+- **Task Attempted:** Build and run the Fire OS Leanback wrapper (`fireos/`) in Android Studio's Fire TV emulator on a development workstation.
+- **Steps:** [TODO: Add exact steps taken once executed on a machine with JDK 17 and Android SDK installed]
+- **Expected vs Actual:**
+  - *Expected:* [TODO: Record expected emulator launch and build experience]
+  - *Actual:* [TODO: Record exact build output, SDK licensing prompts, or Gradle sync quirks encountered]
+- **Severity:** [TODO: Low / Medium / High]
+- **Workaround:** [TODO: Describe workaround used during testing, e.g. using browser-based TV remote simulator with full D-pad keyboard mapping]
+- **Suggestion:** [TODO: Suggestions for the Amazon Developer Tooling team regarding Fire TV emulator setup on Windows]
+
+#### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
+- **Task Attempted:** Sideload the debug APK onto a physical Fire TV device via wireless ADB and verify live remote response.
+- **Steps:** [TODO: Add steps for enabling Developer Options and ADB Debugging on Fire TV]
+- **Expected vs Actual:**
+  - *Expected:* [TODO: Record expected installation and remote responsiveness]
+  - *Actual:* [TODO: Record actual pairing UX, network security behaviors, or remote key latency observed]
+- **Severity:** [TODO: Low / Medium / High]
+- **Workaround:** [TODO: Detail any workarounds used for network discovery or cleartext HTTP on local LAN]
+- **Suggestion:** [TODO: Suggestion for Amazon Fire TV device team regarding sideload developer experience]
+
+#### Entry 3: Structured Output JSON Enforcement in AWS Bedrock Converse API
+- **Task Attempted:** Parse unstructured user utterances into strict JSON constraint patches (`ConstraintPatch`) using the Converse API (`amazon.nova-lite-v1:0`).
+- **Steps:**
+  1. Configured `ConverseCommand` with system prompt requesting raw JSON output without markdown fences.
+  2. Sent natural language utterance with current constraint context to `amazon.nova-lite-v1:0`.
+  3. Inspected raw text response from Bedrock runtime.
+- **Expected vs Actual:**
+  - *Expected:* A native inference configuration parameter guaranteeing strict JSON output complying with a provided schema.
+  - *Actual:* Models may occasionally wrap JSON in markdown code blocks (` ```json ... ``` `) or append conversational commentary, requiring custom regex stripping and fallback sanitizers.
+- **Severity:** Medium
+- **Workaround:** Implemented regex fence stripping and strict client-side sanitization (`sanitizeConstraintPatch`) that drops unknown keys and bounds numeric values.
+- **Suggestion:** Provide native JSON schema enforcement mode (similar to tool use schema validation) directly in the Converse API inference configuration.
+
+#### Entry 4: Live Bedrock Model Invocations and TV Latency Budget
+- **Task Attempted:** Measure cold-start and warm round-trip latency of `amazon.nova-lite-v1:0` under a 10-foot living room interaction budget.
+- **Steps:** [TODO: Add steps once live AWS credentials are authenticated in testing environment]
+- **Expected vs Actual:**
+  - *Expected:* [TODO: Record expected response latency for TV interaction (e.g. < 1,500 ms)]
+  - *Actual:* [TODO: Record actual cold-start handshake and warm round-trip latency measured via `npm run bedrock:check`]
+- **Severity:** [TODO: Low / Medium / High]
+- **Workaround:** Implemented a non-blocking `warmupBedrock()` routine, in-memory caching for repeated queries, and deterministic local fallbacks with configurable timeout (`BEDROCK_TIMEOUT_MS`).
+- **Suggestion:** Provide pre-warmed connection guidance or edge streaming token utilities tailored for TV frontends.
 
 ---
 
