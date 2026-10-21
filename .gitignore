@@ -10,3 +10,5 @@ coverage/
 .cache/
 *.pdf
 *-Report.html
+AUDIT.md
+AUDIT2.md
