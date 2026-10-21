@@ -3,7 +3,7 @@
     "id": "v-areeba",
     "name": "Areeba",
     "avatar": "👩‍🔬",
-    "likes": ["Action", "Adventure", "Sci-Fi"],
+    "likes": ["Mystery", "Drama", "Comedy"],
     "mood": "Clever",
     "maxMinutes": 130,
     "excludes": ["Horror"]
@@ -12,7 +12,7 @@
     "id": "v-harshit",
     "name": "Harshit",
     "avatar": "🎨",
-    "likes": ["Sci-Fi", "Action", "Mystery"],
+    "likes": ["Comedy", "Family", "Sci-Fi"],
     "mood": "High-energy",
     "maxMinutes": 135,
     "excludes": ["Romance"]
@@ -21,7 +21,7 @@
     "id": "v-shruti",
     "name": "Shruti",
     "avatar": "⚡",
-    "likes": ["Animation", "Comedy", "Fantasy"],
+    "likes": ["Drama", "Family", "Animation"],
     "mood": "Charming",
     "maxMinutes": 125,
     "excludes": ["Mystery"]

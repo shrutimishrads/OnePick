@@ -45,11 +45,11 @@ async function runDemo() {
 
   // Step 2: Bedrock Parse - Refinement 1
   console.log('\n' + '-'.repeat(70));
-  console.log('Step 2: Voice-style Refinement: "We already watched Cosmic Drift together last week"');
+  console.log(`Step 2: Voice-style Refinement: "We already watched ${topPick.title.name} together last week"`);
   console.log('-'.repeat(70));
 
   const parseRes1 = await parseConstraintsWithBedrock({
-    userUtterance: 'We already watched Cosmic Drift together last week',
+    userUtterance: `We already watched ${topPick.title.name} together last week`,
     currentConstraints: constraints,
   });
 
