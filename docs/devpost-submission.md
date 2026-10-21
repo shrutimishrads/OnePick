@@ -32,14 +32,14 @@ OnePick is a 10-foot Fire TV application that:
   - **Node.js Application Server (`app/server.ts`):** Serves the 10-foot TV web client, executes the deterministic scoring engine, and communicates with AWS Bedrock via standard AWS SDK credential chains.
 - **10-Foot TV UI (`app/index.html`):** Built with overscan-safe margins, large typography (28px+ body), spatial keyboard navigation, on-screen remote simulation, and accessible focus outlines.
 - **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies, providing unit-tested Rawlsian max-min fairness ranking, group scoring, and constraint satisfaction.
-- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks.
-- **Curated Living Room Library:** Exactly 20 curated titles with detailed metadata, genre weights, mood tags, and runtime constraints.
+- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`, standardized on `amazon.nova-lite-v1:0`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks.
+- **Curated Living Room Library:** Exactly 20 original titles with detailed metadata, genre weights, mood tags, and runtime constraints.
 
 ---
 
 ### Challenges We Ran Into
-- **10-Foot Focus & WebView D-Pad Lifecycle:** Managing TV remote focus inside an embedded WebView without focus traps or invisible tab stops required strict spatial navigation and key listeners. Bridging Android's native Back button to dismiss modal overlays required a two-way JavaScript bridge so users don't accidentally exit the app while viewing candidate breakdowns.
-- **Predictable Television Response Times:** Living room users expect immediate feedback. Relying on an LLM to generate candidate recommendations risks hallucinations and latency spikes. We solved this by using AWS Bedrock strictly for structured constraint extraction and explanation, keeping the candidate ranking completely deterministic in TypeScript.
+- **10-Foot Spatial Focus & Remote Navigation:** Designing for a TV interface without a mouse or touch gestures requires deliberate focus management. We built an on-screen TV remote simulator and keyboard arrow key navigation in the web app, and designed the native Fire OS wrapper (`MainActivity.java`) to intercept D-pad and Back button events.
+- **Predictable Television Response Times:** Living room users expect immediate feedback. Relying on an LLM to generate candidate recommendations risks hallucinations and latency spikes. We solved this by using AWS Bedrock strictly for structured constraint extraction and explanation, keeping candidate ranking completely deterministic in TypeScript.
 
 ---
 
@@ -47,12 +47,24 @@ OnePick is a 10-foot Fire TV application that:
 - Designing a genuinely fair group aggregation formula that guarantees no viewer feels ignored.
 - Building a full 10-foot TV interface with keyboard and on-screen remote simulation, alongside an Android WebView wrapper project configured for Fire OS.
 - Automated unit test suite covering constraint filtering, watched history exclusions, Bedrock JSON sanitization, and fairness ranking.
+- Diagnostic tooling (`npm run bedrock:check`) that validates live AWS connectivity safely without exposing credentials.
 
 ---
 
 ### What We Learned
 - Designing for a 10-foot television interface demands completely different UX paradigms than desktop or mobile apps: focus clarity, contrast, and remote navigation speed are paramount.
 - How to effectively combine deterministic rule engines with generative AI: preventing generative hallucinations by keeping scoring strictly grounded in deterministic rules, using LLMs only for semantic parsing and natural explanations.
+
+---
+
+### Product Feedback & Friction Log
+*(Detailed breakdown provided in `docs/product-feedback.md` using Amazon's standard friction log format)*
+
+- **Fire TV & Fire OS Developer Tooling:**
+  - [TODO: Record first-hand friction log entries for Fire TV emulator setup, physical ADB sideloading, and remote D-pad repeat rate testing once executed on a workstation with JDK 17 / Android SDK / Fire TV hardware.]
+- **AWS Bedrock & Converse API:**
+  - **Structured JSON Output:** The Converse API lacks native JSON schema enforcement in its inference configuration, necessitating prompt-level guidance and client-side regex fence cleaning.
+  - **TV Latency Budget:** [TODO: Record exact measured cold vs warm millisecond latencies from `npm run bedrock:check` once authenticated with active AWS credentials.]
 
 ---
 
