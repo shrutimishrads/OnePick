@@ -4,7 +4,7 @@
   "description": "AI household viewing concierge on Fire TV",
   "main": "core/index.ts",
   "scripts": {
-    "test": "node --import tsx --test core/scoring.test.ts api/bedrock.test.ts core/demo-transitions.test.ts",
+    "test": "node --import tsx --test core/scoring.test.ts api/bedrock.test.ts core/demo-transitions.test.ts app/server.test.ts",
     "start": "node --import tsx scripts/demo.ts",
     "demo": "node --import tsx scripts/demo.ts",
     "tv": "node --import tsx app/server.ts",

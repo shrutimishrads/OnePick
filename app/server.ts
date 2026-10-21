@@ -54,21 +54,68 @@ const server = http.createServer(async (req, res) => {
     let body = '';
     req.on('data', (chunk) => (body += chunk));
     req.on('end', () => {
+      let patch: any;
       try {
-        const patch = JSON.parse(body);
-        sessionConstraints = applyConstraintPatch(sessionConstraints, patch);
-        const candidates = rankCandidates(titles, sessionConstraints);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(
-          JSON.stringify({
-            constraints: sessionConstraints,
-            candidates,
-          })
-        );
-      } catch (err: any) {
+        patch = JSON.parse(body);
+      } catch {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: err.message }));
+        res.end(JSON.stringify({ error: 'Malformed JSON payload' }));
+        return;
       }
+
+      if (!patch || typeof patch !== 'object' || Array.isArray(patch)) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Expected JSON object body' }));
+        return;
+      }
+
+      if (patch.maxMinutes !== undefined) {
+        if (typeof patch.maxMinutes !== 'number' || isNaN(patch.maxMinutes) || patch.maxMinutes <= 0) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid "maxMinutes": must be a positive number' }));
+          return;
+        }
+      }
+
+      if (patch.watched !== undefined) {
+        if (!Array.isArray(patch.watched) || patch.watched.some((w: any) => typeof w !== 'string')) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid "watched": must be an array of title IDs' }));
+          return;
+        }
+      }
+
+      if (patch.addedExcludes !== undefined) {
+        if (!Array.isArray(patch.addedExcludes)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid "addedExcludes": must be an array' }));
+          return;
+        }
+        for (const item of patch.addedExcludes) {
+          if (!item || typeof item !== 'object' || typeof item.exclude !== 'string' || !item.exclude.trim()) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Invalid item in "addedExcludes": expected { exclude: string }' }));
+            return;
+          }
+          if (item.viewerId !== undefined) {
+            if (typeof item.viewerId !== 'string' || !defaultViewers.some((v) => v.id === item.viewerId)) {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ error: `Unknown viewer id in addedExcludes: "${item.viewerId}"` }));
+              return;
+            }
+          }
+        }
+      }
+
+      sessionConstraints = applyConstraintPatch(sessionConstraints, patch);
+      const candidates = rankCandidates(titles, sessionConstraints);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(
+        JSON.stringify({
+          constraints: sessionConstraints,
+          candidates,
+        })
+      );
     });
     return;
   }
@@ -77,22 +124,44 @@ const server = http.createServer(async (req, res) => {
     let body = '';
     req.on('data', (chunk) => (body += chunk));
     req.on('end', () => {
+      let parsed: any;
       try {
-        const { viewerId } = JSON.parse(body);
-        const exists = sessionConstraints.viewers.some((v) => v.id === viewerId);
-        if (exists) {
-          sessionConstraints.viewers = sessionConstraints.viewers.filter((v) => v.id !== viewerId);
-        } else {
-          const v = defaultViewers.find((item) => item.id === viewerId);
-          if (v) sessionConstraints.viewers.push(v);
-        }
-        const candidates = rankCandidates(titles, sessionConstraints);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ constraints: sessionConstraints, candidates }));
-      } catch (err: any) {
+        parsed = JSON.parse(body);
+      } catch {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: err.message }));
+        res.end(JSON.stringify({ error: 'Malformed JSON payload' }));
+        return;
       }
+
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Expected JSON object body' }));
+        return;
+      }
+
+      const { viewerId } = parsed;
+      if (typeof viewerId !== 'string' || !viewerId.trim()) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Missing or invalid "viewerId" field' }));
+        return;
+      }
+
+      const knownViewer = defaultViewers.find((item) => item.id === viewerId);
+      if (!knownViewer) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: `Unknown viewer id: "${viewerId}"` }));
+        return;
+      }
+
+      const exists = sessionConstraints.viewers.some((v) => v.id === viewerId);
+      if (exists) {
+        sessionConstraints.viewers = sessionConstraints.viewers.filter((v) => v.id !== viewerId);
+      } else {
+        sessionConstraints.viewers.push(knownViewer);
+      }
+      const candidates = rankCandidates(titles, sessionConstraints);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ constraints: sessionConstraints, candidates }));
     });
     return;
   }
@@ -101,8 +170,29 @@ const server = http.createServer(async (req, res) => {
     let body = '';
     req.on('data', (chunk) => (body += chunk));
     req.on('end', async () => {
+      let parsedBody: any;
       try {
-        const { utterance } = JSON.parse(body);
+        parsedBody = JSON.parse(body);
+      } catch {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Malformed JSON payload' }));
+        return;
+      }
+
+      if (!parsedBody || typeof parsedBody !== 'object' || Array.isArray(parsedBody)) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Expected JSON object body' }));
+        return;
+      }
+
+      const { utterance } = parsedBody;
+      if (typeof utterance !== 'string' || !utterance.trim()) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Missing or empty "utterance" field' }));
+        return;
+      }
+
+      try {
         const parsed = await parseConstraintsWithBedrock({
           userUtterance: utterance,
           currentConstraints: sessionConstraints,
@@ -120,7 +210,7 @@ const server = http.createServer(async (req, res) => {
           })
         );
       } catch (err: any) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: err.message }));
       }
     });
@@ -210,11 +300,23 @@ const server = http.createServer(async (req, res) => {
   res.end('Not Found');
 });
 
-server.listen(PORT, () => {
-  console.log(`\n============================================================`);
-  console.log(` 📺 OnePick Fire TV Simulator running at http://localhost:${PORT}`);
-  console.log(`============================================================\n`);
+export function resetSessionConstraints(): void {
+  sessionConstraints = {
+    viewers: [...defaultViewers],
+    watched: [],
+    maxMinutes: undefined,
+  };
+}
 
-  // Non-blocking warm-up call to initialize TLS connection and credentials
-  warmupBedrock().catch(() => {});
-});
+export { server };
+
+if (process.argv[1] && process.argv[1].endsWith('server.ts') && !process.argv.some(a => a.includes('test'))) {
+  server.listen(PORT, () => {
+    console.log(`\n============================================================`);
+    console.log(` 📺 OnePick Fire TV Simulator running at http://localhost:${PORT}`);
+    console.log(`============================================================\n`);
+
+    // Non-blocking warm-up call to initialize TLS connection and credentials
+    warmupBedrock().catch(() => {});
+  });
+}
