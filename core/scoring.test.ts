@@ -33,7 +33,7 @@ const mockTitles: Title[] = [
   },
   {
     id: 't-rift-valley-freight',
-    name: 'The Magma Rift',
+    name: 'The Stormline Haul',
     genres: ['Sci-Fi', 'Action'],
     moods: ['Epic'],
     minutes: 158,

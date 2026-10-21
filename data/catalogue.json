@@ -230,8 +230,8 @@
   },
   {
     "id": "t-deep-core-drill",
-    "name": "The Mantle Project",
-    "tagline": "The deepest frontier lies straight down.",
+    "name": "The Tether Arc",
+    "tagline": "Holding two worlds together with a thread of steel.",
     "genres": [
       "Sci-Fi",
       "Drama",
@@ -245,7 +245,7 @@
     "minutes": 161,
     "rating": "PG-13",
     "year": 2023,
-    "synopsis": "A veteran geophysicist leading an oceanic drilling expedition penetrates an ultra-deep pressurized reservoir beneath the Pacific tectonic plate. When runaway friction destabilizes the drill string, her engineering crew faces unprecedented depths to cap the geothermal breach."
+    "synopsis": "A deep-vacuum cable rigger stationed in Saturn ring system must secure an unmoored water-ice comet after an asteroid shears the main tension array. Working in microgravity amid spinning orbital debris, her crew manually anchors fusion towlines to divert the megaton mass."
   },
   {
     "id": "t-dockside-tontine",
@@ -361,8 +361,8 @@
   },
   {
     "id": "t-rift-valley-freight",
-    "name": "The Magma Rift",
-    "tagline": "A freight line laid over liquid stone.",
+    "name": "The Stormline Haul",
+    "tagline": "Heavy cargo on the edge of the atmosphere.",
     "genres": [
       "Sci-Fi",
       "Adventure",
@@ -376,6 +376,6 @@
     "minutes": 158,
     "rating": "PG-13",
     "year": 2024,
-    "synopsis": "A seasoned mag-lev train master piloting a massive industrial ore carrier across an active planetary tectonic rift encounters a sudden lava blowout. With bridges collapsing behind and sensors failing, she coordinates with dispatch to re-route across untracked volcanic plateaus."
+    "synopsis": "A heavy-freight sky-crane pilot hauling modular power reactors across a stormy frontier world suffers turbine failure above an equatorial jet stream. Stranded in the upper atmosphere, she must climb onto the fuselage in gale winds to reroute power before the ship loses lift."
   }
 ]
