@@ -16,12 +16,12 @@ export interface Viewer {
 export interface Title {
   id: string;
   name: string;
+  tagline?: string;
   genres: string[];
   moods: string[];
   minutes: number;
   rating: string; // e.g. "PG-13", "R", "TV-MA"
   year: number;
-  art: string; // poster / backdrop image url
   synopsis?: string;
 }
 

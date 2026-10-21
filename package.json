@@ -11,7 +11,8 @@
     "dev": "node --import tsx app/server.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "screenshots": "node --import tsx scripts/capture-screenshots.ts"
+    "screenshots": "node --import tsx scripts/capture-screenshots.ts",
+    "posters": "node --import tsx scripts/generate-posters.ts"
   },
   "keywords": [
     "fire-tv",

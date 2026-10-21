@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-hunt-for-wilderpeople" gradientTransform="rotate(46)">
+      <stop offset="0%" stop-color="#0e1724" />
+      <stop offset="100%" stop-color="#2b1b17" />
+    </linearGradient>
+    <linearGradient id="overlay-t-hunt-for-wilderpeople" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-hunt-for-wilderpeople" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-hunt-for-wilderpeople)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-hunt-for-wilderpeople">
+    <circle cx="360" cy="483" r="117" fill="#f4a261" opacity="0.27" filter="url(#glow-t-hunt-for-wilderpeople)" />
+    <circle cx="194" cy="180" r="110" fill="none" stroke="#e76f51" stroke-width="9" opacity="0.48" />
+    <circle cx="221" cy="428" r="120" fill="none" stroke="#e9c46a" stroke-width="3" opacity="0.33" />
+    <rect x="319.5" y="269.5" width="173" height="131" rx="16" transform="rotate(-5 406 335)" fill="#f4a261" opacity="0.64" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-hunt-for-wilderpeople)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#f4a261" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2016 • PG-13 • 101 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    COMEDY • ADVENTURE • DRAMA
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="635">The Ridge</tspan><tspan x="300" y="685">Runners</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Wanted by the law, united by the bush."
+  </text>
+</svg>

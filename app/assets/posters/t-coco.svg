@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-coco" gradientTransform="rotate(253)">
+      <stop offset="0%" stop-color="#0c1329" />
+      <stop offset="100%" stop-color="#2b103b" />
+    </linearGradient>
+    <linearGradient id="overlay-t-coco" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-coco" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-coco)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-coco">
+    <circle cx="268" cy="193" r="143" fill="none" stroke="#ffb703" stroke-width="9" opacity="0.28" />
+    <circle cx="393" cy="198" r="85" fill="none" stroke="#fb8500" stroke-width="2" opacity="0.52" />
+    <circle cx="462" cy="309" r="94" fill="#f72585" opacity="0.15" filter="url(#glow-t-coco)" />
+    <circle cx="215" cy="287" r="132" fill="#ffb703" opacity="0.30" filter="url(#glow-t-coco)" />
+    <circle cx="465" cy="444" r="159" fill="#fb8500" opacity="0.23" filter="url(#glow-t-coco)" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-coco)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2017 • PG • 105 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    ANIMATION • FAMILY • FANTASY
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="635">The Golden</tspan><tspan x="300" y="685">Marigold</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Songs remember what the living forget."
+  </text>
+</svg>

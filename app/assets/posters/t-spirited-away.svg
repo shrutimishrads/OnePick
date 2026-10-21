@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-spirited-away" gradientTransform="rotate(246)">
+      <stop offset="0%" stop-color="#0c1329" />
+      <stop offset="100%" stop-color="#2b103b" />
+    </linearGradient>
+    <linearGradient id="overlay-t-spirited-away" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-spirited-away" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-spirited-away)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-spirited-away">
+    <circle cx="156" cy="303" r="184" fill="#ffb703" opacity="0.20" filter="url(#glow-t-spirited-away)" />
+    <rect x="429.5" y="208" width="119" height="170" rx="16" transform="rotate(-35 489 293)" fill="#fb8500" opacity="0.49" />
+    <circle cx="370" cy="379" r="169" fill="none" stroke="#f72585" stroke-width="8" opacity="0.64" />
+    <rect x="405" y="258.5" width="116" height="99" rx="16" transform="rotate(40 463 308)" fill="#ffb703" opacity="0.51" />
+    <rect x="143.5" y="381" width="185" height="132" rx="16" transform="rotate(37 236 447)" fill="#fb8500" opacity="0.59" />
+    <circle cx="429" cy="194" r="98" fill="#f72585" opacity="0.32" filter="url(#glow-t-spirited-away)" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-spirited-away)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2001 • PG • 125 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    ANIMATION • FANTASY • ADVENTURE
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="635">The Whispering</tspan><tspan x="300" y="685">Lantern</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Step past the gate before twilight fades."
+  </text>
+</svg>

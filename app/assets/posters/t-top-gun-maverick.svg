@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-top-gun-maverick" gradientTransform="rotate(227)">
+      <stop offset="0%" stop-color="#0f1115" />
+      <stop offset="100%" stop-color="#291207" />
+    </linearGradient>
+    <linearGradient id="overlay-t-top-gun-maverick" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-top-gun-maverick" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-top-gun-maverick)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-top-gun-maverick">
+    <rect x="167" y="370" width="240" height="256" rx="16" transform="rotate(40 287 498)" fill="#ff6b35" opacity="0.42" />
+    <circle cx="123" cy="310" r="124" fill="none" stroke="#f7c59f" stroke-width="5" opacity="0.48" />
+    <circle cx="220" cy="352" r="85" fill="none" stroke="#ef233c" stroke-width="5" opacity="0.33" />
+    <circle cx="143" cy="189" r="91" fill="#ff6b35" opacity="0.25" filter="url(#glow-t-top-gun-maverick)" />
+    <rect x="316.5" y="410.5" width="147" height="81" rx="16" transform="rotate(20 390 451)" fill="#f7c59f" opacity="0.55" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-top-gun-maverick)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#ff6b35" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2022 • PG-13 • 130 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    ACTION • DRAMA
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">Apex Velocity</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#f7c59f" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Speed is nothing without the nerve to pull up."
+  </text>
+</svg>

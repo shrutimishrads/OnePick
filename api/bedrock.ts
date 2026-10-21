@@ -174,11 +174,11 @@ function parseConstraintsFallback(req: BedrockParseRequest): BedrockParseRespons
     }
   }
 
-  if (utterance.includes('spider-verse') || utterance.includes('cosmic drift') || utterance.includes('watched that')) {
-    const spiderId = knownIdMap.get('cosmic drift: web of worlds') || knownIdMap.get('spider-man: into the spider-verse') || 't-spider-verse';
+  if (utterance.includes('chroma shift') || utterance.includes('watched that')) {
+    const chromaId = knownIdMap.get('chroma shift') || 't-spider-verse';
     return {
-      patch: { watched: [spiderId] },
-      interpretedIntent: 'Marked "Cosmic Drift: Web of Worlds" as watched.',
+      patch: { watched: [chromaId] },
+      interpretedIntent: 'Marked "Chroma Shift" as watched.',
       source: 'fallback',
     };
   }
@@ -232,7 +232,7 @@ export async function parseConstraintsWithBedrock(
     const systemPrompt = `You are the constraint parser for OnePick Fire TV concierge.
 Extract user constraint updates into a single JSON object with these allowed fields only:
 - "maxMinutes": integer (e.g. 100)
-- "watched": array of title IDs or exact title names (e.g. ["t-spider-verse"] or ["Cosmic Drift: Web of Worlds"])
+- "watched": array of title IDs or exact title names (e.g. ["t-spider-verse"] or ["Chroma Shift"])
 - "addedExcludes": array of {"exclude": string, "viewerId": optional string}
 - "targetMood": string (optional)
 - "requiredGenre": string (optional)

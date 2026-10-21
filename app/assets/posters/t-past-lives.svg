@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-past-lives" gradientTransform="rotate(349)">
+      <stop offset="0%" stop-color="#11141a" />
+      <stop offset="100%" stop-color="#241b21" />
+    </linearGradient>
+    <linearGradient id="overlay-t-past-lives" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-past-lives" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-past-lives)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-past-lives">
+    <circle cx="261" cy="498" r="140" fill="#e26d5c" opacity="0.30" filter="url(#glow-t-past-lives)" />
+    <circle cx="218" cy="449" r="207" fill="#c9ada7" opacity="0.31" filter="url(#glow-t-past-lives)" />
+    <circle cx="425" cy="396" r="165" fill="#9a8c98" opacity="0.27" filter="url(#glow-t-past-lives)" />
+    <rect x="349" y="286.5" width="86" height="105" rx="16" transform="rotate(-45 392 339)" fill="#e26d5c" opacity="0.46" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-past-lives)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#e26d5c" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2023 • PG-13 • 105 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    DRAMA • ROMANCE
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="635">Parallel</tspan><tspan x="300" y="685">Meridians</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#c9ada7" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Two paths diverged. One question remains."
+  </text>
+</svg>

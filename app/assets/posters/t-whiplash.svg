@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-whiplash" gradientTransform="rotate(87)">
+      <stop offset="0%" stop-color="#11141a" />
+      <stop offset="100%" stop-color="#241b21" />
+    </linearGradient>
+    <linearGradient id="overlay-t-whiplash" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-whiplash" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-whiplash)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-whiplash">
+    <circle cx="471" cy="474" r="142" fill="none" stroke="#e26d5c" stroke-width="4" opacity="0.34" />
+    <circle cx="278" cy="459" r="104" fill="none" stroke="#c9ada7" stroke-width="5" opacity="0.26" />
+    <circle cx="222" cy="528" r="117" fill="none" stroke="#9a8c98" stroke-width="2" opacity="0.56" />
+    <circle cx="323" cy="448" r="216" fill="#e26d5c" opacity="0.14" filter="url(#glow-t-whiplash)" />
+    <circle cx="380" cy="286" r="96" fill="none" stroke="#c9ada7" stroke-width="5" opacity="0.34" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-whiplash)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#e26d5c" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2014 • R • 106 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    DRAMA • MUSIC
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">Cadence of Brass</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#c9ada7" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Greatness demands everything you have left."
+  </text>
+</svg>

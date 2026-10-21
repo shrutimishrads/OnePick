@@ -1,222 +1,381 @@
 [
   {
     "id": "t-knives-out",
-    "name": "Crystal Labyrinth",
-    "genres": ["Mystery", "Comedy", "Drama"],
-    "moods": ["Clever", "Witty", "Fun"],
+    "name": "The Glass Solarium",
+    "tagline": "Every secret leaves a reflection.",
+    "genres": [
+      "Mystery",
+      "Comedy",
+      "Drama"
+    ],
+    "moods": [
+      "Clever",
+      "Witty",
+      "Fun"
+    ],
     "minutes": 139,
     "rating": "PG-13",
     "year": 2022,
-    "art": "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A famed investigator travels to a remote Mediterranean estate to unravel an intricate, high-stakes mystery game."
+    "synopsis": "When an eccentric patriarch vanishes during a family gathering, an investigator must interrogate eight scheming heirs. As motives multiply, a hidden clause in the family trust threatens to destroy them all."
   },
   {
     "id": "t-arrival",
-    "name": "First Contact: Lexicon",
-    "genres": ["Sci-Fi", "Drama", "Mystery"],
-    "moods": ["Thoughtful", "Mind-bending", "Emotional"],
+    "name": "Cipher of the Void",
+    "tagline": "To survive their arrival, we must learn to listen.",
+    "genres": [
+      "Sci-Fi",
+      "Drama",
+      "Mystery"
+    ],
+    "moods": [
+      "Thoughtful",
+      "Mind-bending",
+      "Emotional"
+    ],
     "minutes": 116,
     "rating": "PG-13",
     "year": 2016,
-    "art": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A linguist collaborates with global defense agencies to decipher the language of enigmatic extraterrestrial visitors."
+    "synopsis": "Twelve monolithic vessels enter orbit without transmission. A cryptographer races against military panic to translate alien glyphs before global nervous tensions ignite worldwide conflict."
   },
   {
     "id": "t-grand-budapest",
-    "name": "The Grand Continental",
-    "genres": ["Comedy", "Adventure"],
-    "moods": ["Quirky", "Charming", "Visually Stunning"],
+    "name": "The Velvet Chalet",
+    "tagline": "High society manners, lowbrow subterranean schemes.",
+    "genres": [
+      "Comedy",
+      "Adventure"
+    ],
+    "moods": [
+      "Quirky",
+      "Charming",
+      "Visually Stunning"
+    ],
     "minutes": 99,
     "rating": "R",
     "year": 2014,
-    "art": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A legendary hotel concierge and his trusted apprentice embark on a whirlwind heist and recovery quest across 1930s Europe."
+    "synopsis": "A meticulous concierge and a resourceful bellhop become fugitive partners when an antique timepiece disappears. Pursued across snow-covered borders, they must outsmart rival inspectors to clear their names."
   },
   {
     "id": "t-spider-verse",
-    "name": "Cosmic Drift: Web of Worlds",
-    "genres": ["Animation", "Action", "Adventure", "Sci-Fi"],
-    "moods": ["Exhilarating", "Vibrant", "Heartfelt"],
+    "name": "Chroma Shift",
+    "tagline": "One spark ignites a million dimensions.",
+    "genres": [
+      "Animation",
+      "Action",
+      "Adventure",
+      "Sci-Fi"
+    ],
+    "moods": [
+      "Exhilarating",
+      "Vibrant",
+      "Heartfelt"
+    ],
     "minutes": 117,
     "rating": "PG",
     "year": 2018,
-    "art": "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A gifted Brooklyn teen is thrust into the multiverse, joining forces with dimension-hopping champions to stabilize reality."
+    "synopsis": "A graffiti artist in a neon-lit metropolis unlocks the power to bend light between parallel timelines. When a reality rift threatens to collapse the sectors, he must unite disparate anomalies to seal the core."
   },
   {
     "id": "t-everything-everywhere",
-    "name": "All Realities Simultaneously",
-    "genres": ["Sci-Fi", "Comedy", "Action", "Drama"],
-    "moods": ["Wild", "Heartfelt", "Mind-bending"],
+    "name": "Fractured Continuum",
+    "tagline": "Infinite lives. One broken family to save.",
+    "genres": [
+      "Sci-Fi",
+      "Comedy",
+      "Action",
+      "Drama"
+    ],
+    "moods": [
+      "Wild",
+      "Heartfelt",
+      "Mind-bending"
+    ],
     "minutes": 139,
     "rating": "R",
     "year": 2022,
-    "art": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "An exhausted shopkeeper connects with alternate versions of herself across parallel dimensions to save her family and the cosmos."
+    "synopsis": "An overwhelmed laundromat proprietor discovers every choice she ever made created a parallel life. Hunted by a nihilistic force from across the timeline, she must harness past versions of herself to heal her family."
   },
   {
     "id": "t-whiplash",
-    "name": "Tempo of Fire",
-    "genres": ["Drama", "Music"],
-    "moods": ["Intense", "Gripping", "Relentless"],
+    "name": "Cadence of Brass",
+    "tagline": "Greatness demands everything you have left.",
+    "genres": [
+      "Drama",
+      "Music"
+    ],
+    "moods": [
+      "Intense",
+      "Gripping",
+      "Relentless"
+    ],
     "minutes": 106,
     "rating": "R",
     "year": 2014,
-    "art": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A determined young jazz drummer pushes himself past human limits under the brutal tutelage of an uncompromising instructor."
+    "synopsis": "A relentless conservatory percussionist seeks absolute perfection under an unyielding maestro. As rehearsals turn punishing and rivalry deepens, he risks his sanity for a single flawless performance."
   },
   {
     "id": "t-spirited-away",
-    "name": "Spirit Realm Crossing",
-    "genres": ["Animation", "Fantasy", "Adventure"],
-    "moods": ["Magical", "Imaginative", "Nostalgic"],
+    "name": "The Whispering Lantern",
+    "tagline": "Step past the gate before twilight fades.",
+    "genres": [
+      "Animation",
+      "Fantasy",
+      "Adventure"
+    ],
+    "moods": [
+      "Magical",
+      "Imaginative",
+      "Nostalgic"
+    ],
     "minutes": 125,
     "rating": "PG",
     "year": 2001,
-    "art": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A brave young girl wanders into an enchanted bathhouse realm inhabited by spirits, working tirelessly to free her transformed parents."
+    "synopsis": "Trapped in an ancient spirit market after nightfall, a young wanderer must work in a mystical bathhouse to earn her freedom. Navigating fickle deities and forgotten memories, she searches for the way home."
   },
   {
     "id": "t-fantastic-mr-fox",
-    "name": "The Clever Burrower",
-    "genres": ["Animation", "Comedy", "Adventure"],
-    "moods": ["Charming", "Witty", "Feel-good"],
+    "name": "Bramblewood",
+    "tagline": "Wild instincts never stay buried for long.",
+    "genres": [
+      "Animation",
+      "Comedy",
+      "Adventure"
+    ],
+    "moods": [
+      "Charming",
+      "Witty",
+      "Feel-good"
+    ],
     "minutes": 87,
     "rating": "PG",
     "year": 2009,
-    "art": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A dapper forest rogue cannot resist his primal instincts, leading a community of woodland creatures on an audacious farm heist."
+    "synopsis": "A retired animal rogue returns for one final raid against industrial farm owners surrounding his meadow. When retaliation traps his underground community, he leads a desperate escape through forgotten tunnels."
   },
   {
     "id": "t-quiet-place",
-    "name": "Sound of Silence",
-    "genres": ["Horror", "Sci-Fi", "Drama"],
-    "moods": ["Suspenseful", "Terrifying", "Tense"],
+    "name": "Stillness Falls",
+    "tagline": "The loudest sound you make will be your last.",
+    "genres": [
+      "Horror",
+      "Sci-Fi",
+      "Drama"
+    ],
+    "moods": [
+      "Suspenseful",
+      "Terrifying",
+      "Tense"
+    ],
     "minutes": 90,
     "rating": "PG-13",
     "year": 2018,
-    "art": "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A resilient family navigates isolated daily life in absolute silence to evade deadly extraterrestrial hunters guided by acoustic cues."
+    "synopsis": "In an abandoned valley stalked by sound-seeking nocturnal predators, a mother guards her homestead in absolute silence. When an unexpected storm damages their alarms, the family must flee without uttering a whisper."
   },
   {
     "id": "t-get-out",
-    "name": "The Sunken Mind",
-    "genres": ["Horror", "Mystery", "Thriller"],
-    "moods": ["Chilling", "Unsettling", "Sharp"],
+    "name": "The Hollow Estate",
+    "tagline": "A polite smile can hide the darkest trap.",
+    "genres": [
+      "Horror",
+      "Mystery",
+      "Thriller"
+    ],
+    "moods": [
+      "Chilling",
+      "Unsettling",
+      "Sharp"
+    ],
     "minutes": 104,
     "rating": "R",
     "year": 2017,
-    "art": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A weekend getaway to an upscale country estate turns into a psychological nightmare as disturbing secrets come to light."
+    "synopsis": "A young photographer spends the weekend at his partner's secluded family manor, only to notice chilling behavioral anomalies among the staff. As hospitality shifts into psychological control, he uncovers a horrifying trade."
   },
   {
     "id": "t-palm-springs",
-    "name": "Infinite Loop Resort",
-    "genres": ["Comedy", "Romance", "Sci-Fi"],
-    "moods": ["Breezy", "Hilarious", "Smart"],
+    "name": "Desert Solstice",
+    "tagline": "Tomorrow is today until they change the rhythm.",
+    "genres": [
+      "Comedy",
+      "Romance",
+      "Sci-Fi"
+    ],
+    "moods": [
+      "Breezy",
+      "Hilarious",
+      "Smart"
+    ],
     "minutes": 90,
     "rating": "R",
     "year": 2020,
-    "art": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "Trapped in an anomalous time loop at a desert resort wedding, two reluctant guests form an unexpected bond while reliving the day."
+    "synopsis": "Two cynical guests at an isolated desert retreat discover they are looping through the exact same wedding celebration. Faced with eternal repetition, they must confront their deepest fears to escape the temporal trap."
   },
   {
     "id": "t-coco",
-    "name": "Land of Ancestors",
-    "genres": ["Animation", "Family", "Fantasy", "Music"],
-    "moods": ["Tearjerker", "Heartfelt", "Uplifting"],
+    "name": "The Golden Marigold",
+    "tagline": "Songs remember what the living forget.",
+    "genres": [
+      "Animation",
+      "Family",
+      "Fantasy",
+      "Music"
+    ],
+    "moods": [
+      "Tearjerker",
+      "Heartfelt",
+      "Uplifting"
+    ],
     "minutes": 105,
     "rating": "PG",
     "year": 2017,
-    "art": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "An aspiring young guitarist embarks on a luminous journey to the ancestral spirit realm to unlock his family's generational secret."
+    "synopsis": "Forbidden from studying melody by his shoemaker ancestors, a boy slips into the illuminated world of spirits during a harvest festival. Guided by a trickster specter, he must prove his musical gift before sunrise."
   },
   {
     "id": "t-interstellar",
-    "name": "Beyond the Singularity",
-    "genres": ["Sci-Fi", "Drama", "Adventure"],
-    "moods": ["Epic", "Emotional", "Awe-inspiring"],
+    "name": "Beyond the Event Horizon",
+    "tagline": "Love is the one gravity across all worlds.",
+    "genres": [
+      "Sci-Fi",
+      "Drama",
+      "Adventure"
+    ],
+    "moods": [
+      "Epic",
+      "Emotional",
+      "Awe-inspiring"
+    ],
     "minutes": 169,
     "rating": "PG-13",
     "year": 2014,
-    "art": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "With Earth facing ecological collapse, a brave team of astronauts journeys through an interstellar wormhole in search of humanity's future."
+    "synopsis": "As solar dust storms render terrestrial farming impossible, an engineer leaves his children to navigate an unmapped cosmic rift. Searching for habitable exoplanets, the crew confronts time distortion and isolation."
   },
   {
     "id": "t-parasite",
-    "name": "Symbiosis",
-    "genres": ["Drama", "Thriller", "Comedy"],
-    "moods": ["Suspenseful", "Gripping", "Dark"],
+    "name": "Subterranean Echoes",
+    "tagline": "Two families living under one slanted roof.",
+    "genres": [
+      "Drama",
+      "Thriller",
+      "Comedy"
+    ],
+    "moods": [
+      "Suspenseful",
+      "Gripping",
+      "Dark"
+    ],
     "minutes": 132,
     "rating": "R",
     "year": 2019,
-    "art": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A destitute family meticulously inserts themselves into the household of a wealthy clan, until an unforeseen discovery upends the balance."
+    "synopsis": "Living in a damp basement apartment, a cunning family infiltrates the staff of a modernist hillside villa. When an unexpected discovery reveals hidden occupants, the delicate illusion turns into a desperate struggle."
   },
   {
     "id": "t-paddington-2",
-    "name": "The London Marmalade Bear",
-    "genres": ["Comedy", "Adventure", "Family"],
-    "moods": ["Delightful", "Warm", "Feel-good"],
+    "name": "The Kensington Carousel",
+    "tagline": "Kindness solves what cold hearts cannot.",
+    "genres": [
+      "Comedy",
+      "Adventure",
+      "Family"
+    ],
+    "moods": [
+      "Delightful",
+      "Warm",
+      "Feel-good"
+    ],
     "minutes": 103,
     "rating": "PG",
     "year": 2017,
-    "art": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A lovable bear takes on quirky odd jobs to purchase a vintage pop-up book for his aunt's centennial, embarking on a quest when it is stolen."
+    "synopsis": "A small immigrant bear living in a London neighborhood works odd jobs to buy a rare antique book for his grandmother. Framed for its theft by an egocentric actor, he must inspire his fellow inmates to clear his name."
   },
   {
     "id": "t-top-gun-maverick",
-    "name": "Mach 3: Stratosphere",
-    "genres": ["Action", "Drama"],
-    "moods": ["Thrilling", "Crowd-pleaser", "High-energy"],
+    "name": "Apex Velocity",
+    "tagline": "Speed is nothing without the nerve to pull up.",
+    "genres": [
+      "Action",
+      "Drama"
+    ],
+    "moods": [
+      "Thrilling",
+      "Crowd-pleaser",
+      "High-energy"
+    ],
     "minutes": 130,
     "rating": "PG-13",
     "year": 2022,
-    "art": "https://images.unsplash.com/photo-1519074069444-1ba4e3bf6025?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "A veteran naval aviator pushes supersonic experimental limits while training an elite squad of pilots for an unprecedented tactical run."
+    "synopsis": "An aging naval test aviator is ordered to train an elite echelon of young aviators for an impossible canyon strike. Facing lethal terrain and cockpit tensions, he must prove instinct still outflies automated drones."
   },
   {
     "id": "t-past-lives",
-    "name": "In-Yun: Distant Fates",
-    "genres": ["Drama", "Romance"],
-    "moods": ["Poignant", "Gentle", "Reflective"],
+    "name": "Parallel Meridians",
+    "tagline": "Two paths diverged. One question remains.",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "moods": [
+      "Poignant",
+      "Gentle",
+      "Reflective"
+    ],
     "minutes": 105,
     "rating": "PG-13",
     "year": 2023,
-    "art": "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "Two deeply connected childhood soulmates reunite across continents decades later to confront choices, identity, and the philosophy of destiny."
+    "synopsis": "Childhood friends separated by continental migration reconnect across two decades in modern Manhattan. Over three poignant days, they explore the roads not taken and the quiet weight of destiny."
   },
   {
     "id": "t-coda",
-    "name": "Echoes of Silence",
-    "genres": ["Drama", "Music", "Comedy"],
-    "moods": ["Heartwarming", "Uplifting", "Tearjerker"],
+    "name": "Harbor Song",
+    "tagline": "Her voice belongs to the sea, and to the world.",
+    "genres": [
+      "Drama",
+      "Music",
+      "Comedy"
+    ],
+    "moods": [
+      "Heartwarming",
+      "Uplifting",
+      "Tearjerker"
+    ],
     "minutes": 111,
     "rating": "PG-13",
     "year": 2021,
-    "art": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "The only hearing daughter in a coastal fishing family finds herself torn between her obligations to the family boat and her vocal music dreams."
+    "synopsis": "As the only hearing member of a family fishing crew in Massachusetts, a high school singer acts as their vital link to buyers. When accepted to a prestigious music academy, she must choose between family duty and her art."
   },
   {
     "id": "t-hunt-for-wilderpeople",
-    "name": "Wilderness Rogues",
-    "genres": ["Comedy", "Adventure", "Drama"],
-    "moods": ["Hilarious", "Endearing", "Outdoorsy"],
+    "name": "The Ridge Runners",
+    "tagline": "Wanted by the law, united by the bush.",
+    "genres": [
+      "Comedy",
+      "Adventure",
+      "Drama"
+    ],
+    "moods": [
+      "Hilarious",
+      "Endearing",
+      "Outdoorsy"
+    ],
     "minutes": 101,
     "rating": "PG-13",
     "year": 2016,
-    "art": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "An unruly foster youth and his gruff foster uncle trigger an unintended national search across the vast southern wilderness."
+    "synopsis": "A rebellious foster kid and his taciturn guardian get stranded in the remote southern highlands after a misunderstanding. As a sensationalized manhunt gathers, the unlikely duo survives off the land and becomes folk legends."
   },
   {
     "id": "t-dune-2",
-    "name": "Desert Prophecy: Part Two",
-    "genres": ["Sci-Fi", "Adventure", "Action"],
-    "moods": ["Epic", "Monumental", "Intense"],
+    "name": "Sands of Aldebaran",
+    "tagline": "Destiny is forged in the furnace of the desert.",
+    "genres": [
+      "Sci-Fi",
+      "Adventure",
+      "Action"
+    ],
+    "moods": [
+      "Epic",
+      "Monumental",
+      "Intense"
+    ],
     "minutes": 166,
     "rating": "PG-13",
     "year": 2024,
-    "art": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&auto=format&fit=crop&q=80",
-    "synopsis": "An exiled warrior prince aligns with indigenous desert nomads to ignite a monumental liberation struggle against galactic oppressors."
+    "synopsis": "An exiled noble heir rallies the fierce nomadic tribes of an arid mineral planet to strike against imperial colonizers. Caught between vengeance and terrifying prophetic visions, he must choose the fate of his people."
   }
 ]

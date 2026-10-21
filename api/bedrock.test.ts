@@ -21,7 +21,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('strictly sanitizes constraint patches: bounds maxMinutes, drops non-catalogue titles and unknown keys', () => {
     const raw = {
       maxMinutes: 95.8,
-      watched: ['Cosmic Drift: Web of Worlds', 'non-existent-movie-xyz'],
+      watched: ['Chroma Shift', 'non-existent-movie-xyz'],
       addedExcludes: [{ exclude: 'Horror' }, { exclude: 123 }],
       unknownHackerKey: 'drop_me',
       negativeMinutes: -40,
@@ -56,7 +56,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     setBedrockClient(mockClient as any);
 
     const parseRes = await parseConstraintsWithBedrock({
-      userUtterance: 'Keep under 90 mins and skip Spider-Verse',
+      userUtterance: 'Keep under 90 mins and skip Chroma Shift',
       currentConstraints: { viewers: [], watched: [] },
     });
 
@@ -93,7 +93,6 @@ describe('AWS Bedrock Client Integration & Validation', () => {
         minutes: 90,
         rating: 'R',
         year: 2020,
-        art: 'art.jpg',
       },
       groupScore: 75,
       minViewerScore: 70,
@@ -236,13 +235,12 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     const mockCandidate: Candidate = {
       title: {
         id: 't-spider-verse',
-        name: 'Cosmic Drift: Web of Worlds',
+        name: 'Chroma Shift',
         genres: ['Animation', 'Action'],
         moods: ['Exhilarating'],
         minutes: 117,
         rating: 'PG',
         year: 2018,
-        art: 'art.jpg',
       },
       groupScore: 86,
       minViewerScore: 85,
@@ -281,7 +279,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Cosmic Drift: Web of Worlds is your pick with 50% group score.',
+                  summary: 'Chroma Shift is your pick with 50% group score.',
                   consensusHighlight: 'Balances preferences.',
                 }),
               },
@@ -298,13 +296,12 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     const mockCandidate: Candidate = {
       title: {
         id: 't-coda',
-        name: 'Echoes of Silence',
+        name: 'Harbor Song',
         genres: ['Drama', 'Music'],
         moods: ['Heartfelt', 'Uplifting'],
         minutes: 111,
         rating: 'PG-13',
         year: 2021,
-        art: 'art.jpg',
       },
       groupScore: 68,
       minViewerScore: 65,

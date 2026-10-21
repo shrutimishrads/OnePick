@@ -154,9 +154,9 @@ async function run() {
     await sleep(600);
     await client.captureScreenshot(path.join(OUT_DIR, '02-first-pick.png'));
 
-    // 3. After a Refinement: Mark Cosmic Drift as watched, get next consensus pick (Spirit Realm Crossing)
+    // 3. After a Refinement: Mark Harbor Song as watched, get next consensus pick (The Kensington Carousel)
     console.log('Capturing: after refinement...');
-    await client.eval(`(async () => { await applyPatch({ watched: ['t-spider-verse'] }); })()`);
+    await client.eval(`(async () => { await applyPatch({ watched: ['t-coda'] }); })()`);
     await sleep(800);
     await client.eval(`
       document.querySelectorAll('.focused').forEach(e => e.classList.remove('focused'));

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-get-out" gradientTransform="rotate(240)">
+      <stop offset="0%" stop-color="#0a0a0c" />
+      <stop offset="100%" stop-color="#200508" />
+    </linearGradient>
+    <linearGradient id="overlay-t-get-out" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-get-out" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-get-out)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-get-out">
+    <circle cx="328" cy="492" r="119" fill="none" stroke="#e63946" stroke-width="8" opacity="0.30" />
+    <rect x="166" y="286.5" width="134" height="245" rx="16" transform="rotate(-11 233 409)" fill="#ff0054" opacity="0.35" />
+    <circle cx="203" cy="271" r="166" fill="none" stroke="#6a040f" stroke-width="4" opacity="0.30" />
+    <circle cx="448" cy="484" r="161" fill="#e63946" opacity="0.28" filter="url(#glow-t-get-out)" />
+    <rect x="344" y="80.5" width="122" height="215" rx="16" transform="rotate(43 405 188)" fill="#ff0054" opacity="0.28" />
+    <circle cx="277" cy="524" r="64" fill="none" stroke="#6a040f" stroke-width="4" opacity="0.61" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-get-out)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#e63946" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2017 • R • 104 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    HORROR • MYSTERY • THRILLER
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="635">The Hollow</tspan><tspan x="300" y="685">Estate</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#ff0054" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "A polite smile can hide the darkest trap."
+  </text>
+</svg>

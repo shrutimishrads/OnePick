@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-t-palm-springs" gradientTransform="rotate(299)">
+      <stop offset="0%" stop-color="#080d1a" />
+      <stop offset="100%" stop-color="#1e082b" />
+    </linearGradient>
+    <linearGradient id="overlay-t-palm-springs" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
+      <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="glow-t-palm-springs" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="600" height="900" fill="url(#bg-t-palm-springs)" />
+
+  <!-- Deterministic Abstract Geometric Layer -->
+  <g id="geometry-t-palm-springs">
+    <circle cx="246" cy="521" r="152" fill="#00f2fe" opacity="0.32" filter="url(#glow-t-palm-springs)" />
+    <circle cx="253" cy="440" r="116" fill="#9d4edd" opacity="0.15" filter="url(#glow-t-palm-springs)" />
+    <circle cx="280" cy="470" r="63" fill="none" stroke="#4cc9f0" stroke-width="7" opacity="0.29" />
+    <circle cx="114" cy="513" r="156" fill="#00f2fe" opacity="0.14" filter="url(#glow-t-palm-springs)" />
+  </g>
+
+  <!-- Gradient Vignette Overlay -->
+  <rect width="600" height="900" fill="url(#overlay-t-palm-springs)" />
+
+  <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
+
+  <!-- Top Metadata Header -->
+  <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2020 • R • 90 MIN
+  </text>
+  <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
+    COMEDY • ROMANCE • SCI-FI
+  </text>
+
+  <!-- Decorative Minimal Grid Crosses -->
+  <path d="M 45 60 L 55 60 M 50 55 L 50 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 60 L 555 60 M 550 55 L 550 65" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 45 845 L 55 845 M 50 840 L 50 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+  <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+
+  <!-- Title Heading -->
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">Desert Solstice</tspan>
+  </text>
+
+  <!-- Title Accent Dash -->
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Tagline Text -->
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Tomorrow is today until they change the rhythm."
+  </text>
+</svg>

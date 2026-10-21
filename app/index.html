@@ -514,68 +514,33 @@
     gap: 22px;
   }
 
-  /* Artwork Hero Card (Visual poster/backdrop with gradient overlay - NO DUPLICATE TITLE) */
-  .artwork-hero-card {
+  .tagline-text {
+    font-family: var(--font-body);
+    font-size: 26px;
+    font-style: italic;
+    color: var(--accent);
+    margin-top: -6px;
+    margin-bottom: 2px;
+  }
+
+  /* Visual Poster Card (2:3 Portrait SVG Poster) */
+  .poster-card, .artwork-hero-card {
     background-color: var(--surface-base);
     border: 2px solid var(--border-strong);
     border-radius: 16px;
     overflow: hidden;
-    aspect-ratio: 16 / 9;
+    height: 380px;
+    width: 253px;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    margin: 0 auto;
   }
 
-  .artwork-image {
-    position: absolute;
-    inset: 0;
+  .poster-image, .artwork-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
-  }
-
-  .artwork-gradient-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(19, 20, 25, 0.95) 0%, rgba(19, 20, 25, 0.4) 60%, rgba(19, 20, 25, 0.1) 100%);
-    z-index: 2;
-  }
-
-  .artwork-content-overlay {
-    position: relative;
-    z-index: 3;
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .artwork-featured-tag {
-    font-family: var(--font-mono);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .artwork-metadata {
-    font-family: var(--font-mono);
-    font-size: 22px;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .artwork-genres {
-    font-family: var(--font-body);
-    font-size: 24px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.02em;
+    display: block;
   }
 
   /* Group Fairness Scorecard (Fire TV Telemetry Widget) */
@@ -881,6 +846,7 @@
 
         <!-- Hero Title (Unique on Screen) -->
         <h1 class="title-heading" id="titleText">Loading...</h1>
+        <div class="tagline-text" id="taglineText"></div>
 
         <div class="metadata-row">
           <span class="meta-feature-badge">FIRE TV PICK</span>
@@ -906,17 +872,11 @@
         </div>
       </section>
 
-      <!-- Right Column: Visual Artwork Hero & Satisfaction Scorecard (NO DUPLICATE TITLE) -->
+      <!-- Right Column: Visual Poster & Satisfaction Scorecard -->
       <section class="detail-panel">
-        <!-- Visual Artwork Card (Poster/Backdrop with Gradient Overlay) -->
-        <div class="artwork-hero-card" id="artworkHeroCard">
-          <img class="artwork-image" id="artworkImage" src="/assets/fallback-hero.svg" alt="Movie Artwork">
-          <div class="artwork-gradient-overlay"></div>
-          <div class="artwork-content-overlay">
-            <div class="artwork-featured-tag">FEATURED GROUP CONSENSUS</div>
-            <div class="artwork-metadata" id="artworkMetadata">2018 / PG • 117 MIN</div>
-            <div class="artwork-genres" id="artworkGenres">ANIMATION • ACTION • ADVENTURE • SCI-FI</div>
-          </div>
+        <!-- Visual Poster Card (2:3 Portrait SVG Poster) -->
+        <div class="poster-card" id="artworkHeroCard">
+          <img class="poster-image" id="artworkImage" src="/assets/fallback-hero.svg" alt="Movie Poster">
         </div>
 
         <!-- Household Satisfaction Scorecard (Enlarged, Lowest Target Highlighted) -->
@@ -1093,6 +1053,7 @@
 
     // Left Column: Hero Pick (Single Title Display)
     document.getElementById('titleText').textContent = title.name;
+    document.getElementById('taglineText').textContent = title.tagline ? `"${title.tagline}"` : '';
     document.getElementById('metaYear').textContent = title.year;
     document.getElementById('metaRating').textContent = title.rating;
     document.getElementById('metaRuntime').textContent = `${title.minutes} min`;
@@ -1100,20 +1061,12 @@
     document.getElementById('synopsisText').textContent = title.synopsis || '';
     document.getElementById('consensusScore').textContent = `★ ${topPick.groupScore}% Group Consensus`;
 
-    // Right Column: Artwork Hero Card (NO DUPLICATE TITLE)
+    // Right Column: Poster Card (Deterministic 2:3 Portrait SVG)
     const artworkImg = document.getElementById('artworkImage');
-    const artworkMap = {
-      't-spider-verse': '/assets/t-cosmic-drift.svg',
-      't-spirited-away': '/assets/t-spirit-realm.svg',
-      't-fantastic-mr-fox': '/assets/t-clever-burrower.svg',
-      't-top-gun-maverick': '/assets/t-mach-3.svg',
-    };
-    artworkImg.src = artworkMap[title.id] || `/assets/${title.id}.svg`;
+    artworkImg.src = `/assets/posters/${title.id}.svg`;
     artworkImg.onerror = () => {
       artworkImg.src = '/assets/fallback-hero.svg';
     };
-    document.getElementById('artworkMetadata').textContent = `${title.year} / ${title.rating} • ${title.minutes} MIN`;
-    document.getElementById('artworkGenres').textContent = title.genres.join(' • ').toUpperCase();
 
     // Scorecard Breakdown (Enlarged Bars, Highlight Lowest Target)
     document.getElementById('minSatisfactionText').textContent = `Fairness Bottleneck: ${topPick.minViewerScore}%`;

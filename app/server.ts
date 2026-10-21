@@ -173,10 +173,10 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Serve local offline image and artwork assets
+  // Serve local offline image and artwork assets (including posters subdirectory)
   if (url.pathname.startsWith('/assets/')) {
-    const assetName = path.basename(url.pathname);
-    const assetPath = path.resolve(__dirname, './assets', assetName);
+    const relPath = path.normalize(url.pathname.slice('/assets/'.length)).replace(/^(\.\.[\/\\])+/, '');
+    const assetPath = path.join(__dirname, './assets', relPath);
     if (fs.existsSync(assetPath)) {
       const ext = path.extname(assetPath).toLowerCase();
       const contentType =
