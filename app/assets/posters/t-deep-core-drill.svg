@@ -46,15 +46,15 @@
   <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
 
   <!-- Title Heading -->
-  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Mantle</tspan><tspan x="300" y="685">Project</tspan>
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">The Tether Arc</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
-  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "The deepest frontier lies straight down."
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Holding two worlds together with a thread of steel."
   </text>
 </svg>
