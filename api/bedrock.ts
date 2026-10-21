@@ -42,6 +42,15 @@ export function clearBedrockCaches(): void {
   explainCache.clear();
 }
 
+let lastBedrockError: { parse: Error | null; explain: Error | null } = {
+  parse: null,
+  explain: null,
+};
+
+export function getLastBedrockError(): { parse: Error | null; explain: Error | null } {
+  return { ...lastBedrockError };
+}
+
 // Client management
 let customClient: BedrockRuntimeClient | null = null;
 
@@ -68,7 +77,7 @@ export function getBedrockTimeoutMs(): number {
   return 3000;
 }
 
-function getModelId(): string {
+export function getModelId(): string {
   return process.env.BEDROCK_MODEL_ID || 'amazon.nova-lite-v1:0';
 }
 
@@ -222,12 +231,14 @@ export async function parseConstraintsWithBedrock(
   }
 
   if (!isBedrockEnabled()) {
+    lastBedrockError.parse = new Error('USE_BEDROCK is set to false');
     const fallbackRes = parseConstraintsFallback(req);
     parseCache.set(cacheKey, fallbackRes);
     return fallbackRes;
   }
 
   try {
+    lastBedrockError.parse = null;
     const client = getBedrockClient();
     const systemPrompt = `You are the constraint parser for OnePick Fire TV concierge.
 Extract user constraint updates into a single JSON object with these allowed fields only:
@@ -271,7 +282,8 @@ JSON:`;
 
     parseCache.set(cacheKey, result);
     return result;
-  } catch {
+  } catch (err: any) {
+    lastBedrockError.parse = err instanceof Error ? err : new Error(String(err));
     // Timeout, network failure, AWS credentials missing, or malformed JSON -> fallback
     // Do not cache fallback results so transient errors do not permanently pin fallback
     return parseConstraintsFallback(req);
@@ -377,12 +389,14 @@ export async function explainPickWithBedrock(
   }
 
   if (!isBedrockEnabled()) {
+    lastBedrockError.explain = new Error('USE_BEDROCK is set to false');
     const fallbackRes = explainPickFallback(req);
     explainCache.set(cacheKey, fallbackRes);
     return fallbackRes;
   }
 
   try {
+    lastBedrockError.explain = null;
     const client = getBedrockClient();
     const systemPrompt = `You are the viewing consensus explainer for OnePick Fire TV concierge.
 Explain why this title was chosen using ONLY the provided deterministic score breakdown.
@@ -460,7 +474,8 @@ Output raw JSON only.`;
 
     explainCache.set(cacheKey, result);
     return result;
-  } catch {
+  } catch (err: any) {
+    lastBedrockError.explain = err instanceof Error ? err : new Error(String(err));
     // Timeout, network failure, AWS credentials missing, malformed JSON, or failed validation -> fallback
     // Do not cache fallback results so transient errors do not permanently pin fallback
     return explainPickFallback(req);

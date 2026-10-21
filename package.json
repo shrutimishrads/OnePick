@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "screenshots": "node --import tsx scripts/capture-screenshots.ts",
-    "posters": "node --import tsx scripts/generate-posters.ts"
+    "posters": "node --import tsx scripts/generate-posters.ts",
+    "bedrock:check": "node --import tsx scripts/check-bedrock.ts"
   },
   "keywords": [
     "fire-tv",
