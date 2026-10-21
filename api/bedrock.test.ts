@@ -21,7 +21,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('strictly sanitizes constraint patches: bounds maxMinutes, drops non-catalogue titles and unknown keys', () => {
     const raw = {
       maxMinutes: 95.8,
-      watched: ['Chroma Shift', 'non-existent-movie-xyz'],
+      watched: ['Prism Sector', 'non-existent-movie-xyz'],
       addedExcludes: [{ exclude: 'Horror' }, { exclude: 123 }],
       unknownHackerKey: 'drop_me',
       negativeMinutes: -40,
@@ -29,7 +29,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
 
     const sanitized = sanitizeConstraintPatch(raw);
     assert.strictEqual(sanitized.maxMinutes, 96);
-    assert.deepStrictEqual(sanitized.watched, ['t-spider-verse']);
+    assert.deepStrictEqual(sanitized.watched, ['t-prism-sector']);
     assert.strictEqual(sanitized.addedExcludes?.length, 1);
     assert.strictEqual(sanitized.addedExcludes[0].exclude, 'Horror');
     assert.strictEqual((sanitized as any).unknownHackerKey, undefined);
@@ -44,7 +44,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
               {
                 text: JSON.stringify({
                   maxMinutes: 90,
-                  watched: ['t-spider-verse'],
+                  watched: ['t-prism-sector'],
                 }),
               },
             ],
@@ -56,13 +56,13 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     setBedrockClient(mockClient as any);
 
     const parseRes = await parseConstraintsWithBedrock({
-      userUtterance: 'Keep under 90 mins and skip Chroma Shift',
+      userUtterance: 'Keep under 90 mins and skip Prism Sector',
       currentConstraints: { viewers: [], watched: [] },
     });
 
     assert.strictEqual(parseRes.source, 'bedrock');
     assert.strictEqual(parseRes.patch.maxMinutes, 90);
-    assert.deepStrictEqual(parseRes.patch.watched, ['t-spider-verse']);
+    assert.deepStrictEqual(parseRes.patch.watched, ['t-prism-sector']);
 
     // Mock explain response
     const mockExplainClient = {
@@ -72,7 +72,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Palm Springs is the group pick.',
+                  summary: 'Mirage at Dawn is the group pick.',
                   consensusHighlight: 'Balances Maya and Alex.',
                   tradeOff: '90 minutes runtime.',
                 }),
@@ -86,8 +86,8 @@ describe('AWS Bedrock Client Integration & Validation', () => {
 
     const mockCandidate: Candidate = {
       title: {
-        id: 't-palm-springs',
-        name: 'Palm Springs',
+        id: 't-mirage-dawn',
+        name: 'Mirage at Dawn',
         genres: ['Comedy', 'Sci-Fi'],
         moods: ['Breezy'],
         minutes: 90,
@@ -107,7 +107,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     });
 
     assert.strictEqual(explainRes.source, 'bedrock');
-    assert.strictEqual(explainRes.summary, 'Palm Springs is the group pick.');
+    assert.strictEqual(explainRes.summary, 'Mirage at Dawn is the group pick.');
   });
 
   it('falls back to deterministic logic on malformed JSON without throwing', async () => {
@@ -234,8 +234,8 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('falls back if explain output does not name the correct title or contradicts groupScore', async () => {
     const mockCandidate: Candidate = {
       title: {
-        id: 't-spider-verse',
-        name: 'Chroma Shift',
+        id: 't-prism-sector',
+        name: 'Prism Sector',
         genres: ['Animation', 'Action'],
         moods: ['Exhilarating'],
         minutes: 117,
@@ -257,7 +257,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Arrival is your household pick with 86% score.',
+                  summary: 'Unknown Title is your household pick with 86% score.',
                   consensusHighlight: 'Everyone likes it.',
                 }),
               },
@@ -279,7 +279,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Chroma Shift is your pick with 50% group score.',
+                  summary: 'Prism Sector is your pick with 50% group score.',
                   consensusHighlight: 'Balances preferences.',
                 }),
               },
@@ -295,8 +295,8 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('explanation fallback names the lowest-scoring viewer and the preference they gave up', () => {
     const mockCandidate: Candidate = {
       title: {
-        id: 't-coda',
-        name: 'Harbor Song',
+        id: 't-ember-tide',
+        name: 'Ember Tide',
         genres: ['Drama', 'Music'],
         moods: ['Heartfelt', 'Uplifting'],
         minutes: 111,

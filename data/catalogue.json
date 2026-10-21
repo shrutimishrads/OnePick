@@ -1,8 +1,8 @@
 [
   {
-    "id": "t-knives-out",
-    "name": "The Glass Solarium",
-    "tagline": "Every secret leaves a reflection.",
+    "id": "t-solarium-noir",
+    "name": "The Marble Solarium",
+    "tagline": "Truth hides where the sunlight cuts deepest.",
     "genres": [
       "Mystery",
       "Comedy",
@@ -16,12 +16,12 @@
     "minutes": 139,
     "rating": "PG-13",
     "year": 2022,
-    "synopsis": "When an eccentric patriarch vanishes during a family gathering, an investigator must interrogate eight scheming heirs. As motives multiply, a hidden clause in the family trust threatens to destroy them all."
+    "synopsis": "An antique chess grandmaster dies in a locked observatory, leaving behind a board of contradictory moves. An insurance actuary and a disgraced cartographer must decipher the room's optical puzzles before midnight."
   },
   {
-    "id": "t-arrival",
+    "id": "t-cipher-void",
     "name": "Cipher of the Void",
-    "tagline": "To survive their arrival, we must learn to listen.",
+    "tagline": "Before we answer, we must first learn silence.",
     "genres": [
       "Sci-Fi",
       "Drama",
@@ -35,12 +35,12 @@
     "minutes": 116,
     "rating": "PG-13",
     "year": 2016,
-    "synopsis": "Twelve monolithic vessels enter orbit without transmission. A cryptographer races against military panic to translate alien glyphs before global nervous tensions ignite worldwide conflict."
+    "synopsis": "A dormant deep-sea communication relay begins transmitting geometric acoustic pulses from the Mariana Trench. A marine paleoclimatologist must decode the sub-aquatic transmissions before competing naval fleets initiate seismic drilling."
   },
   {
-    "id": "t-grand-budapest",
-    "name": "The Velvet Chalet",
-    "tagline": "High society manners, lowbrow subterranean schemes.",
+    "id": "t-velvet-crest",
+    "name": "The Velvet Crest",
+    "tagline": "Prestige, pastry, and high-altitude pandemonium.",
     "genres": [
       "Comedy",
       "Adventure"
@@ -53,12 +53,12 @@
     "minutes": 99,
     "rating": "R",
     "year": 2014,
-    "synopsis": "A meticulous concierge and a resourceful bellhop become fugitive partners when an antique timepiece disappears. Pursued across snow-covered borders, they must outsmart rival inspectors to clear their names."
+    "synopsis": "Two rival carriage restorers accidentally swap identical luggage containing a priceless imperial crown. Racing down winding mountain passes in custom roadsters, they must retrieve the jewel before an international exhibition."
   },
   {
-    "id": "t-spider-verse",
-    "name": "Chroma Shift",
-    "tagline": "One spark ignites a million dimensions.",
+    "id": "t-prism-sector",
+    "name": "Prism Sector",
+    "tagline": "Every frequency reveals a different hero.",
     "genres": [
       "Animation",
       "Action",
@@ -73,12 +73,12 @@
     "minutes": 117,
     "rating": "PG",
     "year": 2018,
-    "synopsis": "A graffiti artist in a neon-lit metropolis unlocks the power to bend light between parallel timelines. When a reality rift threatens to collapse the sectors, he must unite disparate anomalies to seal the core."
+    "synopsis": "A roller-derby courier in a subterranean synth city discovers that solar flares are overlapping urban frequencies. She must skate across vibrating dimensional rifts with alternate skyline racers to reignite the power grid."
   },
   {
-    "id": "t-everything-everywhere",
-    "name": "Fractured Continuum",
-    "tagline": "Infinite lives. One broken family to save.",
+    "id": "t-quantum-reach",
+    "name": "Quantum Reach",
+    "tagline": "Every choice has a twin looking right back.",
     "genres": [
       "Sci-Fi",
       "Comedy",
@@ -93,12 +93,12 @@
     "minutes": 139,
     "rating": "R",
     "year": 2022,
-    "synopsis": "An overwhelmed laundromat proprietor discovers every choice she ever made created a parallel life. Hunted by a nihilistic force from across the timeline, she must harness past versions of herself to heal her family."
+    "synopsis": "A weary antique clock repairer drops a balance spring into a temporal fault, splitting her workshop into hundreds of coexisting realities. To stop an entropic collapse, she must coordinate repairs with versions of herself across divergent lives."
   },
   {
-    "id": "t-whiplash",
-    "name": "Cadence of Brass",
-    "tagline": "Greatness demands everything you have left.",
+    "id": "t-brass-echo",
+    "name": "Brass and Iron",
+    "tagline": "Perfection takes no prisoners in the foundry.",
     "genres": [
       "Drama",
       "Music"
@@ -111,12 +111,12 @@
     "minutes": 106,
     "rating": "R",
     "year": 2014,
-    "synopsis": "A relentless conservatory percussionist seeks absolute perfection under an unyielding maestro. As rehearsals turn punishing and rivalry deepens, he risks his sanity for a single flawless performance."
+    "synopsis": "A bell caster's apprentice enters the prestigious cathedral chime guild under a legendary, ruthless master. As the casting deadline for the town cathedral looms, he works through burns and exhaustion to tune the master carillon."
   },
   {
-    "id": "t-spirited-away",
-    "name": "The Whispering Lantern",
-    "tagline": "Step past the gate before twilight fades.",
+    "id": "t-shadow-shrine",
+    "name": "Shrine of Shadows",
+    "tagline": "Between twilight and morning, the spirits awaken.",
     "genres": [
       "Animation",
       "Fantasy",
@@ -130,12 +130,12 @@
     "minutes": 125,
     "rating": "PG",
     "year": 2001,
-    "synopsis": "Trapped in an ancient spirit market after nightfall, a young wanderer must work in a mystical bathhouse to earn her freedom. Navigating fickle deities and forgotten memories, she searches for the way home."
+    "synopsis": "An apprentice weaver follows an escaped silk moth into a hidden cloud valley governed by river spirits. To purchase her ticket across the celestial ferry, she must weave tapestries commemorating forgotten folk legends."
   },
   {
-    "id": "t-fantastic-mr-fox",
-    "name": "Bramblewood",
-    "tagline": "Wild instincts never stay buried for long.",
+    "id": "t-bramble-quest",
+    "name": "Bramble Quest",
+    "tagline": "Little paws can outwit the tallest castles.",
     "genres": [
       "Animation",
       "Comedy",
@@ -149,12 +149,12 @@
     "minutes": 87,
     "rating": "PG",
     "year": 2009,
-    "synopsis": "A retired animal rogue returns for one final raid against industrial farm owners surrounding his meadow. When retaliation traps his underground community, he leads a desperate escape through forgotten tunnels."
+    "synopsis": "A colony of field mice invents glider kites to outmaneuver an owl baron who claimed their winter grain silos. Working against the approaching frost, the smallest rodent engineers an audacious mid-air heist."
   },
   {
-    "id": "t-quiet-place",
-    "name": "Stillness Falls",
-    "tagline": "The loudest sound you make will be your last.",
+    "id": "t-silent-perimeter",
+    "name": "Silent Perimeter",
+    "tagline": "If the wind dies, do not move an inch.",
     "genres": [
       "Horror",
       "Sci-Fi",
@@ -168,12 +168,12 @@
     "minutes": 90,
     "rating": "PG-13",
     "year": 2018,
-    "synopsis": "In an abandoned valley stalked by sound-seeking nocturnal predators, a mother guards her homestead in absolute silence. When an unexpected storm damages their alarms, the family must flee without uttering a whisper."
+    "synopsis": "At an atmospheric monitoring outpost surrounded by sound-sensitive desert stalkers, a crew's seismic dampener malfunctions. When night storms cut electrical power, two meteorologists must crawl across open desert in total stillness."
   },
   {
-    "id": "t-get-out",
+    "id": "t-hollow-manor",
     "name": "The Hollow Estate",
-    "tagline": "A polite smile can hide the darkest trap.",
+    "tagline": "Polite smiles can hide the deepest traps.",
     "genres": [
       "Horror",
       "Mystery",
@@ -187,12 +187,12 @@
     "minutes": 104,
     "rating": "R",
     "year": 2017,
-    "synopsis": "A young photographer spends the weekend at his partner's secluded family manor, only to notice chilling behavioral anomalies among the staff. As hospitality shifts into psychological control, he uncovers a horrifying trade."
+    "synopsis": "An acoustic technician arrives at a renowned private wellness retreat to install sensory isolation chambers. When guests begin mimicking identical childhood mannerisms, he discovers a hypnotic conditioning syndicate operating beneath the spa."
   },
   {
-    "id": "t-palm-springs",
-    "name": "Desert Solstice",
-    "tagline": "Tomorrow is today until they change the rhythm.",
+    "id": "t-mirage-dawn",
+    "name": "Mirage at Dawn",
+    "tagline": "Tomorrow is yesterday unless we change the pace.",
     "genres": [
       "Comedy",
       "Romance",
@@ -206,12 +206,12 @@
     "minutes": 90,
     "rating": "R",
     "year": 2020,
-    "synopsis": "Two cynical guests at an isolated desert retreat discover they are looping through the exact same wedding celebration. Faced with eternal repetition, they must confront their deepest fears to escape the temporal trap."
+    "synopsis": "Two astronomers at a high-altitude desert observatory discover that a minor solar anomaly has trapped their valley in a twelve-hour daylight loop. Together, they test wild scientific pranks while searching for the solar trigger."
   },
   {
-    "id": "t-coco",
-    "name": "The Golden Marigold",
-    "tagline": "Songs remember what the living forget.",
+    "id": "t-lumina-bridge",
+    "name": "Bridge of Lanterns",
+    "tagline": "The song remains long after the festival closes.",
     "genres": [
       "Animation",
       "Family",
@@ -226,12 +226,12 @@
     "minutes": 105,
     "rating": "PG",
     "year": 2017,
-    "synopsis": "Forbidden from studying melody by his shoemaker ancestors, a boy slips into the illuminated world of spirits during a harvest festival. Guided by a trickster specter, he must prove his musical gift before sunrise."
+    "synopsis": "A young puppeteer from a canal village accidentally activates a luminous bridge made of festival lanterns leading to an ancestral cloud citadel. Partnering with a mischievous spirit mask, she searches for her grandmother's lost ballad."
   },
   {
-    "id": "t-interstellar",
-    "name": "Beyond the Event Horizon",
-    "tagline": "Love is the one gravity across all worlds.",
+    "id": "t-orbital-arc",
+    "name": "The Orbital Arc",
+    "tagline": "A single light in the fathomless dark.",
     "genres": [
       "Sci-Fi",
       "Drama",
@@ -245,12 +245,12 @@
     "minutes": 169,
     "rating": "PG-13",
     "year": 2014,
-    "synopsis": "As solar dust storms render terrestrial farming impossible, an engineer leaves his children to navigate an unmapped cosmic rift. Searching for habitable exoplanets, the crew confronts time distortion and isolation."
+    "synopsis": "When solar flares destabilize the orbital mirrors keeping arctic megacities warm, an experienced maintenance astronaut takes a risky sling-shot path to the sun. Confronting extreme radiation and isolation, he races to realign the solar array."
   },
   {
-    "id": "t-parasite",
-    "name": "Subterranean Echoes",
-    "tagline": "Two families living under one slanted roof.",
+    "id": "t-terrace-cipher",
+    "name": "The Terrace Cipher",
+    "tagline": "Two worlds collide beneath the marble stairs.",
     "genres": [
       "Drama",
       "Thriller",
@@ -264,12 +264,12 @@
     "minutes": 132,
     "rating": "R",
     "year": 2019,
-    "synopsis": "Living in a damp basement apartment, a cunning family infiltrates the staff of a modernist hillside villa. When an unexpected discovery reveals hidden occupants, the delicate illusion turns into a desperate struggle."
+    "synopsis": "A resourceful family of theatrical prop designers secures jobs managing the estate of an elusive software mogul. As they gradually furnish the mansion with fabricated antiques, they uncover secret vaults concealing financial espionage."
   },
   {
-    "id": "t-paddington-2",
-    "name": "The Kensington Carousel",
-    "tagline": "Kindness solves what cold hearts cannot.",
+    "id": "t-clockwork-haven",
+    "name": "The Clockwork Haven",
+    "tagline": "Even broken gears can turn a wondrous town.",
     "genres": [
       "Comedy",
       "Adventure",
@@ -283,12 +283,12 @@
     "minutes": 103,
     "rating": "PG",
     "year": 2017,
-    "synopsis": "A small immigrant bear living in a London neighborhood works odd jobs to buy a rare antique book for his grandmother. Framed for its theft by an egocentric actor, he must inspire his fellow inmates to clear his name."
+    "synopsis": "An eccentric botanist's mechanical assistant is wrongly accused of tampering with the town watermill. With the help of an optimistic street baker, the brass creature sets out on an airborne chase to recover the stolen blueprints."
   },
   {
-    "id": "t-top-gun-maverick",
-    "name": "Apex Velocity",
-    "tagline": "Speed is nothing without the nerve to pull up.",
+    "id": "t-strato-flight",
+    "name": "Strato Apex",
+    "tagline": "At Mach four, instincts rule the sky.",
     "genres": [
       "Action",
       "Drama"
@@ -301,12 +301,12 @@
     "minutes": 130,
     "rating": "PG-13",
     "year": 2022,
-    "synopsis": "An aging naval test aviator is ordered to train an elite echelon of young aviators for an impossible canyon strike. Facing lethal terrain and cockpit tensions, he must prove instinct still outflies automated drones."
+    "synopsis": "A legendary civilian test pilot is called out of retirement to fly an uncrewed solar glider prototype through hurricane jet streams. Teaming up with a brilliant rookie flight engineer, they push aerodynamic physics to the edge."
   },
   {
-    "id": "t-past-lives",
-    "name": "Parallel Meridians",
-    "tagline": "Two paths diverged. One question remains.",
+    "id": "t-meridian-drift",
+    "name": "Meridian Drift",
+    "tagline": "Separated by oceans, reunited by a single train.",
     "genres": [
       "Drama",
       "Romance"
@@ -319,12 +319,12 @@
     "minutes": 105,
     "rating": "PG-13",
     "year": 2023,
-    "synopsis": "Childhood friends separated by continental migration reconnect across two decades in modern Manhattan. Over three poignant days, they explore the roads not taken and the quiet weight of destiny."
+    "synopsis": "Two architecture students who spent a summer drafting coastal lighthouses cross paths twenty years later at a railway terminal in Zurich. Over twenty-four hours, they reflect on choices made, families built, and paths left behind."
   },
   {
-    "id": "t-coda",
-    "name": "Harbor Song",
-    "tagline": "Her voice belongs to the sea, and to the world.",
+    "id": "t-ember-tide",
+    "name": "Ember Tide",
+    "tagline": "The oldest melodies guide the farthest voyages.",
     "genres": [
       "Drama",
       "Music",
@@ -338,12 +338,12 @@
     "minutes": 111,
     "rating": "PG-13",
     "year": 2021,
-    "synopsis": "As the only hearing member of a family fishing crew in Massachusetts, a high school singer acts as their vital link to buyers. When accepted to a prestigious music academy, she must choose between family duty and her art."
+    "synopsis": "An apprentice navigator on a volcanic archipelago preserves oral sailing anthems while competing in the oceanic festival. When a storm threatens the harvest trade, her family's ancestral chants become the fleet's only beacon."
   },
   {
-    "id": "t-hunt-for-wilderpeople",
-    "name": "The Ridge Runners",
-    "tagline": "Wanted by the law, united by the bush.",
+    "id": "t-crag-wanderer",
+    "name": "Crag Wanderers",
+    "tagline": "Off the trail and beyond all rules.",
     "genres": [
       "Comedy",
       "Adventure",
@@ -357,12 +357,12 @@
     "minutes": 101,
     "rating": "PG-13",
     "year": 2016,
-    "synopsis": "A rebellious foster kid and his taciturn guardian get stranded in the remote southern highlands after a misunderstanding. As a sensationalized manhunt gathers, the unlikely duo survives off the land and becomes folk legends."
+    "synopsis": "A bookish teenager and a stubborn mountain goat herder are cut off by a canyon rockslide in the rugged high country. Evading overzealous wilderness rangers, the mismatched pair embarks on an accidental cross-country expedition."
   },
   {
-    "id": "t-dune-2",
-    "name": "Sands of Aldebaran",
-    "tagline": "Destiny is forged in the furnace of the desert.",
+    "id": "t-glass-expanse",
+    "name": "The Glass Expanse",
+    "tagline": "In the desert of silica, kings are made of dust.",
     "genres": [
       "Sci-Fi",
       "Adventure",
@@ -376,6 +376,6 @@
     "minutes": 166,
     "rating": "PG-13",
     "year": 2024,
-    "synopsis": "An exiled noble heir rallies the fierce nomadic tribes of an arid mineral planet to strike against imperial colonizers. Caught between vengeance and terrifying prophetic visions, he must choose the fate of his people."
+    "synopsis": "Across a glassy silica plain raked by lightning storms, nomadic sand-skiff sailers band together to resist mineral mining cartels. A young sailmaster learns the wind patterns to launch an airborne counter-offensive."
   }
 ]

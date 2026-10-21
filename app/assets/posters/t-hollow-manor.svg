@@ -1,43 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-grand-budapest" gradientTransform="rotate(309)">
-      <stop offset="0%" stop-color="#0e1724" />
-      <stop offset="100%" stop-color="#2b1b17" />
+    <linearGradient id="bg-t-hollow-manor" gradientTransform="rotate(56)">
+      <stop offset="0%" stop-color="#0a0a0c" />
+      <stop offset="100%" stop-color="#200508" />
     </linearGradient>
-    <linearGradient id="overlay-t-grand-budapest" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-hollow-manor" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-grand-budapest" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-hollow-manor" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-grand-budapest)" />
+  <rect width="600" height="900" fill="url(#bg-t-hollow-manor)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-grand-budapest">
-    <rect x="77" y="400.5" width="112" height="85" rx="16" transform="rotate(-5 133 443)" fill="#f4a261" opacity="0.53" />
-    <rect x="240.5" y="316.5" width="171" height="165" rx="16" transform="rotate(40 326 399)" fill="#e76f51" opacity="0.54" />
-    <circle cx="348" cy="180" r="124" fill="none" stroke="#e9c46a" stroke-width="7" opacity="0.38" />
-    <rect x="240" y="442" width="80" height="124" rx="16" transform="rotate(-10 280 504)" fill="#f4a261" opacity="0.60" />
-    <circle cx="294" cy="492" r="220" fill="#e76f51" opacity="0.28" filter="url(#glow-t-grand-budapest)" />
-    <rect x="392" y="345.5" width="208" height="87" rx="16" transform="rotate(44 496 389)" fill="#e9c46a" opacity="0.41" />
+  <g id="geometry-t-hollow-manor">
+    <circle cx="269" cy="445" r="144" fill="none" stroke="#e63946" stroke-width="3" opacity="0.36" />
+    <circle cx="403" cy="240" r="52" fill="none" stroke="#ff0054" stroke-width="6" opacity="0.51" />
+    <circle cx="130" cy="239" r="113" fill="none" stroke="#6a040f" stroke-width="8" opacity="0.42" />
+    <circle cx="377" cy="362" r="152" fill="none" stroke="#e63946" stroke-width="5" opacity="0.67" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-grand-budapest)" />
+  <rect width="600" height="900" fill="url(#overlay-t-hollow-manor)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#f4a261" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2014 • R • 99 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#e63946" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2017 • R • 104 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    COMEDY • ADVENTURE
+    HORROR • MYSTERY • THRILLER
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -48,14 +46,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Velvet</tspan><tspan x="300" y="685">Chalet</tspan>
+    <tspan x="300" y="635">The Hollow</tspan><tspan x="300" y="685">Estate</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#ff0054" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "High society manners, lowbrow subterranean schemes."
+    "Polite smiles can hide the deepest traps."
   </text>
 </svg>

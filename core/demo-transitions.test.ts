@@ -21,7 +21,7 @@ describe('Demo Pick Progression & Refinements', () => {
     const r1 = rankCandidates(titles, constraints);
     assert.ok(r1.length > 0);
     const pick1 = r1[0];
-    assert.strictEqual(pick1.title.id, 't-coda');
+    assert.strictEqual(pick1.title.id, 't-ember-tide');
     assert.ok(pick1.groupScore >= 65, 'Pick 1 group score should be strong');
 
     // Harshit has the lowest score on the couch
@@ -35,7 +35,7 @@ describe('Demo Pick Progression & Refinements', () => {
     assert.ok(r2.length > 0);
     const pick2 = r2[0];
     assert.notStrictEqual(pick2.title.id, pick1.title.id, 'Pick 2 must differ from Pick 1');
-    assert.strictEqual(pick2.title.id, 't-paddington-2');
+    assert.strictEqual(pick2.title.id, 't-clockwork-haven');
     assert.ok(pick2.title.minutes > 100, 'Pick 2 runtime must exceed 100 minutes');
 
     // Lowest viewer score must NOT fall between steps
@@ -56,7 +56,7 @@ describe('Demo Pick Progression & Refinements', () => {
     assert.ok(r3.length > 0);
     const pick3 = r3[0];
     assert.notStrictEqual(pick3.title.id, pick2.title.id, 'Pick 3 must differ from Pick 2');
-    assert.strictEqual(pick3.title.id, 't-fantastic-mr-fox');
+    assert.strictEqual(pick3.title.id, 't-bramble-quest');
     assert.ok(pick3.title.minutes <= 100, 'Pick 3 runtime must be <= 100 minutes');
 
     // Lowest viewer score must NOT fall between steps

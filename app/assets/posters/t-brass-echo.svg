@@ -1,41 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-quiet-place" gradientTransform="rotate(245)">
-      <stop offset="0%" stop-color="#080d1a" />
-      <stop offset="100%" stop-color="#1e082b" />
+    <linearGradient id="bg-t-brass-echo" gradientTransform="rotate(64)">
+      <stop offset="0%" stop-color="#11141a" />
+      <stop offset="100%" stop-color="#241b21" />
     </linearGradient>
-    <linearGradient id="overlay-t-quiet-place" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-brass-echo" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-quiet-place" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-brass-echo" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-quiet-place)" />
+  <rect width="600" height="900" fill="url(#bg-t-brass-echo)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-quiet-place">
-    <rect x="230" y="327.5" width="148" height="199" rx="16" transform="rotate(-23 304 427)" fill="#00f2fe" opacity="0.35" />
-    <circle cx="430" cy="214" r="141" fill="#9d4edd" opacity="0.21" filter="url(#glow-t-quiet-place)" />
-    <circle cx="244" cy="194" r="170" fill="#4cc9f0" opacity="0.20" filter="url(#glow-t-quiet-place)" />
-    <circle cx="403" cy="329" r="161" fill="none" stroke="#00f2fe" stroke-width="7" opacity="0.67" />
+  <g id="geometry-t-brass-echo">
+    <rect x="329" y="406" width="212" height="192" rx="16" transform="rotate(28 435 502)" fill="#e26d5c" opacity="0.53" />
+    <circle cx="366" cy="471" r="79" fill="none" stroke="#c9ada7" stroke-width="8" opacity="0.64" />
+    <circle cx="360" cy="424" r="121" fill="none" stroke="#9a8c98" stroke-width="2" opacity="0.41" />
+    <circle cx="372" cy="393" r="110" fill="none" stroke="#e26d5c" stroke-width="5" opacity="0.55" />
+    <circle cx="449" cy="536" r="92" fill="none" stroke="#c9ada7" stroke-width="2" opacity="0.41" />
+    <rect x="390" y="339" width="132" height="132" rx="16" transform="rotate(-41 456 405)" fill="#9a8c98" opacity="0.61" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-quiet-place)" />
+  <rect width="600" height="900" fill="url(#overlay-t-brass-echo)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2018 • PG-13 • 90 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#e26d5c" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2014 • R • 106 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    HORROR • SCI-FI • DRAMA
+    DRAMA • MUSIC
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -46,14 +48,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Stillness Falls</tspan>
+    <tspan x="300" y="660">Brass and Iron</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="718" x2="340" y2="718" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#c9ada7" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "The loudest sound you make will be your last."
+    "Perfection takes no prisoners in the foundry."
   </text>
 </svg>

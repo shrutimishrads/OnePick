@@ -1,42 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-paddington-2" gradientTransform="rotate(148)">
-      <stop offset="0%" stop-color="#0c1329" />
-      <stop offset="100%" stop-color="#2b103b" />
+    <linearGradient id="bg-t-solarium-noir" gradientTransform="rotate(130)">
+      <stop offset="0%" stop-color="#081214" />
+      <stop offset="100%" stop-color="#0f2427" />
     </linearGradient>
-    <linearGradient id="overlay-t-paddington-2" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-solarium-noir" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-paddington-2" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-solarium-noir" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-paddington-2)" />
+  <rect width="600" height="900" fill="url(#bg-t-solarium-noir)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-paddington-2">
-    <circle cx="157" cy="492" r="132" fill="none" stroke="#ffb703" stroke-width="2" opacity="0.70" />
-    <rect x="54" y="148.5" width="226" height="99" rx="16" transform="rotate(-7 167 198)" fill="#fb8500" opacity="0.29" />
-    <rect x="333.5" y="398" width="235" height="128" rx="16" transform="rotate(2 451 462)" fill="#f72585" opacity="0.25" />
-    <circle cx="316" cy="200" r="188" fill="#ffb703" opacity="0.14" filter="url(#glow-t-paddington-2)" />
-    <rect x="383.5" y="368" width="83" height="138" rx="16" transform="rotate(33 425 437)" fill="#fb8500" opacity="0.42" />
+  <g id="geometry-t-solarium-noir">
+    <rect x="267.5" y="420.5" width="95" height="237" rx="16" transform="rotate(-23 315 539)" fill="#52b788" opacity="0.67" />
+    <circle cx="337" cy="222" r="146" fill="#74c69d" opacity="0.23" filter="url(#glow-t-solarium-noir)" />
+    <circle cx="429" cy="216" r="148" fill="none" stroke="#b7e4c7" stroke-width="3" opacity="0.48" />
+    <circle cx="354" cy="206" r="157" fill="none" stroke="#52b788" stroke-width="5" opacity="0.60" />
+    <circle cx="134" cy="306" r="171" fill="#74c69d" opacity="0.14" filter="url(#glow-t-solarium-noir)" />
+    <circle cx="473" cy="285" r="116" fill="none" stroke="#b7e4c7" stroke-width="4" opacity="0.25" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-paddington-2)" />
+  <rect width="600" height="900" fill="url(#overlay-t-solarium-noir)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2017 • PG • 103 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#52b788" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2022 • PG-13 • 139 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    COMEDY • ADVENTURE • FAMILY
+    MYSTERY • COMEDY • DRAMA
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -47,14 +48,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Kensington</tspan><tspan x="300" y="685">Carousel</tspan>
+    <tspan x="300" y="635">The Marble</tspan><tspan x="300" y="685">Solarium</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#74c69d" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Kindness solves what cold hearts cannot."
+    "Truth hides where the sunlight cuts deepest."
   </text>
 </svg>

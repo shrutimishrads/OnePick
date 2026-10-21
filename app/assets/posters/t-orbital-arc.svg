@@ -1,33 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-interstellar" gradientTransform="rotate(1)">
+    <linearGradient id="bg-t-orbital-arc" gradientTransform="rotate(74)">
       <stop offset="0%" stop-color="#080d1a" />
       <stop offset="100%" stop-color="#1e082b" />
     </linearGradient>
-    <linearGradient id="overlay-t-interstellar" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-orbital-arc" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-interstellar" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-orbital-arc" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-interstellar)" />
+  <rect width="600" height="900" fill="url(#bg-t-orbital-arc)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-interstellar">
-    <circle cx="245" cy="398" r="154" fill="#00f2fe" opacity="0.20" filter="url(#glow-t-interstellar)" />
-    <circle cx="404" cy="210" r="123" fill="#9d4edd" opacity="0.29" filter="url(#glow-t-interstellar)" />
-    <circle cx="436" cy="268" r="200" fill="#4cc9f0" opacity="0.29" filter="url(#glow-t-interstellar)" />
-    <rect x="172" y="448" width="158" height="98" rx="16" transform="rotate(-13 251 497)" fill="#00f2fe" opacity="0.39" />
-    <circle cx="490" cy="393" r="149" fill="none" stroke="#9d4edd" stroke-width="9" opacity="0.64" />
+  <g id="geometry-t-orbital-arc">
+    <circle cx="168" cy="257" r="124" fill="none" stroke="#00f2fe" stroke-width="8" opacity="0.61" />
+    <circle cx="243" cy="377" r="146" fill="none" stroke="#9d4edd" stroke-width="2" opacity="0.39" />
+    <rect x="341.5" y="151" width="201" height="170" rx="16" transform="rotate(-33 442 236)" fill="#4cc9f0" opacity="0.27" />
+    <circle cx="492" cy="252" r="138" fill="#00f2fe" opacity="0.28" filter="url(#glow-t-orbital-arc)" />
+    <circle cx="352" cy="379" r="123" fill="none" stroke="#9d4edd" stroke-width="5" opacity="0.50" />
+    <rect x="225.5" y="351.5" width="257" height="129" rx="16" transform="rotate(5 354 416)" fill="#4cc9f0" opacity="0.25" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-interstellar)" />
+  <rect width="600" height="900" fill="url(#overlay-t-orbital-arc)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
@@ -46,15 +47,15 @@
   <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
 
   <!-- Title Heading -->
-  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">Beyond the Event</tspan><tspan x="300" y="685">Horizon</tspan>
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">The Orbital Arc</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
-  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Love is the one gravity across all worlds."
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "A single light in the fathomless dark."
   </text>
 </svg>

@@ -1,42 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-fantastic-mr-fox" gradientTransform="rotate(73)">
-      <stop offset="0%" stop-color="#0c1329" />
-      <stop offset="100%" stop-color="#2b103b" />
+    <linearGradient id="bg-t-meridian-drift" gradientTransform="rotate(15)">
+      <stop offset="0%" stop-color="#11141a" />
+      <stop offset="100%" stop-color="#241b21" />
     </linearGradient>
-    <linearGradient id="overlay-t-fantastic-mr-fox" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-meridian-drift" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-fantastic-mr-fox" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-meridian-drift" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-fantastic-mr-fox)" />
+  <rect width="600" height="900" fill="url(#bg-t-meridian-drift)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-fantastic-mr-fox">
-    <circle cx="341" cy="298" r="152" fill="none" stroke="#ffb703" stroke-width="7" opacity="0.52" />
-    <circle cx="110" cy="410" r="134" fill="#fb8500" opacity="0.17" filter="url(#glow-t-fantastic-mr-fox)" />
-    <circle cx="330" cy="226" r="227" fill="#f72585" opacity="0.17" filter="url(#glow-t-fantastic-mr-fox)" />
-    <circle cx="266" cy="505" r="80" fill="none" stroke="#ffb703" stroke-width="6" opacity="0.51" />
-    <circle cx="128" cy="506" r="158" fill="#fb8500" opacity="0.17" filter="url(#glow-t-fantastic-mr-fox)" />
+  <g id="geometry-t-meridian-drift">
+    <circle cx="256" cy="530" r="77" fill="none" stroke="#e26d5c" stroke-width="2" opacity="0.49" />
+    <circle cx="341" cy="252" r="162" fill="none" stroke="#c9ada7" stroke-width="4" opacity="0.67" />
+    <circle cx="326" cy="375" r="113" fill="none" stroke="#9a8c98" stroke-width="3" opacity="0.54" />
+    <circle cx="332" cy="492" r="104" fill="none" stroke="#e26d5c" stroke-width="3" opacity="0.46" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-fantastic-mr-fox)" />
+  <rect width="600" height="900" fill="url(#overlay-t-meridian-drift)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2009 • PG • 87 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#e26d5c" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2023 • PG-13 • 105 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    ANIMATION • COMEDY • ADVENTURE
+    DRAMA • ROMANCE
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -47,14 +46,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Bramblewood</tspan>
+    <tspan x="300" y="660">Meridian Drift</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="718" x2="340" y2="718" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#c9ada7" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Wild instincts never stay buried for long."
+    "Separated by oceans, reunited by a single train."
   </text>
 </svg>

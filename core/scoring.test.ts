@@ -5,7 +5,7 @@ import { filterHardConstraints, scoreViewerTitle, rankCandidates, applyConstrain
 
 const mockTitles: Title[] = [
   {
-    id: 't-spider-verse',
+    id: 't-prism-sector',
     name: 'Chroma Shift',
     genres: ['Animation', 'Action', 'Sci-Fi'],
     moods: ['Exhilarating', 'Fun'],
@@ -14,7 +14,7 @@ const mockTitles: Title[] = [
     year: 2018,
   },
   {
-    id: 't-grand-budapest',
+    id: 't-velvet-crest',
     name: 'The Velvet Chalet',
     genres: ['Comedy', 'Adventure'],
     moods: ['Quirky', 'Witty'],
@@ -32,7 +32,7 @@ const mockTitles: Title[] = [
     year: 2018,
   },
   {
-    id: 't-dune-2',
+    id: 't-glass-expanse',
     name: 'Sands of Aldebaran',
     genres: ['Sci-Fi', 'Action'],
     moods: ['Epic'],
@@ -79,10 +79,10 @@ describe('OnePick Core Scoring Engine', () => {
   it('hard filters out already watched titles', () => {
     const constraints: Constraints = {
       viewers: mockViewers,
-      watched: ['t-spider-verse'],
+      watched: ['t-prism-sector'],
     };
     const filtered = filterHardConstraints(mockTitles, constraints);
-    const hasWatched = filtered.some((t) => t.id === 't-spider-verse');
+    const hasWatched = filtered.some((t) => t.id === 't-prism-sector');
     assert.strictEqual(hasWatched, false, 'Watched titles must be excluded');
   });
 
@@ -103,11 +103,11 @@ describe('OnePick Core Scoring Engine', () => {
     const initial: Constraints = { viewers: mockViewers, watched: [] };
     const patched = applyConstraintPatch(initial, {
       maxMinutes: 100,
-      watched: ['t-spider-verse'],
+      watched: ['t-prism-sector'],
     });
 
     assert.strictEqual(patched.maxMinutes, 100);
-    assert.deepStrictEqual(patched.watched, ['t-spider-verse']);
+    assert.deepStrictEqual(patched.watched, ['t-prism-sector']);
   });
 
   it('incorporates targetMood into viewer scores and candidate ranking', () => {
@@ -117,11 +117,11 @@ describe('OnePick Core Scoring Engine', () => {
     const baseRanked = rankCandidates(mockTitles, baseConstraints);
     const moodRanked = rankCandidates(mockTitles, moodConstraints);
 
-    const budapestBase = baseRanked.find((c) => c.title.id === 't-grand-budapest')!;
-    const budapestMood = moodRanked.find((c) => c.title.id === 't-grand-budapest')!;
+    const velvetBase = baseRanked.find((c) => c.title.id === 't-velvet-crest')!;
+    const velvetMood = moodRanked.find((c) => c.title.id === 't-velvet-crest')!;
 
     assert.ok(
-      budapestMood.groupScore > budapestBase.groupScore,
+      velvetMood.groupScore > velvetBase.groupScore,
       'Title matching targetMood should receive a higher group score'
     );
   });

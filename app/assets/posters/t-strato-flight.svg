@@ -1,42 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-whiplash" gradientTransform="rotate(87)">
-      <stop offset="0%" stop-color="#11141a" />
-      <stop offset="100%" stop-color="#241b21" />
+    <linearGradient id="bg-t-strato-flight" gradientTransform="rotate(359)">
+      <stop offset="0%" stop-color="#0f1115" />
+      <stop offset="100%" stop-color="#291207" />
     </linearGradient>
-    <linearGradient id="overlay-t-whiplash" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-strato-flight" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-whiplash" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-strato-flight" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-whiplash)" />
+  <rect width="600" height="900" fill="url(#bg-t-strato-flight)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-whiplash">
-    <circle cx="471" cy="474" r="142" fill="none" stroke="#e26d5c" stroke-width="4" opacity="0.34" />
-    <circle cx="278" cy="459" r="104" fill="none" stroke="#c9ada7" stroke-width="5" opacity="0.26" />
-    <circle cx="222" cy="528" r="117" fill="none" stroke="#9a8c98" stroke-width="2" opacity="0.56" />
-    <circle cx="323" cy="448" r="216" fill="#e26d5c" opacity="0.14" filter="url(#glow-t-whiplash)" />
-    <circle cx="380" cy="286" r="96" fill="none" stroke="#c9ada7" stroke-width="5" opacity="0.34" />
+  <g id="geometry-t-strato-flight">
+    <rect x="68.5" y="248.5" width="115" height="233" rx="16" transform="rotate(10 126 365)" fill="#ff6b35" opacity="0.38" />
+    <circle cx="166" cy="336" r="133" fill="#f7c59f" opacity="0.30" filter="url(#glow-t-strato-flight)" />
+    <rect x="177" y="239" width="158" height="168" rx="16" transform="rotate(6 256 323)" fill="#ef233c" opacity="0.50" />
+    <rect x="188.5" y="120.5" width="161" height="241" rx="16" transform="rotate(-30 269 241)" fill="#ff6b35" opacity="0.64" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-whiplash)" />
+  <rect width="600" height="900" fill="url(#overlay-t-strato-flight)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#e26d5c" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2014 • R • 106 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#ff6b35" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2022 • PG-13 • 130 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    DRAMA • MUSIC
+    ACTION • DRAMA
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -47,14 +46,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Cadence of Brass</tspan>
+    <tspan x="300" y="660">Strato Apex</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="718" x2="340" y2="718" stroke="#c9ada7" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#f7c59f" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Greatness demands everything you have left."
+    "At Mach four, instincts rule the sky."
   </text>
 </svg>
