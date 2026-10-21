@@ -67,8 +67,8 @@ async function run() {
     if (!res.ok) throw new Error('Not ok');
   } catch {
     console.log('Starting local OnePick server in-process on port 3000...');
-    await import('../app/server');
-    await sleep(800);
+    const serverModule = await import('../app/server'); await new Promise<void>((r) => serverModule.server.listen(3000, r));
+    await sleep(850);
   }
 
   console.log('Launching headless browser at 1920x1080...');
@@ -154,10 +154,10 @@ async function run() {
     await sleep(600);
     await client.captureScreenshot(path.join(OUT_DIR, '02-first-pick.png'));
 
-    // 3. After a Refinement: Mark Ember Tide as watched, get next consensus pick (The Clockwork Haven)
+    // 3. After a Refinement: Mark Harbor Cadence as watched, get next consensus pick (The Canopy Post)
     console.log('Capturing: after refinement...');
-    await client.eval(`(async () => { await applyPatch({ watched: ['t-ember-tide'] }); })()`);
-    await sleep(800);
+    await client.eval(`(async () => { await applyPatch({ watched: ['t-harbor-cadence'] }); })()`);
+    await sleep(850);
     await client.eval(`
       document.querySelectorAll('.focused').forEach(e => e.classList.remove('focused'));
       const btnWhy = document.getElementById('btnWhy');

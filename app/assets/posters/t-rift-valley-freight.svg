@@ -1,39 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-glass-expanse" gradientTransform="rotate(54)">
+    <linearGradient id="bg-t-rift-valley-freight" gradientTransform="rotate(265)">
       <stop offset="0%" stop-color="#080d1a" />
       <stop offset="100%" stop-color="#1e082b" />
     </linearGradient>
-    <linearGradient id="overlay-t-glass-expanse" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-rift-valley-freight" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-glass-expanse" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-rift-valley-freight" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-glass-expanse)" />
+  <rect width="600" height="900" fill="url(#bg-t-rift-valley-freight)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-glass-expanse">
-    <rect x="374.5" y="339" width="173" height="156" rx="16" transform="rotate(-15 461 417)" fill="#00f2fe" opacity="0.46" />
-    <circle cx="240" cy="183" r="145" fill="#9d4edd" opacity="0.28" filter="url(#glow-t-glass-expanse)" />
-    <circle cx="448" cy="289" r="165" fill="none" stroke="#4cc9f0" stroke-width="8" opacity="0.43" />
-    <circle cx="297" cy="444" r="185" fill="#00f2fe" opacity="0.18" filter="url(#glow-t-glass-expanse)" />
-    <circle cx="477" cy="283" r="98" fill="#9d4edd" opacity="0.30" filter="url(#glow-t-glass-expanse)" />
+  <g id="geometry-t-rift-valley-freight">
+    <circle cx="226" cy="348" r="200" fill="#00f2fe" opacity="0.33" filter="url(#glow-t-rift-valley-freight)" />
+    <rect x="368.5" y="447.5" width="145" height="181" rx="16" transform="rotate(-38 441 538)" fill="#9d4edd" opacity="0.32" />
+    <circle cx="487" cy="451" r="141" fill="#4cc9f0" opacity="0.17" filter="url(#glow-t-rift-valley-freight)" />
+    <circle cx="401" cy="219" r="206" fill="#00f2fe" opacity="0.21" filter="url(#glow-t-rift-valley-freight)" />
+    <circle cx="403" cy="226" r="167" fill="#9d4edd" opacity="0.14" filter="url(#glow-t-rift-valley-freight)" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-glass-expanse)" />
+  <rect width="600" height="900" fill="url(#overlay-t-rift-valley-freight)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
   <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2024 • PG-13 • 166 MIN
+    2024 • PG-13 • 158 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
     SCI-FI • ADVENTURE • ACTION
@@ -46,15 +46,15 @@
   <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
 
   <!-- Title Heading -->
-  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Glass</tspan><tspan x="300" y="685">Expanse</tspan>
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">The Magma Rift</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
-  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "In the desert of silica, kings are made of dust."
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "A freight line laid over liquid stone."
   </text>
 </svg>

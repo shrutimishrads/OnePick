@@ -1,43 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-crag-wanderer" gradientTransform="rotate(142)">
-      <stop offset="0%" stop-color="#0e1724" />
-      <stop offset="100%" stop-color="#2b1b17" />
+    <linearGradient id="bg-t-storm-catamaran" gradientTransform="rotate(223)">
+      <stop offset="0%" stop-color="#0f1115" />
+      <stop offset="100%" stop-color="#291207" />
     </linearGradient>
-    <linearGradient id="overlay-t-crag-wanderer" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-storm-catamaran" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-crag-wanderer" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-storm-catamaran" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-crag-wanderer)" />
+  <rect width="600" height="900" fill="url(#bg-t-storm-catamaran)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-crag-wanderer">
-    <rect x="211.5" y="262.5" width="217" height="241" rx="16" transform="rotate(-43 320 383)" fill="#f4a261" opacity="0.45" />
-    <circle cx="196" cy="474" r="169" fill="#e76f51" opacity="0.17" filter="url(#glow-t-crag-wanderer)" />
-    <circle cx="330" cy="436" r="160" fill="none" stroke="#e9c46a" stroke-width="9" opacity="0.32" />
-    <circle cx="369" cy="226" r="95" fill="#f4a261" opacity="0.23" filter="url(#glow-t-crag-wanderer)" />
-    <rect x="208" y="434.5" width="216" height="109" rx="16" transform="rotate(-22 316 489)" fill="#e76f51" opacity="0.39" />
-    <circle cx="377" cy="427" r="123" fill="none" stroke="#e9c46a" stroke-width="6" opacity="0.58" />
+  <g id="geometry-t-storm-catamaran">
+    <circle cx="300" cy="413" r="145" fill="#ff6b35" opacity="0.31" filter="url(#glow-t-storm-catamaran)" />
+    <rect x="170" y="297" width="182" height="228" rx="16" transform="rotate(-9 261 411)" fill="#f7c59f" opacity="0.60" />
+    <circle cx="466" cy="310" r="53" fill="none" stroke="#ef233c" stroke-width="3" opacity="0.34" />
+    <circle cx="342" cy="213" r="123" fill="none" stroke="#ff6b35" stroke-width="3" opacity="0.63" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-crag-wanderer)" />
+  <rect width="600" height="900" fill="url(#overlay-t-storm-catamaran)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#f4a261" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2016 • PG-13 • 101 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#ff6b35" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2023 • PG-13 • 136 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    COMEDY • ADVENTURE • DRAMA
+    ACTION • DRAMA
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -48,14 +46,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Crag Wanderers</tspan>
+    <tspan x="300" y="660">Roaring Forties</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="718" x2="340" y2="718" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#f7c59f" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Off the trail and beyond all rules."
+    "Wind is an engine. The Southern Ocean is the track."
   </text>
 </svg>

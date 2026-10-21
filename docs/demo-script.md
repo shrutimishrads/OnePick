@@ -19,7 +19,7 @@
   > *Instead of an unpredictable black box or simple majority vote, OnePick uses a deterministic **Rawlsian max-min fairness engine** running in the local Node server. It optimizes for the minimum satisfaction across the couch so nobody gets steamrolled."*
 - **Action:** Initial calculation renders on the TV display.
 - **Result:**
-  - **Pick #1:** *Ember Tide* (111 min)
+  - **Pick #1:** *Harbor Cadence* (117 min)
   - **Group Fairness Score:** 68% (Areeba: 85%, Harshit: 65%, Shruti: 70% — Harshit is the fairness bottleneck at 65%)
 
 ---
@@ -27,16 +27,16 @@
 ## 1:15 - 2:00 | Conversational Constraint Patching (Bedrock Parse)
 - **Visual:** Voice-style refine (text input) prompt appears.
 - **Input 1 (Voice-style refine):**
-  > *"Refinement 1: 'We already watched Ember Tide together last week!'"*
-- **Action:** Amazon Bedrock Converse API parses the utterance into a deterministic constraint patch: `{"watched": ["t-ember-tide"]}`.
+  > *"Refinement 1: 'We already watched Harbor Cadence together last week!'"*
+- **Action:** Amazon Bedrock Converse API parses the utterance into a deterministic constraint patch: `{"watched": ["t-harbor-cadence"]}`.
 - **Result:**
-  - **Pick #2:** *The Clockwork Haven* (103 min)
+  - **Pick #2:** *The Canopy Post* (108 min)
   - **Group Fairness Score:** 67% (Areeba: 65%, Harshit: 80%, Shruti: 65% — Harshit's satisfaction jumps +15% to 80%, while the lowest score across the couch remains rock-solid at 65%!)
 - **Input 2 (Voice-style refine):**
   > *"Refinement 2: 'Shruti has to wake up early tomorrow, keep it under 100 minutes.'"*
 - **Action:** Bedrock applies `{"maxMinutes": 100}`.
 - **Result:**
-  - **Final Consensus Pick:** *Bramble Quest* (87 min)
+  - **Final Consensus Pick:** *Quarry Sprites* (93 min)
   - **Group Fairness Score:** 67% (Areeba: 65%, Harshit: 65%, Shruti: 80% — Shruti's satisfaction jumps +15% to 80%, maintaining a 65% fairness floor safely under the 100m cutoff!)
 
 ---

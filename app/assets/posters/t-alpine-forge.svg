@@ -1,42 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-terrace-cipher" gradientTransform="rotate(342)">
+    <linearGradient id="bg-t-alpine-forge" gradientTransform="rotate(223)">
       <stop offset="0%" stop-color="#0e1724" />
       <stop offset="100%" stop-color="#2b1b17" />
     </linearGradient>
-    <linearGradient id="overlay-t-terrace-cipher" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-alpine-forge" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-terrace-cipher" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-alpine-forge" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-terrace-cipher)" />
+  <rect width="600" height="900" fill="url(#bg-t-alpine-forge)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-terrace-cipher">
-    <circle cx="322" cy="416" r="151" fill="none" stroke="#f4a261" stroke-width="8" opacity="0.58" />
-    <circle cx="302" cy="533" r="68" fill="none" stroke="#e76f51" stroke-width="2" opacity="0.43" />
-    <rect x="225.5" y="214.5" width="225" height="161" rx="16" transform="rotate(-23 338 295)" fill="#e9c46a" opacity="0.53" />
-    <circle cx="434" cy="479" r="180" fill="#f4a261" opacity="0.26" filter="url(#glow-t-terrace-cipher)" />
-    <rect x="350" y="323" width="144" height="142" rx="16" transform="rotate(31 422 394)" fill="#e76f51" opacity="0.57" />
+  <g id="geometry-t-alpine-forge">
+    <circle cx="341" cy="359" r="72" fill="none" stroke="#f4a261" stroke-width="9" opacity="0.52" />
+    <circle cx="330" cy="387" r="64" fill="none" stroke="#e76f51" stroke-width="4" opacity="0.63" />
+    <circle cx="183" cy="218" r="144" fill="none" stroke="#e9c46a" stroke-width="6" opacity="0.61" />
+    <circle cx="171" cy="302" r="167" fill="#f4a261" opacity="0.29" filter="url(#glow-t-alpine-forge)" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-terrace-cipher)" />
+  <rect width="600" height="900" fill="url(#overlay-t-alpine-forge)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
   <text x="300" y="70" text-anchor="middle" fill="#f4a261" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2019 • R • 132 MIN
+    2019 • PG • 104 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    DRAMA • THRILLER • COMEDY
+    COMEDY • ADVENTURE
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -46,15 +45,15 @@
   <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
 
   <!-- Title Heading -->
-  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Terrace</tspan><tspan x="300" y="685">Cipher</tspan>
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">Alpine Ironworks</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
-  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Two worlds collide beneath the marble stairs."
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "Five tons of bronze and zero brakes."
   </text>
 </svg>

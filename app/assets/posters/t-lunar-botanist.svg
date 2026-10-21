@@ -1,42 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-clockwork-haven" gradientTransform="rotate(26)">
-      <stop offset="0%" stop-color="#0c1329" />
-      <stop offset="100%" stop-color="#2b103b" />
+    <linearGradient id="bg-t-lunar-botanist" gradientTransform="rotate(101)">
+      <stop offset="0%" stop-color="#080d1a" />
+      <stop offset="100%" stop-color="#1e082b" />
     </linearGradient>
-    <linearGradient id="overlay-t-clockwork-haven" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-lunar-botanist" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-clockwork-haven" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-lunar-botanist" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-clockwork-haven)" />
+  <rect width="600" height="900" fill="url(#bg-t-lunar-botanist)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-clockwork-haven">
-    <circle cx="239" cy="436" r="95" fill="#ffb703" opacity="0.29" filter="url(#glow-t-clockwork-haven)" />
-    <rect x="49" y="399" width="128" height="196" rx="16" transform="rotate(-2 113 497)" fill="#fb8500" opacity="0.63" />
-    <rect x="124" y="336" width="222" height="176" rx="16" transform="rotate(9 235 424)" fill="#f72585" opacity="0.48" />
-    <circle cx="115" cy="398" r="132" fill="none" stroke="#ffb703" stroke-width="5" opacity="0.32" />
-    <circle cx="425" cy="445" r="143" fill="none" stroke="#fb8500" stroke-width="2" opacity="0.29" />
+  <g id="geometry-t-lunar-botanist">
+    <rect x="89" y="127" width="158" height="180" rx="16" transform="rotate(32 168 217)" fill="#00f2fe" opacity="0.60" />
+    <rect x="235" y="361.5" width="250" height="245" rx="16" transform="rotate(-3 360 484)" fill="#9d4edd" opacity="0.52" />
+    <circle cx="455" cy="347" r="157" fill="none" stroke="#4cc9f0" stroke-width="6" opacity="0.67" />
+    <circle cx="454" cy="515" r="220" fill="#00f2fe" opacity="0.14" filter="url(#glow-t-lunar-botanist)" />
+    <circle cx="399" cy="535" r="146" fill="#9d4edd" opacity="0.16" filter="url(#glow-t-lunar-botanist)" />
+    <circle cx="254" cy="191" r="104" fill="none" stroke="#4cc9f0" stroke-width="9" opacity="0.52" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-clockwork-haven)" />
+  <rect width="600" height="900" fill="url(#overlay-t-lunar-botanist)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2017 • PG • 103 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2022 • PG-13 • 97 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    COMEDY • ADVENTURE • FAMILY
+    COMEDY • ROMANCE • SCI-FI
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -47,14 +48,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Clockwork</tspan><tspan x="300" y="685">Haven</tspan>
+    <tspan x="300" y="635">Lunar</tspan><tspan x="300" y="685">Hydroponics</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Even broken gears can turn a wondrous town."
+    "Love grows best in one-sixth gravity."
   </text>
 </svg>

@@ -21,7 +21,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('strictly sanitizes constraint patches: bounds maxMinutes, drops non-catalogue titles and unknown keys', () => {
     const raw = {
       maxMinutes: 95.8,
-      watched: ['Prism Sector', 'non-existent-movie-xyz'],
+      watched: ['Harbor Cadence', 'non-existent-movie-xyz'],
       addedExcludes: [{ exclude: 'Horror' }, { exclude: 123 }],
       unknownHackerKey: 'drop_me',
       negativeMinutes: -40,
@@ -29,7 +29,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
 
     const sanitized = sanitizeConstraintPatch(raw);
     assert.strictEqual(sanitized.maxMinutes, 96);
-    assert.deepStrictEqual(sanitized.watched, ['t-prism-sector']);
+    assert.deepStrictEqual(sanitized.watched, ['t-harbor-cadence']);
     assert.strictEqual(sanitized.addedExcludes?.length, 1);
     assert.strictEqual(sanitized.addedExcludes[0].exclude, 'Horror');
     assert.strictEqual((sanitized as any).unknownHackerKey, undefined);
@@ -44,7 +44,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
               {
                 text: JSON.stringify({
                   maxMinutes: 90,
-                  watched: ['t-prism-sector'],
+                  watched: ['t-harbor-cadence'],
                 }),
               },
             ],
@@ -56,13 +56,13 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     setBedrockClient(mockClient as any);
 
     const parseRes = await parseConstraintsWithBedrock({
-      userUtterance: 'Keep under 90 mins and skip Prism Sector',
+      userUtterance: 'Keep under 90 mins and skip Harbor Cadence',
       currentConstraints: { viewers: [], watched: [] },
     });
 
     assert.strictEqual(parseRes.source, 'bedrock');
     assert.strictEqual(parseRes.patch.maxMinutes, 90);
-    assert.deepStrictEqual(parseRes.patch.watched, ['t-prism-sector']);
+    assert.deepStrictEqual(parseRes.patch.watched, ['t-harbor-cadence']);
 
     // Mock explain response
     const mockExplainClient = {
@@ -72,7 +72,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Mirage at Dawn is the group pick.',
+                  summary: 'Lunar Hydroponics is the group pick.',
                   consensusHighlight: 'Balances Maya and Alex.',
                   tradeOff: '90 minutes runtime.',
                 }),
@@ -86,8 +86,8 @@ describe('AWS Bedrock Client Integration & Validation', () => {
 
     const mockCandidate: Candidate = {
       title: {
-        id: 't-mirage-dawn',
-        name: 'Mirage at Dawn',
+        id: 't-lunar-botanist',
+        name: 'Lunar Hydroponics',
         genres: ['Comedy', 'Sci-Fi'],
         moods: ['Breezy'],
         minutes: 90,
@@ -107,7 +107,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
     });
 
     assert.strictEqual(explainRes.source, 'bedrock');
-    assert.strictEqual(explainRes.summary, 'Mirage at Dawn is the group pick.');
+    assert.strictEqual(explainRes.summary, 'Lunar Hydroponics is the group pick.');
   });
 
   it('falls back to deterministic logic on malformed JSON without throwing', async () => {
@@ -234,8 +234,8 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('falls back if explain output does not name the correct title or contradicts groupScore', async () => {
     const mockCandidate: Candidate = {
       title: {
-        id: 't-prism-sector',
-        name: 'Prism Sector',
+        id: 't-harbor-cadence',
+        name: 'Harbor Cadence',
         genres: ['Animation', 'Action'],
         moods: ['Exhilarating'],
         minutes: 117,
@@ -279,7 +279,7 @@ describe('AWS Bedrock Client Integration & Validation', () => {
             content: [
               {
                 text: JSON.stringify({
-                  summary: 'Prism Sector is your pick with 50% group score.',
+                  summary: 'Harbor Cadence is your pick with 50% group score.',
                   consensusHighlight: 'Balances preferences.',
                 }),
               },
@@ -295,11 +295,11 @@ describe('AWS Bedrock Client Integration & Validation', () => {
   it('explanation fallback names the lowest-scoring viewer and the preference they gave up', () => {
     const mockCandidate: Candidate = {
       title: {
-        id: 't-ember-tide',
-        name: 'Ember Tide',
+        id: 't-harbor-cadence',
+        name: 'Harbor Cadence',
         genres: ['Drama', 'Music'],
         moods: ['Heartfelt', 'Uplifting'],
-        minutes: 111,
+        minutes: 117,
         rating: 'PG-13',
         year: 2021,
       },

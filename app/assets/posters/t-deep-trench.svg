@@ -1,43 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-orbital-arc" gradientTransform="rotate(74)">
+    <linearGradient id="bg-t-deep-trench" gradientTransform="rotate(333)">
       <stop offset="0%" stop-color="#080d1a" />
       <stop offset="100%" stop-color="#1e082b" />
     </linearGradient>
-    <linearGradient id="overlay-t-orbital-arc" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-deep-trench" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-orbital-arc" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-deep-trench" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-orbital-arc)" />
+  <rect width="600" height="900" fill="url(#bg-t-deep-trench)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-orbital-arc">
-    <circle cx="168" cy="257" r="124" fill="none" stroke="#00f2fe" stroke-width="8" opacity="0.61" />
-    <circle cx="243" cy="377" r="146" fill="none" stroke="#9d4edd" stroke-width="2" opacity="0.39" />
-    <rect x="341.5" y="151" width="201" height="170" rx="16" transform="rotate(-33 442 236)" fill="#4cc9f0" opacity="0.27" />
-    <circle cx="492" cy="252" r="138" fill="#00f2fe" opacity="0.28" filter="url(#glow-t-orbital-arc)" />
-    <circle cx="352" cy="379" r="123" fill="none" stroke="#9d4edd" stroke-width="5" opacity="0.50" />
-    <rect x="225.5" y="351.5" width="257" height="129" rx="16" transform="rotate(5 354 416)" fill="#4cc9f0" opacity="0.25" />
+  <g id="geometry-t-deep-trench">
+    <rect x="178.5" y="247.5" width="225" height="111" rx="16" transform="rotate(24 291 303)" fill="#00f2fe" opacity="0.57" />
+    <circle cx="251" cy="302" r="81" fill="none" stroke="#9d4edd" stroke-width="2" opacity="0.51" />
+    <circle cx="452" cy="355" r="75" fill="none" stroke="#4cc9f0" stroke-width="7" opacity="0.28" />
+    <circle cx="481" cy="407" r="199" fill="#00f2fe" opacity="0.13" filter="url(#glow-t-deep-trench)" />
+    <rect x="379.5" y="311.5" width="135" height="115" rx="16" transform="rotate(-33 447 369)" fill="#9d4edd" opacity="0.43" />
+    <rect x="354" y="198.5" width="158" height="91" rx="16" transform="rotate(7 433 244)" fill="#4cc9f0" opacity="0.64" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-orbital-arc)" />
+  <rect width="600" height="900" fill="url(#overlay-t-deep-trench)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
   <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2014 • PG-13 • 169 MIN
+    2021 • PG-13 • 122 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    SCI-FI • DRAMA • ADVENTURE
+    SCI-FI • DRAMA • MYSTERY
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -48,7 +48,7 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">The Orbital Arc</tspan>
+    <tspan x="300" y="660">The Hadal Trench</tspan>
   </text>
 
   <!-- Title Accent Dash -->
@@ -56,6 +56,6 @@
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "A single light in the fathomless dark."
+    "Pressure tests the soul before it cracks the hull."
   </text>
 </svg>

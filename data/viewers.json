@@ -5,7 +5,7 @@
     "avatar": "👩‍🔬",
     "likes": ["Mystery", "Drama", "Comedy"],
     "mood": "Clever",
-    "maxMinutes": 130,
+    "maxMinutes": 135,
     "excludes": ["Horror"]
   },
   {
@@ -14,7 +14,7 @@
     "avatar": "🎨",
     "likes": ["Comedy", "Family", "Sci-Fi"],
     "mood": "High-energy",
-    "maxMinutes": 135,
+    "maxMinutes": 140,
     "excludes": ["Romance"]
   },
   {
@@ -23,7 +23,7 @@
     "avatar": "⚡",
     "likes": ["Drama", "Family", "Animation"],
     "mood": "Charming",
-    "maxMinutes": 125,
+    "maxMinutes": 130,
     "excludes": ["Mystery"]
   }
 ]

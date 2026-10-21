@@ -1,39 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-bramble-quest" gradientTransform="rotate(121)">
+    <linearGradient id="bg-t-quarry-sprites" gradientTransform="rotate(31)">
       <stop offset="0%" stop-color="#0c1329" />
       <stop offset="100%" stop-color="#2b103b" />
     </linearGradient>
-    <linearGradient id="overlay-t-bramble-quest" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-quarry-sprites" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-bramble-quest" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-quarry-sprites" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-bramble-quest)" />
+  <rect width="600" height="900" fill="url(#bg-t-quarry-sprites)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-bramble-quest">
-    <circle cx="485" cy="380" r="223" fill="#ffb703" opacity="0.32" filter="url(#glow-t-bramble-quest)" />
-    <rect x="425" y="232" width="94" height="92" rx="16" transform="rotate(-16 472 278)" fill="#fb8500" opacity="0.38" />
-    <circle cx="492" cy="458" r="163" fill="none" stroke="#f72585" stroke-width="7" opacity="0.32" />
-    <circle cx="298" cy="414" r="162" fill="none" stroke="#ffb703" stroke-width="3" opacity="0.64" />
-    <circle cx="153" cy="402" r="80" fill="none" stroke="#fb8500" stroke-width="5" opacity="0.29" />
+  <g id="geometry-t-quarry-sprites">
+    <circle cx="439" cy="479" r="98" fill="#ffb703" opacity="0.27" filter="url(#glow-t-quarry-sprites)" />
+    <rect x="281" y="398.5" width="250" height="151" rx="16" transform="rotate(3 406 474)" fill="#fb8500" opacity="0.43" />
+    <rect x="70" y="301" width="148" height="124" rx="16" transform="rotate(26 144 363)" fill="#f72585" opacity="0.70" />
+    <circle cx="151" cy="462" r="152" fill="#ffb703" opacity="0.27" filter="url(#glow-t-quarry-sprites)" />
+    <circle cx="350" cy="258" r="100" fill="none" stroke="#fb8500" stroke-width="3" opacity="0.30" />
+    <circle cx="468" cy="268" r="207" fill="#f72585" opacity="0.21" filter="url(#glow-t-quarry-sprites)" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-bramble-quest)" />
+  <rect width="600" height="900" fill="url(#overlay-t-quarry-sprites)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
   <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2009 • PG • 87 MIN
+    2022 • PG • 93 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
     ANIMATION • COMEDY • ADVENTURE
@@ -47,7 +48,7 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Bramble Quest</tspan>
+    <tspan x="300" y="660">Quarry Sprites</tspan>
   </text>
 
   <!-- Title Accent Dash -->
@@ -55,6 +56,6 @@
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Little paws can outwit the tallest castles."
+    "Crafted from clay, fueled by pure stubbornness."
   </text>
 </svg>

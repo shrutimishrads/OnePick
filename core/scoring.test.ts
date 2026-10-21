@@ -5,38 +5,38 @@ import { filterHardConstraints, scoreViewerTitle, rankCandidates, applyConstrain
 
 const mockTitles: Title[] = [
   {
-    id: 't-prism-sector',
-    name: 'Chroma Shift',
+    id: 't-solar-sailors',
+    name: 'Sunfall Regatta',
     genres: ['Animation', 'Action', 'Sci-Fi'],
     moods: ['Exhilarating', 'Fun'],
-    minutes: 117,
+    minutes: 111,
     rating: 'PG',
-    year: 2018,
+    year: 2020,
   },
   {
-    id: 't-velvet-crest',
-    name: 'The Velvet Chalet',
+    id: 't-alpine-forge',
+    name: 'Alpine Ironworks',
     genres: ['Comedy', 'Adventure'],
     moods: ['Quirky', 'Witty'],
-    minutes: 99,
+    minutes: 104,
     rating: 'R',
-    year: 2014,
+    year: 2019,
   },
   {
-    id: 't-quiet-place',
-    name: 'Stillness Falls',
+    id: 't-iron-quarantine',
+    name: 'Iron Quarantine',
     genres: ['Horror', 'Sci-Fi'],
     moods: ['Suspenseful'],
-    minutes: 90,
+    minutes: 96,
     rating: 'PG-13',
-    year: 2018,
+    year: 2021,
   },
   {
-    id: 't-glass-expanse',
-    name: 'Sands of Aldebaran',
+    id: 't-rift-valley-freight',
+    name: 'The Magma Rift',
     genres: ['Sci-Fi', 'Action'],
     moods: ['Epic'],
-    minutes: 166,
+    minutes: 158,
     rating: 'PG-13',
     year: 2024,
   },
@@ -79,10 +79,10 @@ describe('OnePick Core Scoring Engine', () => {
   it('hard filters out already watched titles', () => {
     const constraints: Constraints = {
       viewers: mockViewers,
-      watched: ['t-prism-sector'],
+      watched: ['t-solar-sailors'],
     };
     const filtered = filterHardConstraints(mockTitles, constraints);
-    const hasWatched = filtered.some((t) => t.id === 't-prism-sector');
+    const hasWatched = filtered.some((t) => t.id === 't-solar-sailors');
     assert.strictEqual(hasWatched, false, 'Watched titles must be excluded');
   });
 
@@ -103,11 +103,11 @@ describe('OnePick Core Scoring Engine', () => {
     const initial: Constraints = { viewers: mockViewers, watched: [] };
     const patched = applyConstraintPatch(initial, {
       maxMinutes: 100,
-      watched: ['t-prism-sector'],
+      watched: ['t-solar-sailors'],
     });
 
     assert.strictEqual(patched.maxMinutes, 100);
-    assert.deepStrictEqual(patched.watched, ['t-prism-sector']);
+    assert.deepStrictEqual(patched.watched, ['t-solar-sailors']);
   });
 
   it('incorporates targetMood into viewer scores and candidate ranking', () => {
@@ -117,11 +117,11 @@ describe('OnePick Core Scoring Engine', () => {
     const baseRanked = rankCandidates(mockTitles, baseConstraints);
     const moodRanked = rankCandidates(mockTitles, moodConstraints);
 
-    const velvetBase = baseRanked.find((c) => c.title.id === 't-velvet-crest')!;
-    const velvetMood = moodRanked.find((c) => c.title.id === 't-velvet-crest')!;
+    const alpineBase = baseRanked.find((c) => c.title.id === 't-alpine-forge')!;
+    const alpineMood = moodRanked.find((c) => c.title.id === 't-alpine-forge')!;
 
     assert.ok(
-      velvetMood.groupScore > velvetBase.groupScore,
+      alpineMood.groupScore > alpineBase.groupScore,
       'Title matching targetMood should receive a higher group score'
     );
   });

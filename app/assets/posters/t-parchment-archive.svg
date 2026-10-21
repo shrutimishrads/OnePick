@@ -1,41 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-hollow-manor" gradientTransform="rotate(56)">
-      <stop offset="0%" stop-color="#0a0a0c" />
-      <stop offset="100%" stop-color="#200508" />
+    <linearGradient id="bg-t-parchment-archive" gradientTransform="rotate(2)">
+      <stop offset="0%" stop-color="#081214" />
+      <stop offset="100%" stop-color="#0f2427" />
     </linearGradient>
-    <linearGradient id="overlay-t-hollow-manor" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-parchment-archive" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-hollow-manor" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-parchment-archive" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-hollow-manor)" />
+  <rect width="600" height="900" fill="url(#bg-t-parchment-archive)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-hollow-manor">
-    <circle cx="269" cy="445" r="144" fill="none" stroke="#e63946" stroke-width="3" opacity="0.36" />
-    <circle cx="403" cy="240" r="52" fill="none" stroke="#ff0054" stroke-width="6" opacity="0.51" />
-    <circle cx="130" cy="239" r="113" fill="none" stroke="#6a040f" stroke-width="8" opacity="0.42" />
-    <circle cx="377" cy="362" r="152" fill="none" stroke="#e63946" stroke-width="5" opacity="0.67" />
+  <g id="geometry-t-parchment-archive">
+    <circle cx="101" cy="534" r="105" fill="#52b788" opacity="0.14" filter="url(#glow-t-parchment-archive)" />
+    <circle cx="293" cy="306" r="112" fill="#74c69d" opacity="0.22" filter="url(#glow-t-parchment-archive)" />
+    <circle cx="289" cy="323" r="52" fill="none" stroke="#b7e4c7" stroke-width="4" opacity="0.32" />
+    <circle cx="154" cy="450" r="98" fill="none" stroke="#52b788" stroke-width="6" opacity="0.32" />
+    <rect x="416.5" y="177.5" width="147" height="155" rx="16" transform="rotate(-22 490 255)" fill="#74c69d" opacity="0.70" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-hollow-manor)" />
+  <rect width="600" height="900" fill="url(#overlay-t-parchment-archive)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#e63946" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2017 • R • 104 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#52b788" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2023 • PG-13 • 145 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    HORROR • MYSTERY • THRILLER
+    MYSTERY • DRAMA • COMEDY
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -46,14 +47,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Hollow</tspan><tspan x="300" y="685">Estate</tspan>
+    <tspan x="300" y="635">The Parchment</tspan><tspan x="300" y="685">Archive</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#ff0054" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#74c69d" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Polite smiles can hide the deepest traps."
+    "Paper remembers what ink was meant to erase."
   </text>
 </svg>

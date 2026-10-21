@@ -1,42 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-lumina-bridge" gradientTransform="rotate(164)">
-      <stop offset="0%" stop-color="#0c1329" />
-      <stop offset="100%" stop-color="#2b103b" />
+    <linearGradient id="bg-t-dockside-tontine" gradientTransform="rotate(119)">
+      <stop offset="0%" stop-color="#0e1724" />
+      <stop offset="100%" stop-color="#2b1b17" />
     </linearGradient>
-    <linearGradient id="overlay-t-lumina-bridge" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-dockside-tontine" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-lumina-bridge" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-dockside-tontine" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-lumina-bridge)" />
+  <rect width="600" height="900" fill="url(#bg-t-dockside-tontine)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-lumina-bridge">
-    <circle cx="447" cy="505" r="162" fill="#ffb703" opacity="0.18" filter="url(#glow-t-lumina-bridge)" />
-    <rect x="53" y="250" width="190" height="232" rx="16" transform="rotate(34 148 366)" fill="#fb8500" opacity="0.48" />
-    <circle cx="297" cy="273" r="108" fill="#f72585" opacity="0.14" filter="url(#glow-t-lumina-bridge)" />
-    <circle cx="413" cy="452" r="74" fill="none" stroke="#ffb703" stroke-width="5" opacity="0.58" />
-    <rect x="47.5" y="147.5" width="203" height="97" rx="16" transform="rotate(-19 149 196)" fill="#fb8500" opacity="0.60" />
+  <g id="geometry-t-dockside-tontine">
+    <circle cx="161" cy="382" r="124" fill="none" stroke="#f4a261" stroke-width="6" opacity="0.59" />
+    <circle cx="151" cy="497" r="154" fill="#e76f51" opacity="0.29" filter="url(#glow-t-dockside-tontine)" />
+    <circle cx="440" cy="406" r="101" fill="none" stroke="#e9c46a" stroke-width="2" opacity="0.47" />
+    <circle cx="128" cy="242" r="91" fill="none" stroke="#f4a261" stroke-width="5" opacity="0.53" />
+    <circle cx="156" cy="360" r="104" fill="#e76f51" opacity="0.20" filter="url(#glow-t-dockside-tontine)" />
+    <circle cx="212" cy="215" r="104" fill="#e9c46a" opacity="0.26" filter="url(#glow-t-dockside-tontine)" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-lumina-bridge)" />
+  <rect width="600" height="900" fill="url(#overlay-t-dockside-tontine)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2017 • PG • 105 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#f4a261" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2020 • R • 138 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    ANIMATION • FAMILY • FANTASY
+    DRAMA • THRILLER • COMEDY
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -47,14 +48,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">Bridge of</tspan><tspan x="300" y="685">Lanterns</tspan>
+    <tspan x="300" y="635">The Dockside</tspan><tspan x="300" y="685">Tontine</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "The song remains long after the festival closes."
+    "In the shipping yard, everyone has cargo to hide."
   </text>
 </svg>

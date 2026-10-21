@@ -1,43 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-mirage-dawn" gradientTransform="rotate(3)">
+    <linearGradient id="bg-t-solar-sailors" gradientTransform="rotate(2)">
       <stop offset="0%" stop-color="#080d1a" />
       <stop offset="100%" stop-color="#1e082b" />
     </linearGradient>
-    <linearGradient id="overlay-t-mirage-dawn" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-solar-sailors" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-mirage-dawn" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-solar-sailors" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-mirage-dawn)" />
+  <rect width="600" height="900" fill="url(#bg-t-solar-sailors)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-mirage-dawn">
-    <circle cx="197" cy="344" r="129" fill="#00f2fe" opacity="0.28" filter="url(#glow-t-mirage-dawn)" />
-    <circle cx="215" cy="455" r="80" fill="none" stroke="#9d4edd" stroke-width="4" opacity="0.51" />
-    <circle cx="135" cy="472" r="135" fill="none" stroke="#4cc9f0" stroke-width="6" opacity="0.42" />
-    <circle cx="272" cy="258" r="95" fill="#00f2fe" opacity="0.32" filter="url(#glow-t-mirage-dawn)" />
-    <circle cx="392" cy="432" r="142" fill="none" stroke="#9d4edd" stroke-width="2" opacity="0.38" />
-    <rect x="23" y="243.5" width="202" height="245" rx="16" transform="rotate(-30 124 366)" fill="#4cc9f0" opacity="0.40" />
+  <g id="geometry-t-solar-sailors">
+    <rect x="83.5" y="100" width="219" height="210" rx="16" transform="rotate(-35 193 205)" fill="#00f2fe" opacity="0.27" />
+    <circle cx="104" cy="509" r="154" fill="none" stroke="#9d4edd" stroke-width="6" opacity="0.51" />
+    <circle cx="333" cy="338" r="102" fill="#4cc9f0" opacity="0.34" filter="url(#glow-t-solar-sailors)" />
+    <circle cx="126" cy="330" r="215" fill="#00f2fe" opacity="0.20" filter="url(#glow-t-solar-sailors)" />
+    <circle cx="298" cy="427" r="120" fill="#9d4edd" opacity="0.21" filter="url(#glow-t-solar-sailors)" />
+    <circle cx="482" cy="471" r="156" fill="none" stroke="#4cc9f0" stroke-width="7" opacity="0.37" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-mirage-dawn)" />
+  <rect width="600" height="900" fill="url(#overlay-t-solar-sailors)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
   <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2020 • R • 90 MIN
+    2020 • PG • 111 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    COMEDY • ROMANCE • SCI-FI
+    ANIMATION • ACTION • ADVENTURE
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -48,7 +48,7 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Mirage at Dawn</tspan>
+    <tspan x="300" y="660">Sunfall Regatta</tspan>
   </text>
 
   <!-- Title Accent Dash -->
@@ -56,6 +56,6 @@
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Tomorrow is yesterday unless we change the pace."
+    "Ride the solar wind before the storm grounds you."
   </text>
 </svg>

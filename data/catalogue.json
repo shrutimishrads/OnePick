@@ -1,46 +1,46 @@
 [
   {
-    "id": "t-solarium-noir",
-    "name": "The Marble Solarium",
-    "tagline": "Truth hides where the sunlight cuts deepest.",
+    "id": "t-parchment-archive",
+    "name": "The Parchment Archive",
+    "tagline": "Paper remembers what ink was meant to erase.",
     "genres": [
       "Mystery",
-      "Comedy",
-      "Drama"
+      "Drama",
+      "Comedy"
     ],
     "moods": [
       "Clever",
       "Witty",
-      "Fun"
+      "Intriguing"
     ],
-    "minutes": 139,
+    "minutes": 145,
     "rating": "PG-13",
-    "year": 2022,
-    "synopsis": "An antique chess grandmaster dies in a locked observatory, leaving behind a board of contradictory moves. An insurance actuary and a disgraced cartographer must decipher the room's optical puzzles before midnight."
+    "year": 2023,
+    "synopsis": "An insomniac archival conservator discovers cryptographic watermarks pressed into centuries-old botanical manuscripts. As developers move in to demolish the municipal archives, she traces hidden marginalia across city maps to expose historical property theft."
   },
   {
-    "id": "t-cipher-void",
-    "name": "Cipher of the Void",
-    "tagline": "Before we answer, we must first learn silence.",
+    "id": "t-deep-trench",
+    "name": "The Hadal Trench",
+    "tagline": "Pressure tests the soul before it cracks the hull.",
     "genres": [
       "Sci-Fi",
       "Drama",
       "Mystery"
     ],
     "moods": [
-      "Thoughtful",
-      "Mind-bending",
-      "Emotional"
+      "Atmospheric",
+      "Subtle",
+      "Thoughtful"
     ],
-    "minutes": 116,
+    "minutes": 122,
     "rating": "PG-13",
-    "year": 2016,
-    "synopsis": "A dormant deep-sea communication relay begins transmitting geometric acoustic pulses from the Mariana Trench. A marine paleoclimatologist must decode the sub-aquatic transmissions before competing naval fleets initiate seismic drilling."
+    "year": 2021,
+    "synopsis": "A solitary technician stationed in a benthic trench station monitors hydrothermal vents when unexplained thermal pulses alter deep ocean chemistry. Facing mechanical failures and isolation, she must vent volcanic pressure pockets before seafloor fissures trigger a tidal surge."
   },
   {
-    "id": "t-velvet-crest",
-    "name": "The Velvet Crest",
-    "tagline": "Prestige, pastry, and high-altitude pandemonium.",
+    "id": "t-alpine-forge",
+    "name": "Alpine Ironworks",
+    "tagline": "Five tons of bronze and zero brakes.",
     "genres": [
       "Comedy",
       "Adventure"
@@ -48,17 +48,17 @@
     "moods": [
       "Quirky",
       "Charming",
-      "Visually Stunning"
+      "Lively"
     ],
-    "minutes": 99,
-    "rating": "R",
-    "year": 2014,
-    "synopsis": "Two rival carriage restorers accidentally swap identical luggage containing a priceless imperial crown. Racing down winding mountain passes in custom roadsters, they must retrieve the jewel before an international exhibition."
+    "minutes": 104,
+    "rating": "PG",
+    "year": 2019,
+    "synopsis": "A stubborn village blacksmith and his over-enthusiastic niece must haul a massive hand-cast bell across treacherous Alpine switchbacks using stubborn pack mules. Battling runaway wagons and eccentric tollkeepers, they strive to reach the summit chapel before festival day."
   },
   {
-    "id": "t-prism-sector",
-    "name": "Prism Sector",
-    "tagline": "Every frequency reveals a different hero.",
+    "id": "t-solar-sailors",
+    "name": "Sunfall Regatta",
+    "tagline": "Ride the solar wind before the storm grounds you.",
     "genres": [
       "Animation",
       "Action",
@@ -68,17 +68,17 @@
     "moods": [
       "Exhilarating",
       "Vibrant",
-      "Heartfelt"
+      "Inventive"
     ],
-    "minutes": 117,
+    "minutes": 111,
     "rating": "PG",
-    "year": 2018,
-    "synopsis": "A roller-derby courier in a subterranean synth city discovers that solar flares are overlapping urban frequencies. She must skate across vibrating dimensional rifts with alternate skyline racers to reignite the power grid."
+    "year": 2020,
+    "synopsis": "A daring teenage rigger in a cloud-skimming aerostat city harvests kinetic energy from atmospheric jet streams on custom solar gliders. When a plasma storm disables the colony buoyancy arrays, she navigates turbulent thermals to tether the station to safe wind currents."
   },
   {
-    "id": "t-quantum-reach",
-    "name": "Quantum Reach",
-    "tagline": "Every choice has a twin looking right back.",
+    "id": "t-sub-zero-relay",
+    "name": "Sub-Zero Relay",
+    "tagline": "Survival is cold; teamwork warms things up.",
     "genres": [
       "Sci-Fi",
       "Comedy",
@@ -88,17 +88,17 @@
     "moods": [
       "Wild",
       "Heartfelt",
-      "Mind-bending"
+      "Imaginative"
     ],
-    "minutes": 139,
-    "rating": "R",
-    "year": 2022,
-    "synopsis": "A weary antique clock repairer drops a balance spring into a temporal fault, splitting her workshop into hundreds of coexisting realities. To stop an entropic collapse, she must coordinate repairs with versions of herself across divergent lives."
+    "minutes": 133,
+    "rating": "PG-13",
+    "year": 2023,
+    "synopsis": "An eccentric cryo-engineer and a dry-witted botanist trapped inside a remote Svalbard seed vault during an Arctic blizzard must contain runaway bioluminescent flora. Navigating frozen ventilation tunnels on electric sleds, they fight to preserve irreplaceable crop species."
   },
   {
-    "id": "t-brass-echo",
-    "name": "Brass and Iron",
-    "tagline": "Perfection takes no prisoners in the foundry.",
+    "id": "t-copper-strings",
+    "name": "Copper Wire Orchestra",
+    "tagline": "Music forged from scrap and perseverance.",
     "genres": [
       "Drama",
       "Music"
@@ -106,17 +106,17 @@
     "moods": [
       "Intense",
       "Gripping",
-      "Relentless"
+      "Passionate"
     ],
-    "minutes": 106,
-    "rating": "R",
-    "year": 2014,
-    "synopsis": "A bell caster's apprentice enters the prestigious cathedral chime guild under a legendary, ruthless master. As the casting deadline for the town cathedral looms, he works through burns and exhaustion to tune the master carillon."
+    "minutes": 100,
+    "rating": "PG-13",
+    "year": 2022,
+    "synopsis": "A conservatory cellist suffering from sudden acoustic sensory loss converts an abandoned copper mill into a massive acoustic resonator. Using scrap wire and industrial acoustics, she leads retired factory hands in creating an experimental symphony honoring their town."
   },
   {
-    "id": "t-shadow-shrine",
-    "name": "Shrine of Shadows",
-    "tagline": "Between twilight and morning, the spirits awaken.",
+    "id": "t-moss-weaver",
+    "name": "The Moss Weaver",
+    "tagline": "Healing a forest begins with a single spore.",
     "genres": [
       "Animation",
       "Fantasy",
@@ -124,18 +124,18 @@
     ],
     "moods": [
       "Magical",
-      "Imaginative",
-      "Nostalgic"
+      "Atmospheric",
+      "Gentle"
     ],
-    "minutes": 125,
+    "minutes": 119,
     "rating": "PG",
-    "year": 2001,
-    "synopsis": "An apprentice weaver follows an escaped silk moth into a hidden cloud valley governed by river spirits. To purchase her ticket across the celestial ferry, she must weave tapestries commemorating forgotten folk legends."
+    "year": 2018,
+    "synopsis": "A quiet herbalist living in a stilt village within a flooded wetland must harvest bioluminescent river moss to protect her community from rising acidic tides. Guided by migratory marsh cranes, she navigates sunken cypress forests to revive the watershed ancient root canopy."
   },
   {
-    "id": "t-bramble-quest",
-    "name": "Bramble Quest",
-    "tagline": "Little paws can outwit the tallest castles.",
+    "id": "t-quarry-sprites",
+    "name": "Quarry Sprites",
+    "tagline": "Crafted from clay, fueled by pure stubbornness.",
     "genres": [
       "Animation",
       "Comedy",
@@ -146,15 +146,15 @@
       "Witty",
       "Feel-good"
     ],
-    "minutes": 87,
+    "minutes": 93,
     "rating": "PG",
-    "year": 2009,
-    "synopsis": "A colony of field mice invents glider kites to outmaneuver an owl baron who claimed their winter grain silos. Working against the approaching frost, the smallest rodent engineers an audacious mid-air heist."
+    "year": 2022,
+    "synopsis": "A pocket-sized clay golem brought to life in an artisan studio discovers the hillside quarry is flooding before the seasonal kiln firing. Enlisting wild swallows and eccentric stone-cutters, he engineers mud dams to save the craft village."
   },
   {
-    "id": "t-silent-perimeter",
-    "name": "Silent Perimeter",
-    "tagline": "If the wind dies, do not move an inch.",
+    "id": "t-iron-quarantine",
+    "name": "Iron Quarantine",
+    "tagline": "The water gives life. In here, it takes control.",
     "genres": [
       "Horror",
       "Sci-Fi",
@@ -165,15 +165,15 @@
       "Terrifying",
       "Tense"
     ],
-    "minutes": 90,
-    "rating": "PG-13",
-    "year": 2018,
-    "synopsis": "At an atmospheric monitoring outpost surrounded by sound-sensitive desert stalkers, a crew's seismic dampener malfunctions. When night storms cut electrical power, two meteorologists must crawl across open desert in total stillness."
+    "minutes": 96,
+    "rating": "R",
+    "year": 2021,
+    "synopsis": "A maintenance engineer on a storm-lashed North Sea drilling rig discovers a predatory abyssal fungus contaminating the vessel potable water pipes. As crewmates succumb to hallucinations and seal escape pods, she navigates flooding mechanical corridors to vent the rig."
   },
   {
-    "id": "t-hollow-manor",
-    "name": "The Hollow Estate",
-    "tagline": "Polite smiles can hide the deepest traps.",
+    "id": "t-cold-strata",
+    "name": "Cold Strata",
+    "tagline": "Some depths were never meant to be measured.",
     "genres": [
       "Horror",
       "Mystery",
@@ -182,17 +182,17 @@
     "moods": [
       "Chilling",
       "Unsettling",
-      "Sharp"
+      "Dark"
     ],
-    "minutes": 104,
+    "minutes": 110,
     "rating": "R",
-    "year": 2017,
-    "synopsis": "An acoustic technician arrives at a renowned private wellness retreat to install sensory isolation chambers. When guests begin mimicking identical childhood mannerisms, he discovers a hypnotic conditioning syndicate operating beneath the spa."
+    "year": 2020,
+    "synopsis": "A speleologist surveying subterranean salt domes beneath an abandoned Appalachian basin discovers ancient organic deposits leaking neurotoxic vapors into the mine shaft. Cut off by cave-ins, her team must decipher mining survey logs to escape before delirium overtakes them."
   },
   {
-    "id": "t-mirage-dawn",
-    "name": "Mirage at Dawn",
-    "tagline": "Tomorrow is yesterday unless we change the pace.",
+    "id": "t-lunar-botanist",
+    "name": "Lunar Hydroponics",
+    "tagline": "Love grows best in one-sixth gravity.",
     "genres": [
       "Comedy",
       "Romance",
@@ -200,18 +200,18 @@
     ],
     "moods": [
       "Breezy",
-      "Hilarious",
-      "Smart"
+      "Charming",
+      "Witty"
     ],
-    "minutes": 90,
-    "rating": "R",
-    "year": 2020,
-    "synopsis": "Two astronomers at a high-altitude desert observatory discover that a minor solar anomaly has trapped their valley in a twelve-hour daylight loop. Together, they test wild scientific pranks while searching for the solar trigger."
+    "minutes": 97,
+    "rating": "PG-13",
+    "year": 2022,
+    "synopsis": "Two fiercely competitive lunar agronomists managing rival greenhouse pods on the moon must combine crop quotas when an irrigation computer glitches. Working together in low-gravity domes to save a strawberry harvest, their rivalry blossoms into an unexpected partnership."
   },
   {
-    "id": "t-lumina-bridge",
-    "name": "Bridge of Lanterns",
-    "tagline": "The song remains long after the festival closes.",
+    "id": "t-tide-chimes",
+    "name": "Tide Chimes",
+    "tagline": "When the ocean blows, the cliff sings back.",
     "genres": [
       "Animation",
       "Family",
@@ -219,19 +219,19 @@
       "Music"
     ],
     "moods": [
-      "Tearjerker",
       "Heartfelt",
-      "Uplifting"
+      "Uplifting",
+      "Tearjerker"
     ],
-    "minutes": 105,
+    "minutes": 99,
     "rating": "PG",
-    "year": 2017,
-    "synopsis": "A young puppeteer from a canal village accidentally activates a luminous bridge made of festival lanterns leading to an ancestral cloud citadel. Partnering with a mischievous spirit mask, she searches for her grandmother's lost ballad."
+    "year": 2021,
+    "synopsis": "A resourceful girl living in a wind-swept fishing hamlet gathers hollow kelp and driftwood to build musical wind pipes along sea cliffs. When autumn gales disorient migrating puffins, her cliffside acoustic organ creates sound beacons that guide the flocks safely home."
   },
   {
-    "id": "t-orbital-arc",
-    "name": "The Orbital Arc",
-    "tagline": "A single light in the fathomless dark.",
+    "id": "t-deep-core-drill",
+    "name": "The Mantle Project",
+    "tagline": "The deepest frontier lies straight down.",
     "genres": [
       "Sci-Fi",
       "Drama",
@@ -239,37 +239,37 @@
     ],
     "moods": [
       "Epic",
-      "Emotional",
+      "Tense",
       "Awe-inspiring"
     ],
-    "minutes": 169,
+    "minutes": 161,
     "rating": "PG-13",
-    "year": 2014,
-    "synopsis": "When solar flares destabilize the orbital mirrors keeping arctic megacities warm, an experienced maintenance astronaut takes a risky sling-shot path to the sun. Confronting extreme radiation and isolation, he races to realign the solar array."
+    "year": 2023,
+    "synopsis": "A veteran geophysicist leading an oceanic drilling expedition penetrates an ultra-deep pressurized reservoir beneath the Pacific tectonic plate. When runaway friction destabilizes the drill string, her engineering crew faces unprecedented depths to cap the geothermal breach."
   },
   {
-    "id": "t-terrace-cipher",
-    "name": "The Terrace Cipher",
-    "tagline": "Two worlds collide beneath the marble stairs.",
+    "id": "t-dockside-tontine",
+    "name": "The Dockside Tontine",
+    "tagline": "In the shipping yard, everyone has cargo to hide.",
     "genres": [
       "Drama",
       "Thriller",
       "Comedy"
     ],
     "moods": [
-      "Suspenseful",
-      "Gripping",
-      "Dark"
+      "Dark",
+      "Witty",
+      "Suspenseful"
     ],
-    "minutes": 132,
+    "minutes": 138,
     "rating": "R",
-    "year": 2019,
-    "synopsis": "A resourceful family of theatrical prop designers secures jobs managing the estate of an elusive software mogul. As they gradually furnish the mansion with fabricated antiques, they uncover secret vaults concealing financial espionage."
+    "year": 2020,
+    "synopsis": "A sharp maritime customs inspector uncovers a syndicate of retired shipyard workers running an unlicensed salvage exchange out of retrofitted shipping containers. As corrupt dock directors close in, she must outmaneuver both sides without becoming complicit in the haul."
   },
   {
-    "id": "t-clockwork-haven",
-    "name": "The Clockwork Haven",
-    "tagline": "Even broken gears can turn a wondrous town.",
+    "id": "t-canopy-post",
+    "name": "The Canopy Post",
+    "tagline": "The fastest deliveries happen four hundred feet up.",
     "genres": [
       "Comedy",
       "Adventure",
@@ -280,51 +280,51 @@
       "Warm",
       "Feel-good"
     ],
-    "minutes": 103,
+    "minutes": 108,
     "rating": "PG",
-    "year": 2017,
-    "synopsis": "An eccentric botanist's mechanical assistant is wrongly accused of tampering with the town watermill. With the help of an optimistic street baker, the brass creature sets out on an airborne chase to recover the stolen blueprints."
+    "year": 2023,
+    "synopsis": "A treetop postal courier who navigates old-growth canopies on solar ziplines loses a critical parcel of medicinal orchid seeds to wandering forest gliders. Teaming with an anxious surveyor, she braves canopy storms to restore deliveries before winter."
   },
   {
-    "id": "t-strato-flight",
-    "name": "Strato Apex",
-    "tagline": "At Mach four, instincts rule the sky.",
+    "id": "t-storm-catamaran",
+    "name": "Roaring Forties",
+    "tagline": "Wind is an engine. The Southern Ocean is the track.",
     "genres": [
       "Action",
       "Drama"
     ],
     "moods": [
+      "High-energy",
       "Thrilling",
-      "Crowd-pleaser",
-      "High-energy"
+      "Tense"
     ],
-    "minutes": 130,
+    "minutes": 136,
     "rating": "PG-13",
-    "year": 2022,
-    "synopsis": "A legendary civilian test pilot is called out of retirement to fly an uncrewed solar glider prototype through hurricane jet streams. Teaming up with a brilliant rookie flight engineer, they push aerodynamic physics to the edge."
+    "year": 2023,
+    "synopsis": "A veteran offshore sailor and her precision meteorologist co-pilot a high-speed hydrofoil catamaran across the brutal Southern Ocean. When structural failure damages their foil during a gale, they must perform emergency hull repairs while battling twenty-meter waves."
   },
   {
-    "id": "t-meridian-drift",
-    "name": "Meridian Drift",
-    "tagline": "Separated by oceans, reunited by a single train.",
+    "id": "t-canal-letters",
+    "name": "Canal Letters",
+    "tagline": "Some words float longer than the boats that carried them.",
     "genres": [
       "Drama",
       "Romance"
     ],
     "moods": [
+      "Reflective",
       "Poignant",
-      "Gentle",
-      "Reflective"
+      "Gentle"
     ],
-    "minutes": 105,
+    "minutes": 112,
     "rating": "PG-13",
-    "year": 2023,
-    "synopsis": "Two architecture students who spent a summer drafting coastal lighthouses cross paths twenty years later at a railway terminal in Zurich. Over twenty-four hours, they reflect on choices made, families built, and paths left behind."
+    "year": 2022,
+    "synopsis": "A quiet lock keeper managing a remote Burgundy canal finds a bundle of waterproofed letters sealed inside an eighteenth-century sluice gate. Partnering with a visiting architectural historian, the two travel the waterways piecing together the untold story of the canal builders."
   },
   {
-    "id": "t-ember-tide",
-    "name": "Ember Tide",
-    "tagline": "The oldest melodies guide the farthest voyages.",
+    "id": "t-harbor-cadence",
+    "name": "Harbor Cadence",
+    "tagline": "Every rivet in the bay has its own rhythm.",
     "genres": [
       "Drama",
       "Music",
@@ -335,15 +335,15 @@
       "Uplifting",
       "Tearjerker"
     ],
-    "minutes": 111,
+    "minutes": 117,
     "rating": "PG-13",
-    "year": 2021,
-    "synopsis": "An apprentice navigator on a volcanic archipelago preserves oral sailing anthems while competing in the oceanic festival. When a storm threatens the harvest trade, her family's ancestral chants become the fleet's only beacon."
+    "year": 2023,
+    "synopsis": "A drydock welder who gauges hull integrity by feeling engine vibrations partners with an eccentric harbor radio host. Together with dockworkers, they wire acoustic sensors to ship hulls to create a live industrial broadcast that saves their terminal."
   },
   {
-    "id": "t-crag-wanderer",
-    "name": "Crag Wanderers",
-    "tagline": "Off the trail and beyond all rules.",
+    "id": "t-lighthouse-trio",
+    "name": "The Reef Keepers",
+    "tagline": "Three scientists, one granite rock, and zero spare fuses.",
     "genres": [
       "Comedy",
       "Adventure",
@@ -351,18 +351,18 @@
     ],
     "moods": [
       "Hilarious",
-      "Endearing",
+      "Warm",
       "Outdoorsy"
     ],
-    "minutes": 101,
+    "minutes": 107,
     "rating": "PG-13",
-    "year": 2016,
-    "synopsis": "A bookish teenager and a stubborn mountain goat herder are cut off by a canyon rockslide in the rugged high country. Evading overzealous wilderness rangers, the mismatched pair embarks on an accidental cross-country expedition."
+    "year": 2021,
+    "synopsis": "Three bickering marine geologists stranded on an automated granite lighthouse island after their dinghy engine floods must keep the beacon shining through a week of dense fog. Relying on antique kerosene lamps and eccentric banter, they rediscover the joy of shared isolation."
   },
   {
-    "id": "t-glass-expanse",
-    "name": "The Glass Expanse",
-    "tagline": "In the desert of silica, kings are made of dust.",
+    "id": "t-rift-valley-freight",
+    "name": "The Magma Rift",
+    "tagline": "A freight line laid over liquid stone.",
     "genres": [
       "Sci-Fi",
       "Adventure",
@@ -373,9 +373,9 @@
       "Monumental",
       "Intense"
     ],
-    "minutes": 166,
+    "minutes": 158,
     "rating": "PG-13",
     "year": 2024,
-    "synopsis": "Across a glassy silica plain raked by lightning storms, nomadic sand-skiff sailers band together to resist mineral mining cartels. A young sailmaster learns the wind patterns to launch an airborne counter-offensive."
+    "synopsis": "A seasoned mag-lev train master piloting a massive industrial ore carrier across an active planetary tectonic rift encounters a sudden lava blowout. With bridges collapsing behind and sensors failing, she coordinates with dispatch to re-route across untracked volcanic plateaus."
   }
 ]

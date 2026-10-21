@@ -1,41 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-meridian-drift" gradientTransform="rotate(15)">
-      <stop offset="0%" stop-color="#11141a" />
-      <stop offset="100%" stop-color="#241b21" />
+    <linearGradient id="bg-t-cold-strata" gradientTransform="rotate(112)">
+      <stop offset="0%" stop-color="#0a0a0c" />
+      <stop offset="100%" stop-color="#200508" />
     </linearGradient>
-    <linearGradient id="overlay-t-meridian-drift" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-cold-strata" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-meridian-drift" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-cold-strata" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-meridian-drift)" />
+  <rect width="600" height="900" fill="url(#bg-t-cold-strata)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-meridian-drift">
-    <circle cx="256" cy="530" r="77" fill="none" stroke="#e26d5c" stroke-width="2" opacity="0.49" />
-    <circle cx="341" cy="252" r="162" fill="none" stroke="#c9ada7" stroke-width="4" opacity="0.67" />
-    <circle cx="326" cy="375" r="113" fill="none" stroke="#9a8c98" stroke-width="3" opacity="0.54" />
-    <circle cx="332" cy="492" r="104" fill="none" stroke="#e26d5c" stroke-width="3" opacity="0.46" />
+  <g id="geometry-t-cold-strata">
+    <rect x="13" y="86.5" width="214" height="195" rx="16" transform="rotate(3 120 184)" fill="#e63946" opacity="0.27" />
+    <circle cx="207" cy="420" r="117" fill="none" stroke="#ff0054" stroke-width="2" opacity="0.62" />
+    <rect x="228.5" y="309.5" width="171" height="213" rx="16" transform="rotate(44 314 416)" fill="#6a040f" opacity="0.35" />
+    <circle cx="163" cy="257" r="93" fill="#e63946" opacity="0.20" filter="url(#glow-t-cold-strata)" />
+    <circle cx="141" cy="459" r="83" fill="none" stroke="#ff0054" stroke-width="4" opacity="0.30" />
+    <circle cx="248" cy="532" r="156" fill="#6a040f" opacity="0.19" filter="url(#glow-t-cold-strata)" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-meridian-drift)" />
+  <rect width="600" height="900" fill="url(#overlay-t-cold-strata)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#e26d5c" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2023 • PG-13 • 105 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#e63946" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2020 • R • 110 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    DRAMA • ROMANCE
+    HORROR • MYSTERY • THRILLER
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -46,14 +48,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">Meridian Drift</tspan>
+    <tspan x="300" y="660">Cold Strata</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="718" x2="340" y2="718" stroke="#c9ada7" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#ff0054" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Separated by oceans, reunited by a single train."
+    "Some depths were never meant to be measured."
   </text>
 </svg>

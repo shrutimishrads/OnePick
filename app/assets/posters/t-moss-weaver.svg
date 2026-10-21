@@ -1,42 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-velvet-crest" gradientTransform="rotate(253)">
-      <stop offset="0%" stop-color="#0e1724" />
-      <stop offset="100%" stop-color="#2b1b17" />
+    <linearGradient id="bg-t-moss-weaver" gradientTransform="rotate(185)">
+      <stop offset="0%" stop-color="#0c1329" />
+      <stop offset="100%" stop-color="#2b103b" />
     </linearGradient>
-    <linearGradient id="overlay-t-velvet-crest" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-moss-weaver" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-velvet-crest" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-moss-weaver" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-velvet-crest)" />
+  <rect width="600" height="900" fill="url(#bg-t-moss-weaver)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-velvet-crest">
-    <rect x="406" y="131" width="162" height="148" rx="16" transform="rotate(1 487 205)" fill="#f4a261" opacity="0.69" />
-    <circle cx="272" cy="369" r="84" fill="none" stroke="#e76f51" stroke-width="4" opacity="0.58" />
-    <rect x="228" y="211.5" width="162" height="135" rx="16" transform="rotate(30 309 279)" fill="#e9c46a" opacity="0.38" />
-    <circle cx="451" cy="441" r="52" fill="none" stroke="#f4a261" stroke-width="5" opacity="0.66" />
-    <rect x="355" y="151.5" width="100" height="151" rx="16" transform="rotate(14 405 227)" fill="#e76f51" opacity="0.70" />
+  <g id="geometry-t-moss-weaver">
+    <circle cx="257" cy="523" r="189" fill="#ffb703" opacity="0.28" filter="url(#glow-t-moss-weaver)" />
+    <rect x="190.5" y="388" width="169" height="166" rx="16" transform="rotate(-13 275 471)" fill="#fb8500" opacity="0.64" />
+    <rect x="327" y="349" width="206" height="204" rx="16" transform="rotate(19 430 451)" fill="#f72585" opacity="0.42" />
+    <circle cx="117" cy="271" r="158" fill="#ffb703" opacity="0.33" filter="url(#glow-t-moss-weaver)" />
+    <circle cx="183" cy="332" r="83" fill="none" stroke="#fb8500" stroke-width="3" opacity="0.60" />
+    <circle cx="317" cy="525" r="169" fill="#f72585" opacity="0.30" filter="url(#glow-t-moss-weaver)" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-velvet-crest)" />
+  <rect width="600" height="900" fill="url(#overlay-t-moss-weaver)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#f4a261" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2014 • R • 99 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2018 • PG • 119 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    COMEDY • ADVENTURE
+    ANIMATION • FANTASY • ADVENTURE
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -47,14 +48,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="660">The Velvet Crest</tspan>
+    <tspan x="300" y="660">The Moss Weaver</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="718" x2="340" y2="718" stroke="#e76f51" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Prestige, pastry, and high-altitude pandemonium."
+    "Healing a forest begins with a single spore."
   </text>
 </svg>

@@ -1,43 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-solarium-noir" gradientTransform="rotate(130)">
-      <stop offset="0%" stop-color="#081214" />
-      <stop offset="100%" stop-color="#0f2427" />
+    <linearGradient id="bg-t-deep-core-drill" gradientTransform="rotate(287)">
+      <stop offset="0%" stop-color="#080d1a" />
+      <stop offset="100%" stop-color="#1e082b" />
     </linearGradient>
-    <linearGradient id="overlay-t-solarium-noir" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-deep-core-drill" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-solarium-noir" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-deep-core-drill" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-solarium-noir)" />
+  <rect width="600" height="900" fill="url(#bg-t-deep-core-drill)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-solarium-noir">
-    <rect x="267.5" y="420.5" width="95" height="237" rx="16" transform="rotate(-23 315 539)" fill="#52b788" opacity="0.67" />
-    <circle cx="337" cy="222" r="146" fill="#74c69d" opacity="0.23" filter="url(#glow-t-solarium-noir)" />
-    <circle cx="429" cy="216" r="148" fill="none" stroke="#b7e4c7" stroke-width="3" opacity="0.48" />
-    <circle cx="354" cy="206" r="157" fill="none" stroke="#52b788" stroke-width="5" opacity="0.60" />
-    <circle cx="134" cy="306" r="171" fill="#74c69d" opacity="0.14" filter="url(#glow-t-solarium-noir)" />
-    <circle cx="473" cy="285" r="116" fill="none" stroke="#b7e4c7" stroke-width="4" opacity="0.25" />
+  <g id="geometry-t-deep-core-drill">
+    <circle cx="165" cy="430" r="160" fill="none" stroke="#00f2fe" stroke-width="7" opacity="0.40" />
+    <circle cx="109" cy="182" r="144" fill="#9d4edd" opacity="0.34" filter="url(#glow-t-deep-core-drill)" />
+    <rect x="76.5" y="305.5" width="97" height="211" rx="16" transform="rotate(43 125 411)" fill="#4cc9f0" opacity="0.55" />
+    <circle cx="446" cy="454" r="125" fill="#00f2fe" opacity="0.34" filter="url(#glow-t-deep-core-drill)" />
+    <rect x="17.5" y="464.5" width="203" height="121" rx="16" transform="rotate(-12 119 525)" fill="#9d4edd" opacity="0.27" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-solarium-noir)" />
+  <rect width="600" height="900" fill="url(#overlay-t-deep-core-drill)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
-  <text x="300" y="70" text-anchor="middle" fill="#52b788" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2022 • PG-13 • 139 MIN
+  <text x="300" y="70" text-anchor="middle" fill="#00f2fe" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
+    2023 • PG-13 • 161 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    MYSTERY • COMEDY • DRAMA
+    SCI-FI • DRAMA • ADVENTURE
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -48,14 +47,14 @@
 
   <!-- Title Heading -->
   <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">The Marble</tspan><tspan x="300" y="685">Solarium</tspan>
+    <tspan x="300" y="635">The Mantle</tspan><tspan x="300" y="685">Project</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#74c69d" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="736" x2="340" y2="736" stroke="#9d4edd" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
   <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Truth hides where the sunlight cuts deepest."
+    "The deepest frontier lies straight down."
   </text>
 </svg>

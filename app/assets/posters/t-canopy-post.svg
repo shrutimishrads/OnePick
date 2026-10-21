@@ -1,41 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-t-shadow-shrine" gradientTransform="rotate(147)">
+    <linearGradient id="bg-t-canopy-post" gradientTransform="rotate(86)">
       <stop offset="0%" stop-color="#0c1329" />
       <stop offset="100%" stop-color="#2b103b" />
     </linearGradient>
-    <linearGradient id="overlay-t-shadow-shrine" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="overlay-t-canopy-post" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#000000" stop-opacity="0.3" />
       <stop offset="55%" stop-color="#000000" stop-opacity="0.1" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0.85" />
     </linearGradient>
-    <filter id="glow-t-shadow-shrine" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow-t-canopy-post" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="40" result="blur" />
     </filter>
   </defs>
 
   <!-- Background Canvas -->
-  <rect width="600" height="900" fill="url(#bg-t-shadow-shrine)" />
+  <rect width="600" height="900" fill="url(#bg-t-canopy-post)" />
 
   <!-- Deterministic Abstract Geometric Layer -->
-  <g id="geometry-t-shadow-shrine">
-    <circle cx="289" cy="392" r="87" fill="none" stroke="#ffb703" stroke-width="2" opacity="0.47" />
-    <rect x="147" y="226.5" width="144" height="235" rx="16" transform="rotate(27 219 344)" fill="#fb8500" opacity="0.61" />
-    <circle cx="420" cy="467" r="116" fill="#f72585" opacity="0.23" filter="url(#glow-t-shadow-shrine)" />
-    <rect x="36.5" y="221.5" width="165" height="145" rx="16" transform="rotate(-7 119 294)" fill="#ffb703" opacity="0.34" />
+  <g id="geometry-t-canopy-post">
+    <rect x="13" y="398.5" width="176" height="245" rx="16" transform="rotate(-2 101 521)" fill="#ffb703" opacity="0.63" />
+    <rect x="-18" y="165" width="242" height="122" rx="16" transform="rotate(16 103 226)" fill="#fb8500" opacity="0.34" />
+    <circle cx="414" cy="289" r="75" fill="none" stroke="#f72585" stroke-width="3" opacity="0.42" />
+    <rect x="301.5" y="270.5" width="211" height="81" rx="16" transform="rotate(-21 407 311)" fill="#ffb703" opacity="0.46" />
   </g>
 
   <!-- Gradient Vignette Overlay -->
-  <rect width="600" height="900" fill="url(#overlay-t-shadow-shrine)" />
+  <rect width="600" height="900" fill="url(#overlay-t-canopy-post)" />
 
   <!-- 5% Safe Margin Content (x: 30..570, y: 45..855) -->
 
   <!-- Top Metadata Header -->
   <text x="300" y="70" text-anchor="middle" fill="#ffb703" font-family="'Sora', sans-serif" font-size="14" font-weight="700" letter-spacing="4">
-    2001 • PG • 125 MIN
+    2023 • PG • 108 MIN
   </text>
   <text x="300" y="92" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="'Sora', sans-serif" font-size="12" font-weight="600" letter-spacing="2">
-    ANIMATION • FANTASY • ADVENTURE
+    COMEDY • ADVENTURE • FAMILY
   </text>
 
   <!-- Decorative Minimal Grid Crosses -->
@@ -45,15 +45,15 @@
   <path d="M 545 845 L 555 845 M 550 840 L 550 850" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
 
   <!-- Title Heading -->
-  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="44" font-weight="800" letter-spacing="-0.5">
-    <tspan x="300" y="635">Shrine of</tspan><tspan x="300" y="685">Shadows</tspan>
+  <text text-anchor="middle" fill="#ffffff" font-family="'Syne', 'Sora', sans-serif" font-size="50" font-weight="800" letter-spacing="-0.5">
+    <tspan x="300" y="660">The Canopy Post</tspan>
   </text>
 
   <!-- Title Accent Dash -->
-  <line x1="260" y1="736" x2="340" y2="736" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
+  <line x1="260" y1="718" x2="340" y2="718" stroke="#fb8500" stroke-width="3" stroke-linecap="round" />
 
   <!-- Tagline Text -->
-  <text x="300" y="760" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
-    "Between twilight and morning, the spirits awaken."
+  <text x="300" y="742" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-family="'Sora', sans-serif" font-size="15" font-weight="400" font-style="italic">
+    "The fastest deliveries happen four hundred feet up."
   </text>
 </svg>
