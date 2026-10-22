@@ -12,3 +12,11 @@ coverage/
 *-Report.html
 AUDIT.md
 AUDIT2.md
+AGENT_PROGRESS.md
+*.tmp
+local.properties
+.gradle/
+fireos/gradle/wrapper/gradle-wrapper.jar
+
+
+

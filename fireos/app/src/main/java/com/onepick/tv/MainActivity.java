@@ -63,7 +63,19 @@ public class MainActivity extends Activity {
         WebView.setWebContentsDebuggingEnabled(true);
 
         mWebView.addJavascriptInterface(new WebAppInterface(), "OnePickNative");
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                // Ensure 10-foot 1080p canvas aligns perfectly to top-left on 16:9 Leanback displays
+                view.evaluateJavascript(
+                    "window.scrollTo(0,0); " +
+                    "const c = document.querySelector('.tv-container'); " +
+                    "if (c) { c.style.transformOrigin = 'top left'; c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; }",
+                    null
+                );
+            }
+        });
         mWebView.setWebChromeClient(new WebChromeClient());
 
         // TV spatial navigation configuration
@@ -81,39 +93,39 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_UP:
-                dispatchJsKey("ArrowUp");
-                return true;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                dispatchJsKey("ArrowDown");
-                return true;
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                dispatchJsKey("ArrowLeft");
-                return true;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                dispatchJsKey("ArrowRight");
-                return true;
-            case KeyEvent.KEYCODE_DPAD_CENTER:
-            case KeyEvent.KEYCODE_ENTER:
-                dispatchJsKey("Enter");
-                return true;
-            case KeyEvent.KEYCODE_BACK:
-                // Only consume BACK when web UI modal is open; otherwise exit app
-                if (mIsModalOpen) {
-                    mIsModalOpen = false;
-                    mWebView.evaluateJavascript("if (typeof window.onepickHandleBack === 'function') { window.onepickHandleBack(); }", null);
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    dispatchJsKey("ArrowUp");
                     return true;
-                }
-                return super.onKeyDown(keyCode, event);
-            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-            case KeyEvent.KEYCODE_MEDIA_PLAY:
-                dispatchJsKey("PlayPause");
-                return true;
-            default:
-                return super.onKeyDown(keyCode, event);
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    dispatchJsKey("ArrowDown");
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    dispatchJsKey("ArrowLeft");
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    dispatchJsKey("ArrowRight");
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_ENTER:
+                    dispatchJsKey("Enter");
+                    return true;
+                case KeyEvent.KEYCODE_BACK:
+                    if (mIsModalOpen) {
+                        mIsModalOpen = false;
+                        mWebView.evaluateJavascript("if (typeof window.onepickHandleBack === 'function') { window.onepickHandleBack(); }", null);
+                        return true;
+                    }
+                    return super.dispatchKeyEvent(event);
+                case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                case KeyEvent.KEYCODE_MEDIA_PLAY:
+                    dispatchJsKey("PlayPause");
+                    return true;
+            }
         }
+        return super.dispatchKeyEvent(event);
     }
 
     private void dispatchJsKey(String keyName) {

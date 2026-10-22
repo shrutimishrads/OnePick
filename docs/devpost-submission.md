@@ -61,24 +61,20 @@ OnePick is a 10-foot Fire TV application that:
 *(Full friction log with observations provided in `docs/product-feedback.md`)*
 
 #### Entry 1: Fire TV Emulator Setup & Tooling
-- **Task Attempted:** Build and run the Fire OS Leanback wrapper (`fireos/`) in Android Studio's Fire TV emulator on a development workstation.
-- **Steps:** [TODO: Add exact steps taken once executed on a machine with JDK 17 and Android SDK installed]
+- **Task Attempted:** Build and run the Fire OS Leanback wrapper (`fireos/`) in an Android TV 1080p emulator on Windows 11.
+- **Steps:**
+  1. Created `OnePick_TV` AVD targeting Android 14 (API 34) at 1080p using `avdmanager`.
+  2. Built Leanback debug APK with Gradle 8.7 and Microsoft OpenJDK 17 (`./gradlew.bat assembleDebug`).
+  3. Installed and launched app via ADB (`adb install -r app-debug.apk` and `adb shell am start -n com.onepick.tv/.MainActivity`).
 - **Expected vs Actual:**
-  - *Expected:* [TODO: Record expected emulator launch and build experience]
-  - *Actual:* [TODO: Record exact build output, SDK licensing prompts, or Gradle sync quirks encountered]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** [TODO: Describe workaround used during testing, e.g. using browser-based TV remote simulator with full D-pad keyboard mapping]
-- **Suggestion:** [TODO: Suggestions for the Amazon Developer Tooling team regarding Fire TV emulator setup on Windows]
+  - *Expected:* Smooth setup wizard completion and immediate full-screen 10-foot rendering.
+  - *Actual:* Setup wizard stalled on optional phone image with `java.net.SocketTimeoutException: Read timed out` (resolved by canceling phone image and installing `system-images;android-34;android-tv;x86` directly via `sdkmanager`). Additionally, cold boot displayed an unprompted launcher overlay ("Buy and rent movies on your TV") which required sending remote keyevent BACK (`adb shell input keyevent 4`) to dismiss.
+- **Severity:** Medium
+- **Workaround:** Bypassed default phone images via CLI `sdkmanager`, and automated dismissal of initial setup dialogs.
+- **Suggestion:** Provide pre-configured Amazon Fire TV AVD definitions directly in the Android SDK / SDK Manager tools for one-click setup.
 
 #### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
-- **Task Attempted:** Sideload the debug APK onto a physical Fire TV device via wireless ADB and verify live remote response.
-- **Steps:** [TODO: Add steps for enabling Developer Options and ADB Debugging on Fire TV]
-- **Expected vs Actual:**
-  - *Expected:* [TODO: Record expected installation and remote responsiveness]
-  - *Actual:* [TODO: Record actual pairing UX, network security behaviors, or remote key latency observed]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** [TODO: Detail any workarounds used for network discovery or cleartext HTTP on local LAN]
-- **Suggestion:** [TODO: Suggestion for Amazon Fire TV device team regarding sideload developer experience]
+- **Status:** [TODO: human] Verified on Android TV emulator (1080p, API 34). Physical device sideloading and Alexa remote testing to be logged if tested on hardware.
 
 #### Entry 3: Structured Output JSON Enforcement in AWS Bedrock Converse API
 - **Task Attempted:** Parse unstructured user utterances into strict JSON constraint patches (`ConstraintPatch`) using the Converse API (`amazon.nova-lite-v1:0`).

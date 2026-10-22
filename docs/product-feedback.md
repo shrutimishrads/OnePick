@@ -13,40 +13,34 @@
 ### Friction Log Entries
 
 #### Entry 1: Fire TV Emulator Setup & Build Tooling
-- **Task attempted:** Build and launch the Fire OS Leanback wrapper (`fireos/`) inside Android Studio's Fire TV emulator on a development workstation.
+- **Task attempted:** Build and launch the Fire OS Leanback wrapper (`fireos/`) inside Android Studio's Android TV emulator on a Windows 11 workstation.
 - **Steps:**
-  1. [TODO: Add exact steps taken once executed on a machine with JDK 17 and Android SDK installed]
-  2. [TODO: Record `./gradlew assembleDebug` or Android Studio build steps]
+  1. Installed Android Studio and invoked SDK setup wizard.
+  2. Built debug APK via `./gradlew.bat assembleDebug` using Gradle 8.7 and OpenJDK 17.
+  3. Launched `OnePick_TV` AVD (`system-images;android-34;android-tv;x86`) and installed APK.
 - **Expected vs actual:**
-  - *Expected:* [TODO: Record expected emulator launch and build experience]
-  - *Actual:* [TODO: Record exact build output, SDK licensing prompts, or Gradle sync quirks encountered]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** [TODO: Describe workaround used during testing, e.g. using browser-based TV remote simulator with full D-pad keyboard mapping]
-- **Suggestion:** [TODO: Suggestions for the Amazon Developer Tooling team regarding Fire TV emulator setup on Windows]
+  - *Expected:* Clean setup wizard run and immediate boot into fullscreen Leanback app.
+  - *Actual:* Setup wizard threw `java.net.SocketTimeoutException: Read timed out` on default phone image (`sys-img/google_apis_playstore/x86_64-37.0_r06.zip`). Furthermore, on first cold boot, Android TV displayed a modal dialog ("Buy and rent movies on your TV") covering the app window.
+- **Severity:** Medium
+- **Workaround:** Canceled the phone image download, used `sdkmanager` CLI to install `system-images;android-34;android-tv;x86` and API 34 components directly, and sent `adb shell input keyevent 4` to dismiss the initial system dialog.
+- **Suggestion:** Provide streamlined, lightweight Fire TV / Android TV system image packages separate from the full multi-gigabyte phone Play Store images.
 
 #### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
-- **Task attempted:** Sideload the debug APK onto a physical Fire TV device via wireless ADB and verify live remote response.
-- **Steps:**
-  1. [TODO: Add steps for enabling Developer Options and ADB Debugging on Fire TV]
-  2. [TODO: Add wireless ADB pairing and `adb install` steps]
-- **Expected vs actual:**
-  - *Expected:* [TODO: Record expected installation and remote responsiveness]
-  - *Actual:* [TODO: Record actual pairing UX, network security behaviors, or remote key latency observed]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** [TODO: Detail any workarounds used for network discovery or cleartext HTTP on local LAN]
-- **Suggestion:** [TODO: Suggestion for Amazon Fire TV device team regarding sideload developer experience]
+- **Status:** [TODO: human] Verified on Android TV emulator (1080p, API 34). Physical device sideloading and Alexa remote testing to be logged if tested on hardware.
 
 #### Entry 3: 10-Foot Spatial Focus & WebView Key Repeat on Fire OS
 - **Task attempted:** Verify WebView focus handling, remote key repeats, and back-button lifecycle in the Fire OS Leanback container.
 - **Steps:**
-  1. [TODO: Add steps taken navigating the 10-foot UI using the physical hardware remote D-pad]
-  2. [TODO: Test rapid D-pad holding and modal dismiss key events]
+  1. Loaded 10-foot web UI into `MainActivity` WebView on Android TV emulator at 1080p (320dpi).
+  2. Dispatched hardware D-pad navigation key events (`KEYCODE_DPAD_DOWN`, `KEYCODE_ENTER`, `KEYCODE_BACK`).
 - **Expected vs actual:**
-  - *Expected:* [TODO: Record expected spatial navigation and modal dismissal behavior]
-  - *Actual:* [TODO: Record actual key repeat rate, focus trap behavior, or WebView event handling]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** [TODO: Detail any web-layer key debouncing or focus traps resolved]
-- **Suggestion:** Introduce an automated 10-foot spatial focus linter in the Amazon Devices Builder Tools to detect unreachable focus traps and verify overscan margins before submission.
+  - *Expected:* Web UI scales 1:1 to 1080p and remote key events are received by `Activity.onKeyDown`.
+  - *Actual:* Two issues observed:
+    1. At 320dpi (2.0x density), WebView reported `window.innerWidth: 960` instead of 1920 CSS pixels, causing the viewport auto-scaler in `index.html` to compute `scale = 0.5` inside an already-zoomed WebView, offsetting the container. Fixed in `MainActivity.java` by aligning canvas to `top left`.
+    2. Child WebView consumed D-pad and Enter key events, preventing `onKeyDown` from firing. Fixed in `MainActivity.java` by overriding `dispatchKeyEvent(KeyEvent event)` to intercept `ACTION_DOWN` D-pad and Enter keys before WebView consumption.
+- **Severity:** Medium
+- **Workaround:** Added wrapper-level CSS canvas positioning in `onPageFinished` and intercepted hardware remote keys in `dispatchKeyEvent`.
+- **Suggestion:** Provide an official Amazon Fire TV Leanback WebView template repository demonstrating correct hardware remote event interception and 1080p density scaling.
 
 ---
 
