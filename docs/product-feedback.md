@@ -12,7 +12,7 @@
 
 ### Friction Log Entries
 
-#### Entry 1: Fire TV Emulator Setup & Build Tooling
+#### Entry 1: Android TV Emulator Setup & Build Tooling
 - **Task attempted:** Build and launch the Fire OS Leanback wrapper (`fireos/`) inside Android Studio's Android TV emulator on a Windows 11 workstation.
 - **Steps:**
   1. Installed Android Studio and invoked SDK setup wizard.
@@ -28,19 +28,17 @@
 #### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
 - **Status:** [TODO: human] Verified on Android TV emulator (1080p, API 34). Physical device sideloading and Alexa remote testing to be logged if tested on hardware.
 
-#### Entry 3: 10-Foot Spatial Focus & WebView Key Repeat on Fire OS
-- **Task attempted:** Verify WebView focus handling, remote key repeats, and back-button lifecycle in the Fire OS Leanback container.
+#### Entry 3: 10-Foot Spatial Navigation & Display Scaling in Android TV WebView
+- **Task attempted:** Verify WebView display scaling, remote key navigation, and back-button lifecycle in the Fire OS / Leanback container.
 - **Steps:**
   1. Loaded 10-foot web UI into `MainActivity` WebView on Android TV emulator at 1080p (320dpi).
   2. Dispatched hardware D-pad navigation key events (`KEYCODE_DPAD_DOWN`, `KEYCODE_ENTER`, `KEYCODE_BACK`).
 - **Expected vs actual:**
-  - *Expected:* Web UI scales 1:1 to 1080p and remote key events are received by `Activity.onKeyDown`.
-  - *Actual:* Two issues observed:
-    1. At 320dpi (2.0x density), WebView reported `window.innerWidth: 960` instead of 1920 CSS pixels, causing the viewport auto-scaler in `index.html` to compute `scale = 0.5` inside an already-zoomed WebView, offsetting the container. Fixed in `MainActivity.java` by aligning canvas to `top left`.
-    2. Child WebView consumed D-pad and Enter key events, preventing `onKeyDown` from firing. Fixed in `MainActivity.java` by overriding `dispatchKeyEvent(KeyEvent event)` to intercept `ACTION_DOWN` D-pad and Enter keys before WebView consumption.
+  - *Expected:* Web UI scales 1:1 to 1080p without layout distortion or canvas clipping.
+  - *Actual:* At 320dpi (2.0x density), the Android WebView reported `window.innerWidth: 960` instead of 1920 CSS pixels. Because the web UI included a responsive auto-scaler designed for browser viewports, it computed `scale = 0.5` inside an already density-scaled WebView, causing the UI to shrink and offset. As a precaution for reliable D-pad navigation, `MainActivity.java` was also updated to intercept key events via `dispatchKeyEvent(KeyEvent event)` to guarantee top-level remote event dispatch before child view consumption.
 - **Severity:** Medium
-- **Workaround:** Added wrapper-level CSS canvas positioning in `onPageFinished` and intercepted hardware remote keys in `dispatchKeyEvent`.
-- **Suggestion:** Provide an official Amazon Fire TV Leanback WebView template repository demonstrating correct hardware remote event interception and 1080p density scaling.
+- **Workaround:** Added wrapper-level CSS positioning (`transform-origin: top left; position: absolute; top: 0; left: 0;`) inside `onPageFinished` to preserve 1080p alignment, and implemented `dispatchKeyEvent` as an architectural precaution.
+- **Suggestion:** Provide official documentation and boilerplate for Fire TV / Android TV WebViews clarifying viewport density reporting (e.g. 320dpi on 1080p panels) and recommended key dispatch patterns.
 
 ---
 

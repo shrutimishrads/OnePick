@@ -60,7 +60,7 @@ OnePick is a 10-foot Fire TV application that:
 ### Product Feedback & Friction Log
 *(Full friction log with observations provided in `docs/product-feedback.md`)*
 
-#### Entry 1: Fire TV Emulator Setup & Tooling
+#### Entry 1: Android TV Emulator Setup & Tooling
 - **Task Attempted:** Build and run the Fire OS Leanback wrapper (`fireos/`) in an Android TV 1080p emulator on Windows 11.
 - **Steps:**
   1. Created `OnePick_TV` AVD targeting Android 14 (API 34) at 1080p using `avdmanager`.
