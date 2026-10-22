@@ -25,10 +25,7 @@
 - **Workaround:** Canceled the phone image download, used `sdkmanager` CLI to install `system-images;android-34;android-tv;x86` and API 34 components directly, and sent `adb shell input keyevent 4` to dismiss the initial system dialog.
 - **Suggestion:** Provide streamlined, lightweight Fire TV / Android TV system image packages separate from the full multi-gigabyte phone Play Store images.
 
-#### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
-- **Status:** [TODO: human] Verified on Android TV emulator (1080p, API 34). Physical device sideloading and Alexa remote testing to be logged if tested on hardware.
-
-#### Entry 3: 10-Foot Spatial Navigation & Display Scaling in Android TV WebView
+#### Entry 2: 10-Foot Spatial Navigation & Display Scaling in Android TV WebView
 - **Task attempted:** Verify WebView display scaling, remote key navigation, and back-button lifecycle in the Fire OS / Leanback container.
 - **Steps:**
   1. Loaded 10-foot web UI into `MainActivity` WebView on Android TV emulator at 1080p (320dpi).
@@ -40,7 +37,7 @@
 - **Workaround:** Added wrapper-level CSS positioning (`transform-origin: top left; position: absolute; top: 0; left: 0;`) inside `onPageFinished` to preserve 1080p alignment, and implemented `dispatchKeyEvent` as an architectural precaution.
 - **Suggestion:** Provide official documentation and boilerplate for Fire TV / Android TV WebViews clarifying viewport density reporting (e.g. 320dpi on 1080p panels) and recommended key dispatch patterns.
 
-#### Entry 4: TV Remote Key Event Interception during Native Text Input Dialogs (`onJsPrompt`)
+#### Entry 3: TV Remote Key Event Interception during Native Text Input Dialogs (`onJsPrompt`)
 - **Task attempted:** Type and submit natural language refinement constraints via the TV remote/keyboard through the TV text refinement dialog (`window.prompt()`).
 - **Steps:**
   1. Opened "Voice-style Refine (Text)" dialog in the WebView, triggering `WebChromeClient.onJsPrompt`.
@@ -65,20 +62,7 @@
 
 ### Friction Log Entries
 
-#### Entry 5: Structured Output JSON Enforcement in Converse API
-- **Task attempted:** Parse unstructured user utterances into strict JSON constraint patches (`ConstraintPatch`) using the Converse API.
-- **Steps:**
-  1. Configured `ConverseCommand` with system prompt demanding raw JSON output without markdown fences.
-  2. Sent natural language utterance with current constraint context to `amazon.nova-lite-v1:0`.
-  3. Inspected raw text response from Bedrock runtime.
-- **Expected vs actual:**
-  - *Expected:* A native inference configuration parameter guaranteeing strict JSON output complying with a provided schema.
-  - *Actual:* Models may occasionally wrap JSON in markdown code blocks (` ```json ... ``` `) or append conversational commentary, requiring custom regex stripping and fallback sanitizers.
-- **Severity:** Medium
-- **Workaround:** Implemented regex fence stripping and strict client-side sanitization (`sanitizeConstraintPatch`) that drops unknown keys and bounds numeric values.
-- **Suggestion:** Provide native JSON schema enforcement mode (similar to tool use schema validation) directly in the Converse API inference configuration.
-
-#### Entry 6: Live Bedrock Invocations on AWS Free-Plan Account
+#### Entry 4: Live Bedrock Invocations on AWS Free-Plan Account
 - **Task attempted:** Call Amazon Nova Lite through the Bedrock Converse API from a new Free-plan account (Thursday 22 Oct 2026, roughly 08:40 to 09:00 IST, ~30 to 40 minutes lost, Bedrock console).
 - **Steps:**
   1. Opened Bedrock console / Playground in `us-east-1` to test model access.

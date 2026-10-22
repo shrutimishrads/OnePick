@@ -72,8 +72,17 @@ OnePick is a 10-foot Fire TV application that:
 - **Workaround:** Bypassed default phone images via CLI `sdkmanager`, and automated dismissal of initial setup dialogs.
 - **Suggestion:** Provide pre-configured Amazon Fire TV AVD definitions directly in the Android SDK / SDK Manager tools for one-click setup.
 
-#### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
-- **Status:** [TODO: human] Verified on Android TV emulator (1080p, API 34). Physical device sideloading and Alexa remote testing to be logged if tested on hardware.
+#### Entry 2: 10-Foot Spatial Navigation & Display Scaling in Android TV WebView
+- **Task Attempted:** Verify WebView display scaling, remote key navigation, and back-button lifecycle in the Fire OS / Leanback container.
+- **Steps:**
+  1. Loaded 10-foot web UI into `MainActivity` WebView on Android TV emulator at 1080p (320dpi).
+  2. Dispatched hardware D-pad navigation key events (`KEYCODE_DPAD_DOWN`, `KEYCODE_ENTER`, `KEYCODE_BACK`).
+- **Expected vs Actual:**
+  - *Expected:* Web UI scales 1:1 to 1080p without layout distortion or canvas clipping.
+  - *Actual:* At 320dpi (2.0x density), the Android WebView reported `window.innerWidth: 960` instead of 1920 CSS pixels. Because the web UI included a responsive auto-scaler designed for browser viewports, it computed `scale = 0.5` inside an already density-scaled WebView, causing the UI to shrink and offset. As a precaution for reliable D-pad navigation, `MainActivity.java` was also updated to intercept key events via `dispatchKeyEvent(KeyEvent event)` to ensure top-level remote event dispatch before child view consumption.
+- **Severity:** Medium
+- **Workaround:** Added wrapper-level CSS positioning (`transform-origin: top left; position: absolute; top: 0; left: 0;`) inside `onPageFinished` to preserve 1080p alignment, and implemented `dispatchKeyEvent` as an architectural precaution.
+- **Suggestion:** Provide official documentation and boilerplate for Fire TV / Android TV WebViews clarifying viewport density reporting (e.g. 320dpi on 1080p panels) and recommended key dispatch patterns.
 
 #### Entry 3: TV Remote Key Event Interception during Native Text Input Dialogs (`onJsPrompt`)
 - **Task Attempted:** Type and submit natural language refinement constraints via the TV remote/keyboard through the TV text refinement dialog (`window.prompt()`).
@@ -88,20 +97,7 @@ OnePick is a 10-foot Fire TV application that:
 - **Workaround:** Added `volatile boolean mIsPromptDialogOpen` flag so `dispatchKeyEvent` delegates directly to `super.dispatchKeyEvent(event)` while the dialog is visible, and attached an `OnEditorActionListener` to the `EditText` to call `result.confirm(...)` and `dialog.dismiss()` on Enter / Done (commit `da2d7d9`). Time lost: ~20 mins.
 - **Suggestion:** Leanback WebView documentation should demonstrate the standard pattern for yielding Activity-level remote key event interception when modal child dialogs or system IMEs are visible.
 
-#### Entry 4: Structured Output JSON Enforcement in AWS Bedrock Converse API
-- **Task Attempted:** Parse unstructured user utterances into strict JSON constraint patches (`ConstraintPatch`) using the Converse API (`amazon.nova-lite-v1:0`).
-- **Steps:**
-  1. Configured `ConverseCommand` with system prompt requesting raw JSON output without markdown fences.
-  2. Sent natural language utterance with current constraint context to `amazon.nova-lite-v1:0`.
-  3. Inspected raw text response from Bedrock runtime.
-- **Expected vs Actual:**
-  - *Expected:* A native inference configuration parameter guaranteeing strict JSON output complying with a provided schema.
-  - *Actual:* Models may occasionally wrap JSON in markdown code blocks (` ```json ... ``` `) or append conversational commentary, requiring custom regex stripping and fallback sanitizers.
-- **Severity:** Medium
-- **Workaround:** Implemented regex fence stripping and strict client-side sanitization (`sanitizeConstraintPatch`) that drops unknown keys and bounds numeric values.
-- **Suggestion:** Provide native JSON schema enforcement mode (similar to tool use schema validation) directly in the Converse API inference configuration.
-
-#### Entry 5: Live Bedrock Invocations on AWS Free-Plan Account
+#### Entry 4: Live Bedrock Invocations on AWS Free-Plan Account
 - **Task Attempted:** Call Amazon Nova Lite through the Bedrock Converse API from a new Free-plan account (Thursday 22 Oct 2026, roughly 08:40 to 09:00 IST, ~30 to 40 minutes lost, Bedrock console).
 - **Steps:**
   1. Opened Bedrock console / Playground in `us-east-1` to test model access.
