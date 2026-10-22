@@ -4,7 +4,7 @@
 **OnePick**
 
 ### Tagline (Elevator Pitch)
-*An AI household viewing concierge on Fire TV that resolves group couch debates in under 60 seconds using Rawlsian fairness and AWS Bedrock.*
+*An AI household viewing concierge on Fire TV that quickly resolves group couch debates using Rawlsian fairness, with Amazon Bedrock integration and a deterministic local fallback.*
 
 ### Tracks & Challenges
 - **Primary Track:** Fire TV (Sub-category: *AI-enhanced viewing* / *Family entertainment*)
@@ -13,7 +13,7 @@
 ---
 
 ### Inspiration
-Every evening in millions of households, friends and families sit on the couch and waste 30 to 45 minutes aimlessly scrolling streaming carousels because no single person can agree on what to watch. Traditional recommendation algorithms are fundamentally broken for living rooms: they personalize strictly for a single user profile, leading to compromises where someone is always unhappy. We built **OnePick** to turn decision fatigue into a shared household consensus in under a minute.
+Every evening in millions of households, friends and families sit on the couch and often spend a long time deciding, aimlessly scrolling streaming carousels because no single person can agree on what to watch. Traditional recommendation algorithms are fundamentally broken for living rooms: they personalize strictly for a single user profile, leading to compromises where someone is always unhappy. We built **OnePick** to turn decision fatigue into a shared household consensus quickly.
 
 ---
 
@@ -32,7 +32,7 @@ OnePick is a 10-foot Fire TV application that:
   - **Node.js Application Server (`app/server.ts`):** Serves the 10-foot TV web client, executes the deterministic scoring engine, and communicates with AWS Bedrock via standard AWS SDK credential chains.
 - **10-Foot TV UI (`app/index.html`):** Built with overscan-safe margins, large typography (28px+ body), spatial keyboard navigation, on-screen remote simulation, and accessible focus outlines.
 - **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies, providing unit-tested Rawlsian max-min fairness ranking, group scoring, and constraint satisfaction.
-- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`, standardized on `amazon.nova-lite-v1:0`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks.
+- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`, standardized on `amazon.nova-lite-v1:0`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks. Amazon Bedrock (Nova Lite via the Converse API) is integrated with a deterministic fallback; a live Bedrock call could not be verified because the Free-plan account returned a daily-token throttling error on all models.
 - **Curated Living Room Library:** Exactly 20 original titles with detailed metadata, genre weights, mood tags, and runtime constraints.
 
 ---
@@ -44,7 +44,7 @@ OnePick is a 10-foot Fire TV application that:
 ---
 
 ### Accomplishments That We're Proud Of
-- Designing a genuinely fair group aggregation formula that guarantees no viewer feels ignored.
+- Designing a fair group aggregation formula that prioritizes lifting the satisfaction floor of the lowest-scoring viewer.
 - Building a full 10-foot TV interface with keyboard and on-screen remote simulation, alongside an Android WebView wrapper project configured for Fire OS.
 - Automated unit test suite covering constraint filtering, watched history exclusions, Bedrock JSON sanitization, and fairness ranking.
 - Diagnostic tooling (`npm run bedrock:check`) that validates live AWS connectivity safely without exposing credentials.
