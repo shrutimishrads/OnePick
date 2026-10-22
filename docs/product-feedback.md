@@ -78,14 +78,18 @@
 - **Workaround:** Implemented regex fence stripping and strict client-side sanitization (`sanitizeConstraintPatch`) that drops unknown keys and bounds numeric values.
 - **Suggestion:** Provide native JSON schema enforcement mode (similar to tool use schema validation) directly in the Converse API inference configuration.
 
-#### Entry 6: Live Model Cold-Start and TV Latency Budget
-- **Task attempted:** Measure cold-start and warm round-trip latency of `amazon.nova-lite-v1:0` under a 10-foot living room interaction budget.
+#### Entry 6: Live Bedrock Invocations on AWS Free-Plan Account
+- **Task attempted:** Call Amazon Nova Lite through the Bedrock Converse API from a new Free-plan account (Thursday 22 Oct 2026, roughly 08:40 to 09:00 IST, ~30 to 40 minutes lost, Bedrock console).
 - **Steps:**
-  1. [TODO: Add steps once live AWS credentials are authenticated in testing environment]
-  2. [TODO: Execute un-cached parse and explain calls and record exact millisecond timings via `npm run bedrock:check`]
+  1. Opened Bedrock console / Playground in `us-east-1` to test model access.
+  2. Encountered region lock: console showed *"Region United States (N. Virginia) unavailable. Your project is assigned to Asia Pacific (Sydney) ap-southeast-2... To access other commercial AWS Regions, upgrade your plan first, then activate advanced features."*
+  3. Observed a red banner showing the assumed role *"is not authorized to perform: bedrock:GetUseCaseForModelAccess with an explicit deny in a service control policy"* (`[redacted-account-id]`, `[redacted-role-arn]`, `[redacted-policy-arn]`).
+  4. Switched to assigned region `ap-southeast-2` (Sydney), where Nova Lite 1.0, Nova Micro, Nova Pro, and Nova 2 Lite were listed.
+  5. Sent first message to Nova Lite; received `AccessDeniedException`: *"Your account is currently being verified. Verification normally takes less than 2 hours. Until your account is verified, you may not have access to this operation."*
+  6. Retried a few minutes later across all listed models (Nova Lite, Nova Micro, Nova Pro, Nova 2 Lite).
 - **Expected vs actual:**
-  - *Expected:* [TODO: Record expected response latency for TV interaction (e.g. < 1,500 ms)]
-  - *Actual:* [TODO: Record actual cold-start handshake and warm round-trip latency measured via `npm run bedrock:check`]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** Implemented a non-blocking `warmupBedrock()` routine, in-memory caching for repeated queries, and deterministic local fallbacks with configurable timeout (`BEDROCK_TIMEOUT_MS`).
-- **Suggestion:** Provide pre-warmed connection guidance or edge streaming token utilities tailored for TV frontends.
+  - *Expected:* Successful live invocation of Amazon Nova Lite via the Bedrock Converse API to measure round-trip latency and parse test utterances.
+  - *Actual:* Every model returned `ThrottlingException`: *"Too many tokens per day, please wait before trying again."* on the very first message. The daily token quota appears to be zero on a new Free-plan account. No live Bedrock call succeeded, blocking live cloud integration.
+- **Severity:** High (blocked live Bedrock integration).
+- **Workaround:** Kept the deterministic fallback, maintained an honest status table documenting that live Bedrock calls were unverified due to Free-plan quotas, and dropped the AWS Builder mini challenge.
+- **Suggestion:** Show the Free-plan region lock and zero Bedrock quota at signup or in the Bedrock console before users build against it, and make the "account being verified" and throttling messages say what the quota is and how to raise it.

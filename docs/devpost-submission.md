@@ -8,7 +8,6 @@
 
 ### Tracks & Challenges
 - **Primary Track:** Fire TV (Sub-category: *AI-enhanced viewing* / *Family entertainment*)
-- **Mini-Challenge:** AWS Builder Mini Challenge
 
 ---
 
@@ -21,7 +20,7 @@ Every evening in millions of households, friends and families sit on the couch a
 OnePick is a 10-foot Fire TV application that:
 1. **Activates Household Profiles:** Quickly toggles who is sitting on the couch via D-pad remote navigation, gathering individual likes, runtime limits, and hard dealbreakers (e.g. no horror).
 2. **Computes Rawlsian Max-Min Consensus:** Rather than a simple majority vote (which leaves minority tastes steamrolled), our deterministic fairness engine maximizes the satisfaction of the least-satisfied viewer.
-3. **Conversational Constraint Patching:** Uses the **Amazon Bedrock Converse API** to interpret voice-style refine (text input) (*"We saw that last week"*, *"Shruti has an early meeting, keep it under 100 minutes"*) into structured JSON patches without losing state.
+3. **Conversational Constraint Patching:** Interprets voice-style refine (text input) (*"We saw that last week"*, *"Shruti has an early meeting, keep it under 100 minutes"*) into structured JSON patches without losing state (using the built-in deterministic parser, with Bedrock Converse API integration when available).
 4. **Transparent Consensus AI:** Explains *why* the title was picked in plain English, explaining compromises and keeping everyone happy before hitting play.
 
 ---
@@ -32,14 +31,14 @@ OnePick is a 10-foot Fire TV application that:
   - **Node.js Application Server (`app/server.ts`):** Serves the 10-foot TV web client, executes the deterministic scoring engine, and communicates with AWS Bedrock via standard AWS SDK credential chains.
 - **10-Foot TV UI (`app/index.html`):** Built with overscan-safe margins, large typography (28px+ body), spatial keyboard navigation, on-screen remote simulation, and accessible focus outlines.
 - **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies, providing unit-tested Rawlsian max-min fairness ranking, group scoring, and constraint satisfaction.
-- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`, standardized on `amazon.nova-lite-v1:0`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks. Amazon Bedrock (Nova Lite via the Converse API) is integrated with a deterministic fallback; a live Bedrock call could not be verified because the Free-plan account returned a daily-token throttling error on all models.
+- **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`, standardized on `amazon.nova-lite-v1:0`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks. Bedrock (Nova Lite via the Converse API) is integrated with a deterministic fallback, and a live call was not verified because of a Free-plan quota.
 - **Curated Living Room Library:** Exactly 20 original titles with detailed metadata, genre weights, mood tags, and runtime constraints.
 
 ---
 
 ### Challenges We Ran Into
 - **10-Foot Spatial Focus & Remote Navigation:** Designing for a TV interface without a mouse or touch gestures requires deliberate focus management. We built an on-screen TV remote simulator and keyboard arrow key navigation in the web app, and designed the native Fire OS wrapper (`MainActivity.java`) to intercept D-pad and Back button events.
-- **Predictable Television Response Times:** Living room users expect immediate feedback. Relying on an LLM to generate candidate recommendations risks hallucinations and latency spikes. We solved this by using AWS Bedrock strictly for structured constraint extraction and explanation, keeping candidate ranking completely deterministic in TypeScript.
+- **Predictable Television Response Times:** Living room users expect immediate feedback. Relying on an LLM to generate candidate recommendations risks hallucinations and latency spikes. We solved this by designing the Bedrock layer strictly for structured constraint extraction and explanation with immediate deterministic fallbacks, keeping candidate ranking completely deterministic in TypeScript.
 
 ---
 
@@ -102,15 +101,21 @@ OnePick is a 10-foot Fire TV application that:
 - **Workaround:** Implemented regex fence stripping and strict client-side sanitization (`sanitizeConstraintPatch`) that drops unknown keys and bounds numeric values.
 - **Suggestion:** Provide native JSON schema enforcement mode (similar to tool use schema validation) directly in the Converse API inference configuration.
 
-#### Entry 5: Live Bedrock Model Invocations and TV Latency Budget
-- **Task Attempted:** Measure cold-start and warm round-trip latency of `amazon.nova-lite-v1:0` under a 10-foot living room interaction budget.
-- **Steps:** [TODO: Add steps once live AWS credentials are authenticated in testing environment]
+#### Entry 5: Live Bedrock Invocations on AWS Free-Plan Account
+- **Task Attempted:** Call Amazon Nova Lite through the Bedrock Converse API from a new Free-plan account (Thursday 22 Oct 2026, roughly 08:40 to 09:00 IST, ~30 to 40 minutes lost, Bedrock console).
+- **Steps:**
+  1. Opened Bedrock console / Playground in `us-east-1` to test model access.
+  2. Encountered region lock: console showed *"Region United States (N. Virginia) unavailable. Your project is assigned to Asia Pacific (Sydney) ap-southeast-2... To access other commercial AWS Regions, upgrade your plan first, then activate advanced features."*
+  3. Observed a red banner showing the assumed role *"is not authorized to perform: bedrock:GetUseCaseForModelAccess with an explicit deny in a service control policy"* (`[redacted-account-id]`, `[redacted-role-arn]`, `[redacted-policy-arn]`).
+  4. Switched to assigned region `ap-southeast-2` (Sydney), where Nova Lite 1.0, Nova Micro, Nova Pro, and Nova 2 Lite were listed.
+  5. Sent first message to Nova Lite; received `AccessDeniedException`: *"Your account is currently being verified. Verification normally takes less than 2 hours. Until your account is verified, you may not have access to this operation."*
+  6. Retried a few minutes later across all listed models (Nova Lite, Nova Micro, Nova Pro, Nova 2 Lite).
 - **Expected vs Actual:**
-  - *Expected:* [TODO: Record expected response latency for TV interaction (e.g. < 1,500 ms)]
-  - *Actual:* [TODO: Record actual cold-start handshake and warm round-trip latency measured via `npm run bedrock:check`]
-- **Severity:** [TODO: Low / Medium / High]
-- **Workaround:** Implemented a non-blocking `warmupBedrock()` routine, in-memory caching for repeated queries, and deterministic local fallbacks with configurable timeout (`BEDROCK_TIMEOUT_MS`).
-- **Suggestion:** Provide pre-warmed connection guidance or edge streaming token utilities tailored for TV frontends.
+  - *Expected:* Successful live invocation of Amazon Nova Lite via the Bedrock Converse API to measure round-trip latency and parse test utterances.
+  - *Actual:* Every model returned `ThrottlingException`: *"Too many tokens per day, please wait before trying again."* on the very first message. The daily token quota appears to be zero on a new Free-plan account. No live Bedrock call succeeded, blocking live cloud integration.
+- **Severity:** High (blocked live Bedrock integration).
+- **Workaround:** Kept the deterministic fallback, maintained an honest status table documenting that live Bedrock calls were unverified due to Free-plan quotas, and dropped the AWS Builder mini challenge.
+- **Suggestion:** Show the Free-plan region lock and zero Bedrock quota at signup or in the Bedrock console before users build against it, and make the "account being verified" and throttling messages say what the quota is and how to raise it.
 
 ---
 

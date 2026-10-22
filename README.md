@@ -107,7 +107,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 | **Android TV Emulator** | Verified | Tested on Android 14 (API 34) 1080p emulator with D-pad navigation and native input dialogs. |
 | **Scoring & Test Suite** | Verified | 35 automated tests passing across core fairness, Bedrock fallback, and HTTP routes. |
 | **Deterministic Fairness** | Verified | Offline-capable Rawlsian max-min math executed locally without external dependencies. |
-| **Amazon Bedrock (Nova Lite)** | Integrated (Not Live-Verified) | Converse API client implemented with deterministic fallback; live Bedrock call not verified. |
+| **Amazon Bedrock (Nova Lite)** | Integrated (Not Live-Verified) | Bedrock (Nova Lite via the Converse API) is integrated with a deterministic fallback, and a live call was not verified because of a Free-plan quota. |
 | **Physical Fire TV Hardware** | Not Verified | Not tested on physical Fire TV stick/cube hardware or physical Alexa voice remote. |
 
 ---
