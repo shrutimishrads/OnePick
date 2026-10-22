@@ -76,7 +76,20 @@ OnePick is a 10-foot Fire TV application that:
 #### Entry 2: Physical Fire TV Sideloading & Hardware Remote Testing
 - **Status:** [TODO: human] Verified on Android TV emulator (1080p, API 34). Physical device sideloading and Alexa remote testing to be logged if tested on hardware.
 
-#### Entry 3: Structured Output JSON Enforcement in AWS Bedrock Converse API
+#### Entry 3: TV Remote Key Event Interception during Native Text Input Dialogs (`onJsPrompt`)
+- **Task Attempted:** Type and submit natural language refinement constraints via the TV remote/keyboard through the TV text refinement dialog (`window.prompt()`).
+- **Steps:**
+  1. Opened "Voice-style Refine (Text)" dialog in the WebView, triggering `WebChromeClient.onJsPrompt`.
+  2. Typed refinement string into the `AlertDialog` `EditText` via D-pad / virtual keyboard / ADB input text.
+  3. Pressed Enter (`KEYCODE_ENTER` / `KEYCODE_DPAD_CENTER`) on the TV remote to confirm input.
+- **Expected vs Actual:**
+  - *Expected:* Pressing Enter confirms the prompt result (`JsPromptResult.confirm()`) and dismisses the dialog with the entered text.
+  - *Actual:* Activity-level `dispatchKeyEvent` override (which was set up to route hardware remote keys into the WebView) unconditionally intercepted `KEYCODE_ENTER` before the `AlertDialog` received it, and forwarded Enter into the underlying `WebView` (clicking whatever button was focused behind the dialog, resetting the screen to the viewers screen while the dialog remained stuck open). Furthermore, the default `EditText` did not handle IME action `DONE` or Enter key events to dismiss the dialog. (Note: earlier statements claiming text input was verified before this fix were incomplete/inaccurate because remote/Enter submission was broken).
+- **Severity:** Medium
+- **Workaround:** Added `volatile boolean mIsPromptDialogOpen` flag so `dispatchKeyEvent` delegates directly to `super.dispatchKeyEvent(event)` while the dialog is visible, and attached an `OnEditorActionListener` to the `EditText` to call `result.confirm(...)` and `dialog.dismiss()` on Enter / Done (commit `da2d7d9`). Time lost: ~20 mins.
+- **Suggestion:** Leanback WebView documentation should demonstrate the standard pattern for yielding Activity-level remote key event interception when modal child dialogs or system IMEs are visible.
+
+#### Entry 4: Structured Output JSON Enforcement in AWS Bedrock Converse API
 - **Task Attempted:** Parse unstructured user utterances into strict JSON constraint patches (`ConstraintPatch`) using the Converse API (`amazon.nova-lite-v1:0`).
 - **Steps:**
   1. Configured `ConverseCommand` with system prompt requesting raw JSON output without markdown fences.
@@ -89,7 +102,7 @@ OnePick is a 10-foot Fire TV application that:
 - **Workaround:** Implemented regex fence stripping and strict client-side sanitization (`sanitizeConstraintPatch`) that drops unknown keys and bounds numeric values.
 - **Suggestion:** Provide native JSON schema enforcement mode (similar to tool use schema validation) directly in the Converse API inference configuration.
 
-#### Entry 4: Live Bedrock Model Invocations and TV Latency Budget
+#### Entry 5: Live Bedrock Model Invocations and TV Latency Budget
 - **Task Attempted:** Measure cold-start and warm round-trip latency of `amazon.nova-lite-v1:0` under a 10-foot living room interaction budget.
 - **Steps:** [TODO: Add steps once live AWS credentials are authenticated in testing environment]
 - **Expected vs Actual:**
