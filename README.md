@@ -2,14 +2,14 @@
 > AI household viewing concierge on Fire TV for multi-viewer group consensus.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5.4-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22.x-green?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Tests](https://img.shields.io/badge/tests-35%20passing-brightgreen)](#-quick-start)
 
 ---
 
 ## 💡 What It Does
-When several people sit down in front of one TV, households often spend a long time debating what to watch. OnePick activates household profiles on the couch and calculates a single fair group pick using deterministic Rawlsian max-min fairness. Viewers can apply typed natural-language refinements directly on television and view a plain-English explanation of why the pick balances everyone's preferences.
+When several people sit down in front of one TV, households often spend a long time debating what to watch. OnePick activates household profiles on the couch and calculates a single fair group pick using deterministic Rawlsian max-min fairness. Viewers can apply typed refinements, parsed by a built-in rule-based parser, or by Amazon Nova Lite via Bedrock when available, and view a plain-English explanation of why the pick balances everyone's preferences.
 
 ---
 
@@ -31,7 +31,7 @@ Rather than using a simple average where one unhappy viewer can be steamrolled b
 
 $$\text{groupScore} = \text{round}(0.6 \times \text{minViewerScore} + 0.4 \times \text{avgViewerScore})$$
 
-By weighting the least-satisfied viewer at 60%, the algorithm prioritizes lifting the satisfaction floor.
+The formula gives 60% of the weight to the lowest viewer score and 40% to the average, prioritizing lifting the satisfaction floor.
 
 ### Hard Filters
 Before scoring, candidates must pass four strict filters:
@@ -43,13 +43,13 @@ Before scoring, candidates must pass four strict filters:
 ---
 
 ## 🎬 3-Step Demo
-| Step | What You Do | Pick | Runtime | Group Score | Notes |
-| :---: | :--- | :--- | :---: | :---: | :--- |
-| **1** | Select all three viewers on the couch | *Timberline Cadence* | 117 min | 68% | Harshit lowest at 65%; Areeba 85%, Shruti 70%. |
-| **2** | Type: *"We already watched Timberline Cadence together last week"* | *The Canopy Post* | 108 min | 67% | Harshit rises to 80%; Areeba & Shruti hold at 65%. |
-| **3** | Type: *"Shruti has to wake up early tomorrow, keep it under 100 minutes"* | *Quarry Sprites* | 93 min | 67% | Shruti rises to 80%; Harshit & Areeba hold at 65%. |
+| Step | What You Do | Pick | Runtime | Group Score | Scores (Areeba / Harshit / Shruti) |
+| :---: | :--- | :--- | :---: | :---: | :---: |
+| **1** | Select all three viewers on the couch | *Timberline Cadence* | 117 min | 68% | 85 / 65 / 70 |
+| **2** | Type: *"We already watched Timberline Cadence together last week"* | *The Canopy Post* | 108 min | 67% | 65 / 80 / 65 |
+| **3** | Type: *"Shruti has to wake up early tomorrow, keep it under 100 minutes"* | *Quarry Sprites* | 93 min | 67% | 65 / 65 / 80 |
 
-Across all three steps, the lowest viewer score holds at 65% while the least-happy viewer changes—the algorithm never claims satisfaction improves, but guarantees no single viewer is marginalized.
+Across all three steps the lowest viewer score holds at 65% while the least-happy viewer changes from step to step.
 
 ---
 
@@ -58,12 +58,12 @@ Across all three steps, the lowest viewer score holds at 65% while the least-hap
 ```mermaid
 flowchart LR
     TV["Fire TV 10-Foot UI (D-pad Focus)"] <--> State["Session & Constraints"]
-    State <--> Engine["Deterministic Core (Node Server / On-Device)"]
+    State <--> Engine["Deterministic Core (Node server)"]
     State <--> Bedrock["AWS Bedrock (Converse API)"]
 ```
 
-- **Fire TV Client (`app/`, `fireos/`):** 1080p spatial TV interface wrapped in an Android Leanback WebView with D-pad navigation and WCAG AA contrast.
-- **Core Engine (`core/`):** Offline-capable, zero-latency TypeScript scoring and fairness engine with zero external I/O.
+- **Fire TV Client (`app/`, `fireos/`):** 1080p spatial TV interface wrapped in an Android Leanback WebView with D-pad navigation.
+- **Core Engine (`core/`):** Offline-capable TypeScript scoring and fairness engine that runs locally with no network calls and zero external I/O.
 - **Bedrock Layer (`api/bedrock.ts`):** Natural-language constraint parsing and explanation generation via Converse API (`amazon.nova-lite-v1:0`) with deterministic local fallbacks.
 
 ---
