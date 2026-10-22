@@ -25,9 +25,9 @@ These screenshots were captured on an Android TV emulator (API 34), not a physic
 - **Step 1 Consensus Pick:** *Timberline Cadence* (117 min, 68% group score).  
   ![Step 1 Consensus Pick](docs/screenshots/emulator-02-step1-pick.png)
 - **Step 2 Refinement (Typed Refinement):** *The Canopy Post* (108 min, 67% group score).  
-  ![Step 2 Refinement](docs/screenshots/emulator-03-step2-refine.png)
-- **Step 3 Runtime Constraint:** *Quarry Sprites* (93 min, 67% group score).  
-  ![Step 3 Runtime Constraint](docs/screenshots/emulator-04-step3-max100.png)
+  ![Step 2 Refinement](docs/screenshots/emulator-06-typed-watched.png)
+- **Step 3 Runtime Constraint (Typed Refinement):** *Quarry Sprites* (93 min, 67% group score).  
+  ![Step 3 Runtime Constraint](docs/screenshots/emulator-07-typed-max100.png)
 - **Consensus Explanation Modal:** Transparent compromise breakdown for *Quarry Sprites* (93 min, 67% group score).  
   ![Consensus Explanation Modal](docs/screenshots/emulator-05-explain-modal.png)
 
