@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 
     private WebView mWebView;
     private volatile boolean mIsModalOpen = false;
+    private volatile boolean mIsPromptDialogOpen = false;
 
     public class WebAppInterface {
         @JavascriptInterface
@@ -79,17 +80,29 @@ public class MainActivity extends Activity {
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final android.webkit.JsPromptResult result) {
+                mIsPromptDialogOpen = true;
                 final android.widget.EditText input = new android.widget.EditText(MainActivity.this);
                 input.setText(defaultValue != null ? defaultValue : "");
                 input.setSingleLine(true);
-                new android.app.AlertDialog.Builder(MainActivity.this)
+                input.selectAll();
+                final android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(MainActivity.this)
                     .setTitle("Voice-Style Refine")
                     .setMessage(message)
                     .setView(input)
-                    .setPositiveButton("OK", (dialog, which) -> result.confirm(input.getText().toString()))
-                    .setNegativeButton("Cancel", (dialog, which) -> result.cancel())
-                    .setOnCancelListener(dialog -> result.cancel())
-                    .show();
+                    .setPositiveButton("OK", (d, which) -> result.confirm(input.getText().toString()))
+                    .setNegativeButton("Cancel", (d, which) -> result.cancel())
+                    .setOnDismissListener(d -> mIsPromptDialogOpen = false)
+                    .create();
+                input.setOnEditorActionListener((v, actionId, event) -> {
+                    if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                        result.confirm(input.getText().toString());
+                        dialog.dismiss();
+                        return true;
+                    }
+                    return false;
+                });
+                dialog.show();
                 return true;
             }
         });
@@ -110,6 +123,9 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mIsPromptDialogOpen) {
+            return super.dispatchKeyEvent(event);
+        }
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (event.getKeyCode()) {
                 case KeyEvent.KEYCODE_DPAD_UP:
