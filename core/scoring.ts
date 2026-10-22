@@ -139,7 +139,7 @@ export function scoreViewerTitle(
 /**
  * Ranks all titles against given constraints using a Rawlsian / max-min fairness criterion.
  * GroupScore = 0.6 * min(viewerScores) + 0.4 * avg(viewerScores)
- * This guarantees no single viewer gets steamrolled by a majority pick.
+ * This prioritizes the satisfaction floor so no single viewer gets steamrolled by a majority pick.
  */
 export function rankCandidates(titles: Title[], constraints: Constraints): Candidate[] {
   if (constraints.viewers.length === 0) {

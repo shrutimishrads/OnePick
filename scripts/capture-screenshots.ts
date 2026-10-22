@@ -169,7 +169,7 @@ async function run() {
     await sleep(400);
     await client.captureScreenshot(path.join(OUT_DIR, '03-after-refinement.png'));
 
-    // 4. Explanation Modal: Open Why This Pick dialog with WCAG contrast
+    // 4. Explanation Modal: Open Why This Pick dialog with High Contrast
     console.log('Capturing: explanation modal...');
     await client.eval(`openExplain()`);
     // Wait for explanation content to arrive

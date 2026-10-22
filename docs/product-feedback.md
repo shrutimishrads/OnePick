@@ -35,7 +35,7 @@
   2. Dispatched hardware D-pad navigation key events (`KEYCODE_DPAD_DOWN`, `KEYCODE_ENTER`, `KEYCODE_BACK`).
 - **Expected vs actual:**
   - *Expected:* Web UI scales 1:1 to 1080p without layout distortion or canvas clipping.
-  - *Actual:* At 320dpi (2.0x density), the Android WebView reported `window.innerWidth: 960` instead of 1920 CSS pixels. Because the web UI included a responsive auto-scaler designed for browser viewports, it computed `scale = 0.5` inside an already density-scaled WebView, causing the UI to shrink and offset. As a precaution for reliable D-pad navigation, `MainActivity.java` was also updated to intercept key events via `dispatchKeyEvent(KeyEvent event)` to guarantee top-level remote event dispatch before child view consumption.
+  - *Actual:* At 320dpi (2.0x density), the Android WebView reported `window.innerWidth: 960` instead of 1920 CSS pixels. Because the web UI included a responsive auto-scaler designed for browser viewports, it computed `scale = 0.5` inside an already density-scaled WebView, causing the UI to shrink and offset. As a precaution for reliable D-pad navigation, `MainActivity.java` was also updated to intercept key events via `dispatchKeyEvent(KeyEvent event)` to ensure top-level remote event dispatch before child view consumption.
 - **Severity:** Medium
 - **Workaround:** Added wrapper-level CSS positioning (`transform-origin: top left; position: absolute; top: 0; left: 0;`) inside `onPageFinished` to preserve 1080p alignment, and implemented `dispatchKeyEvent` as an architectural precaution.
 - **Suggestion:** Provide official documentation and boilerplate for Fire TV / Android TV WebViews clarifying viewport density reporting (e.g. 320dpi on 1080p panels) and recommended key dispatch patterns.
