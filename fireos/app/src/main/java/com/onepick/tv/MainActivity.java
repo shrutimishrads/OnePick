@@ -76,7 +76,23 @@ public class MainActivity extends Activity {
                 );
             }
         });
-        mWebView.setWebChromeClient(new WebChromeClient());
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final android.webkit.JsPromptResult result) {
+                final android.widget.EditText input = new android.widget.EditText(MainActivity.this);
+                input.setText(defaultValue != null ? defaultValue : "");
+                input.setSingleLine(true);
+                new android.app.AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Voice-Style Refine")
+                    .setMessage(message)
+                    .setView(input)
+                    .setPositiveButton("OK", (dialog, which) -> result.confirm(input.getText().toString()))
+                    .setNegativeButton("Cancel", (dialog, which) -> result.cancel())
+                    .setOnCancelListener(dialog -> result.cancel())
+                    .show();
+                return true;
+            }
+        });
 
         // TV spatial navigation configuration
         mWebView.setFocusable(true);
