@@ -65,7 +65,6 @@ onepick/
 ├── data/           # Curated catalogue (20 fictional titles) + viewer fixtures
 ├── docs/           # Architecture diagrams, demo script, screenshots
 │   ├── architecture.md
-│   ├── demo-script.md
 │   └── screenshots/
 ├── scripts/        # Screenshot capture and automated demo walkthrough scripts
 ├── .nvmrc          # Node version pin
@@ -106,7 +105,6 @@ npm run tv
 
 ## 🎬 3-Minute Demo
 - **Demo Video:** [TODO: Upload 3-minute demo video and insert URL prior to final hackathon deadline]
-- **Demo Script:** See [docs/demo-script.md](docs/demo-script.md) for the 3-minute video recording walkthrough.
 
 ---
 
