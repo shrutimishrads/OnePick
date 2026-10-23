@@ -313,7 +313,7 @@ export { server };
 if (process.argv[1] && process.argv[1].endsWith('server.ts') && !process.argv.some(a => a.includes('test'))) {
   server.listen(PORT, () => {
     console.log(`\n============================================================`);
-    console.log(` 📺 OnePick Fire TV Simulator running at http://localhost:${PORT}`);
+    console.log(` 📺 OnePick TV UI server running at http://localhost:${PORT}`);
     console.log(`============================================================\n`);
 
     // Non-blocking warm-up call to initialize TLS connection and credentials

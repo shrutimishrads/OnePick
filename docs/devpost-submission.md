@@ -46,7 +46,7 @@ OnePick is a 10-foot Fire TV application that:
 - Designing a fair group aggregation formula that prioritizes lifting the satisfaction floor of the lowest-scoring viewer.
 - Building a full 10-foot TV interface with keyboard and on-screen remote simulation, alongside an Android WebView wrapper project configured for Fire OS.
 - Automated unit test suite covering constraint filtering, watched history exclusions, Bedrock JSON sanitization, and fairness ranking.
-- Diagnostic tooling (`npm run bedrock:check`) that validates live AWS connectivity safely without exposing credentials.
+- Diagnostic tooling (`npm run bedrock:check`) that checks AWS connectivity and reports whether Bedrock or the fallback answered, without exposing credentials.
 
 ---
 
