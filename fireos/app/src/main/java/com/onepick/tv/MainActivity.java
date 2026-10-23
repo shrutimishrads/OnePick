@@ -82,9 +82,11 @@ public class MainActivity extends Activity {
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final android.webkit.JsPromptResult result) {
                 mIsPromptDialogOpen = true;
                 final android.widget.EditText input = new android.widget.EditText(MainActivity.this);
-                input.setText(defaultValue != null ? defaultValue : "");
+                input.setText("");
+                if (defaultValue != null && !defaultValue.isEmpty()) {
+                    input.setHint(defaultValue);
+                }
                 input.setSingleLine(true);
-                input.selectAll();
                 final android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(MainActivity.this)
                     .setTitle("Voice-Style Refine")
                     .setMessage(message)
