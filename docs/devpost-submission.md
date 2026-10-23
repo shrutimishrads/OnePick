@@ -4,7 +4,7 @@
 **OnePick**
 
 ### Tagline (Elevator Pitch)
-*An AI household viewing concierge on Fire TV that quickly resolves group couch debates using Rawlsian fairness, with Amazon Bedrock integration and a deterministic local fallback.*
+*One fair pick for everyone on the couch.*
 
 ### Tracks & Challenges
 - **Primary Track:** Fire TV (Sub-category: *AI-enhanced viewing* / *Family entertainment*)
@@ -12,7 +12,7 @@
 ---
 
 ### Inspiration
-Every evening in millions of households, friends and families sit on the couch and often spend a long time deciding, aimlessly scrolling streaming carousels because no single person can agree on what to watch. Traditional recommendation algorithms are fundamentally broken for living rooms: they personalize strictly for a single user profile, leading to compromises where someone is always unhappy. We built **OnePick** to turn decision fatigue into a shared household consensus quickly.
+Every evening in many households, friends and families sit on the couch and often spend a long time deciding, aimlessly scrolling streaming carousels because no single person can agree on what to watch. Traditional recommendation algorithms often fall short for living rooms: they personalize strictly for a single user profile, leading to compromises where someone is always unhappy. We built **OnePick** to turn decision fatigue into a shared household consensus quickly.
 
 ---
 
@@ -21,15 +21,15 @@ OnePick is a 10-foot Fire TV application that:
 1. **Activates Household Profiles:** Quickly toggles who is sitting on the couch via D-pad remote navigation, gathering individual likes, runtime limits, and hard dealbreakers (e.g. no horror).
 2. **Computes Rawlsian Max-Min Consensus:** Rather than a simple majority vote (which leaves minority tastes steamrolled), our deterministic fairness engine maximizes the satisfaction of the least-satisfied viewer.
 3. **Conversational Constraint Patching:** Interprets voice-style refine (text input) (*"We saw that last week"*, *"Shruti has an early meeting, keep it under 100 minutes"*) into structured JSON patches without losing state (using the built-in deterministic parser, with Bedrock Converse API integration when available).
-4. **Transparent Consensus AI:** Explains *why* the title was picked in plain English, explaining compromises and keeping everyone happy before hitting play.
+4. **Plain-English Explanation:** Explains *why* the title was picked in plain English, highlighting the compromise and naming who gave something up before hitting play.
 
 ---
 
 ### How We Built It
 - **Architecture & Runtimes:** The system uses a clean client-server architecture:
-  - **Fire OS Client (`fireos/`):** A native Android Leanback WebView wrapper configured for Fire TV, mapping remote D-pad controls (`KEYCODE_DPAD_*`, `KEYCODE_ENTER`, `KEYCODE_BACK`) and bridging Back button events to web modal states.
+  - **Fire OS Client (`fireos/`):** A native Android Leanback WebView wrapper configured for Fire TV, mapping remote D-pad controls (`KEYCODE_DPAD_*`, `KEYCODE_ENTER`, `KEYCODE_BACK`) and bridging Back button events to web modal states. Tested on an Android TV emulator (API 34) at 1080p, not on a physical Fire TV device, as permitted by the hackathon FAQ.
   - **Node.js Application Server (`app/server.ts`):** Serves the 10-foot TV web client, executes the deterministic scoring engine, and communicates with AWS Bedrock via standard AWS SDK credential chains.
-- **10-Foot TV UI (`app/index.html`):** Built with overscan-safe margins, large typography (28px+ body), spatial keyboard navigation, on-screen remote simulation, and accessible focus outlines.
+- **10-Foot TV UI (`app/index.html`):** Built with overscan-safe margins, large typography (28px+ body), spatial keyboard navigation, and high-contrast focus outlines.
 - **Deterministic Core (`core/`):** Written in pure TypeScript with zero external dependencies, providing unit-tested Rawlsian max-min fairness ranking, group scoring, and constraint satisfaction.
 - **AWS Bedrock Integration (`api/bedrock.ts`):** Employs the Amazon Bedrock Converse API (`@aws-sdk/client-bedrock-runtime`, standardized on `amazon.nova-lite-v1:0`) for natural language constraint parsing and natural explanation generation, bounded by configurable timeouts, response caching, strict JSON schema validation, and deterministic fallbacks. Bedrock (Nova Lite via the Converse API) is integrated with a deterministic fallback, and a live call was not verified because of a Free-plan quota.
 - **Curated Living Room Library:** Exactly 20 original titles with detailed metadata, genre weights, mood tags, and runtime constraints.
@@ -37,22 +37,27 @@ OnePick is a 10-foot Fire TV application that:
 ---
 
 ### Challenges We Ran Into
-- **10-Foot Spatial Focus & Remote Navigation:** Designing for a TV interface without a mouse or touch gestures requires deliberate focus management. We built an on-screen TV remote simulator and keyboard arrow key navigation in the web app, and designed the native Fire OS wrapper (`MainActivity.java`) to intercept D-pad and Back button events.
-- **Predictable Television Response Times:** Living room users expect immediate feedback. Relying on an LLM to generate candidate recommendations risks hallucinations and latency spikes. We solved this by designing the Bedrock layer strictly for structured constraint extraction and explanation with immediate deterministic fallbacks, keeping candidate ranking completely deterministic in TypeScript.
+- **Key Events Swallowed During Text Refinement:** To support hardware D-pad navigation, our native Fire OS wrapper intercepted key events at the Activity level via `dispatchKeyEvent`. However, when opening the voice-style text refinement dialog (`onJsPrompt`), this handler swallowed `KEYCODE_ENTER` before the `AlertDialog` could process it, forwarding the click into the background WebView. We fixed this by tracking dialog visibility with a flag and delegating to `super.dispatchKeyEvent`, plus attaching an `OnEditorActionListener` to handle Enter and Done actions.
+- **320dpi WebView Scaling on Android TV:** On a 1080p display at 320dpi (2.0x density), the Android WebView reported `window.innerWidth` of 960 instead of 1920 CSS pixels. An auto-scaler designed for browser viewports compounded this by applying a 0.5x transform inside an already density-scaled canvas. We resolved this by applying explicit wrapper-level CSS positioning to keep the 1080p canvas aligned.
+- **Live Bedrock Blocked on a New Free-Plan AWS Account:** When testing Amazon Nova Lite via the Bedrock Converse API, our Free-plan account encountered a region lock in `us-east-1` (redirecting to Sydney `ap-southeast-2`), followed by an SCP permission deny on model use cases, and finally an immediate `ThrottlingException` ("Too many tokens per day") on the very first message. Because the daily token quota appeared to be zero, no live Bedrock calls succeeded. Our deterministic fallback allowed the application and demo flow to continue uninterrupted.
+- **Predictable Television Response Times:** Living room users expect immediate feedback without waiting on cloud round-trips. We kept candidate ranking strictly deterministic in TypeScript with zero external dependencies, reserving Bedrock solely for semantic constraint extraction and explanations.
 
 ---
 
 ### Accomplishments That We're Proud Of
 - Designing a fair group aggregation formula that prioritizes lifting the satisfaction floor of the lowest-scoring viewer.
-- Building a full 10-foot TV interface with keyboard and on-screen remote simulation, alongside an Android WebView wrapper project configured for Fire OS.
-- Automated unit test suite covering constraint filtering, watched history exclusions, Bedrock JSON sanitization, and fairness ranking.
+- The app runs end to end on an Android TV emulator (API 34, 1080p) via a native Leanback WebView wrapper.
+- Building a full 10-foot TV interface with keyboard navigation, overscan-safe layout, and high-contrast focus outlines.
+- A curated catalogue of 20 original fictional titles with custom generated SVG posters and rich metadata.
+- 35 automated tests passing across constraint filtering, watched history exclusions, Bedrock JSON sanitization, HTTP routes, and fairness ranking.
 - Diagnostic tooling (`npm run bedrock:check`) that checks AWS connectivity and reports whether Bedrock or the fallback answered, without exposing credentials.
 
 ---
 
 ### What We Learned
 - Designing for a 10-foot television interface demands completely different UX paradigms than desktop or mobile apps: focus clarity, contrast, and remote navigation speed are paramount.
-- How to effectively combine deterministic rule engines with generative AI: preventing generative hallucinations by keeping scoring strictly grounded in deterministic rules, using LLMs only for semantic parsing and natural explanations.
+- Why we kept ranking deterministic and planned an LLM only for parsing and explanations: scoring and fairness must be fast, verifiable, and mathematically grounded, whereas language models are best suited for flexible conversational inputs and explanations.
+- What we learned from a blocked cloud integration: always design offline-first with robust deterministic fallbacks so that service quotas, region restrictions, or network failures never break core functionality.
 
 ---
 
@@ -92,7 +97,7 @@ OnePick is a 10-foot Fire TV application that:
   3. Pressed Enter (`KEYCODE_ENTER` / `KEYCODE_DPAD_CENTER`) on the TV remote to confirm input.
 - **Expected vs Actual:**
   - *Expected:* Pressing Enter confirms the prompt result (`JsPromptResult.confirm()`) and dismisses the dialog with the entered text.
-  - *Actual:* Activity-level `dispatchKeyEvent` override (which was set up to route hardware remote keys into the WebView) unconditionally intercepted `KEYCODE_ENTER` before the `AlertDialog` received it, and forwarded Enter into the underlying `WebView` (clicking whatever button was focused behind the dialog, resetting the screen to the viewers screen while the dialog remained stuck open). Furthermore, the default `EditText` did not handle IME action `DONE` or Enter key events to dismiss the dialog. (Note: earlier statements claiming text input was verified before this fix were incomplete/inaccurate because remote/Enter submission was broken).
+  - *Actual:* Activity-level `dispatchKeyEvent` override (which was set up to route hardware remote keys into the WebView) unconditionally intercepted `KEYCODE_ENTER` before the `AlertDialog` received it, and forwarded Enter into the underlying `WebView` (clicking whatever button was focused behind the dialog, resetting the screen to the viewers screen while the dialog remained stuck open). Furthermore, the default `EditText` did not handle IME action `DONE` or Enter key events to dismiss the dialog.
 - **Severity:** Medium
 - **Workaround:** Added `volatile boolean mIsPromptDialogOpen` flag so `dispatchKeyEvent` delegates directly to `super.dispatchKeyEvent(event)` while the dialog is visible, and attached an `OnEditorActionListener` to the `EditText` to call `result.confirm(...)` and `dialog.dismiss()` on Enter / Done (commit `da2d7d9`). Time lost: ~20 mins.
 - **Suggestion:** Leanback WebView documentation should demonstrate the standard pattern for yielding Activity-level remote key event interception when modal child dialogs or system IMEs are visible.
@@ -116,6 +121,6 @@ OnePick is a 10-foot Fire TV application that:
 ---
 
 ### What's Next for OnePick
-- Direct integration with Fire TV Live TV channels and Prime Video deep-linking (`amzn://run?...`).
+- Direct integration with Fire TV Live TV channels and Prime Video deep-linking.
 - Voice integration via Alexa Voice Service (AVS) on Fire TV Remotes.
 - Long-term household viewing memory to automatically balance fairness across consecutive movie nights.
